@@ -48,6 +48,25 @@ hist_scaling <- function(path, history, harmonisationyear, convergenceyear) {
   
 }
 
+# Function to apply historical data scaling to each group, harmonising modelled
+# pathways to historical 2022 values, converging to modelled pathways in 2100
+hist_scaling_offset <- function(path, history, harmonisationyear, convergenceyear) {
+  
+  scaling_factor <- history$gtco2[history$year == harmonisationyear] - path$gtco2[path$year == harmonisationyear]
+  
+  df_a_offset <- path %>% 
+    mutate(offset = 
+             case_when(year == harmonisationyear ~ scaling_factor,
+                       year >= convergenceyear ~ 0,
+                       year < harmonisationyear ~ 0,
+                       TRUE ~ NA_real_),
+           offset = na.approx(offset, na.rm = T),
+           gtco2_histscale = offset + gtco2)
+  
+  return(df_a_offset)
+  
+}
+
 # LOAD PROCESSED DATA ----------------------------------------------------------
 
 # Recent production-based emissions
@@ -62,7 +81,7 @@ r10recent_prodco2 <- recent_prodco2 %>%
 # READ IN AND PROCESS REGIONAL EMISSIONS PATHS ---------------------------------
 
 # Read modelled in r10-nz paths
-ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "infilled_extended_and_infilled_unep_r10.csv")) %>%
+ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "kyoto_and_co2_emissions_summary_r10_6.csv")) %>%
   separate_wider_delim(col = Scenario, delim = "|", names = c("aggregate", paste0("category_", 1:4)), too_few = "align_start") %>% 
   mutate(
     model = ifelse(grepl(category_2, pattern = "MESSAGE"), "MESSAGEix-GLOBIOM", "REMIND-MAgPIE"),
@@ -115,7 +134,7 @@ ndclts_r10_interp <- ndclts_r10 %>%
 # Harmonise to historical 2022 values
 ndclts_r10_interp_scaled <- ndclts_r10_interp %>%
   group_by(model, case, r10, aggregate) %>%
-  do(hist_scaling(., filter(r10recent_prodco2, r10 == first(.$r10)), 
+  do(hist_scaling_offset(., filter(r10recent_prodco2, r10 == first(.$r10)), 
                   harmonisationyear = 2022, convergenceyear = 2030)) %>%
   ungroup() %>% 
   mutate(year = as.numeric(year))
@@ -177,7 +196,7 @@ impren_r10_interp <- impren_r10 %>%
 # Harmonise to historical 2022 values
 impren_r10_interp_scaled <- impren_r10_interp %>%
   group_by(model, case, r10, aggregate) %>%
-  do(hist_scaling(., filter(r10recent_prodco2, r10 == first(.$r10)), 
+  do(hist_scaling_offset(., filter(r10recent_prodco2, r10 == first(.$r10)), 
                   harmonisationyear = 2015, convergenceyear = 2030)) %>%
   ungroup() %>% 
   mutate(year = as.numeric(year))
@@ -276,45 +295,39 @@ rbind(ndclts_temp, impren_temp) %>%
 
 a <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>% 
   select(r10, year, case, aggregate, path_scaled) %>% 
-  pivot_wider(names_from = aggregate, values_from = path_scaled) %>% 
   mutate(case = case_when(
     case == "A" ~ "CurPol",
-    case == "C" ~ "CurPol+allNZ",
     case == "E" ~ "CurPledge+allNZ",
     TRUE ~ case),
-    case = factor(case, levels = c("CurPol", "CurPol+allNZ", "CurPledge+allNZ", "IMP-REN")),
+    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN")),
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   ggplot(aes(year, fill = case)) +
-  geom_ribbon(aes(ymin = Min, ymax = Max), alpha = 0.5) +
-  geom_path(aes(y = Median, colour = case), linewidth = 1) +
-  geom_path(aes(y = Median), linewidth = 1, 
-            data = . %>% filter(year < 2023), colour = "black") +
+  geom_path(aes(y = path_scaled, colour = case, linetype = aggregate), linewidth = 1) +
+  geom_path(aes(y = path_scaled), linewidth = 1, 
+            data = . %>% filter(year < 2023, aggregate == "Median"), colour = "black") +
   facet_wrap(~r10, ncol = 5) +
   scale_colour_brewer(palette = "BrBG", direction = 1) +
   scale_fill_brewer(palette = "BrBG", direction = 1) +
   theme_bw() +
-  labs(x = NULL, y = "GtCO2-FFI", colour = "Scenario", fill = "Scenario")
+  labs(x = NULL, y = "GtCO2-FFI", colour = "Scenario", fill = "Scenario", linetype = "Global pathway")
 
 b <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>% 
   group_by(year, case, aggregate) %>% 
   summarise(path_scaled = sum(path_scaled)) %>% 
   select(year, case, aggregate, path_scaled) %>% 
-  pivot_wider(names_from = aggregate, values_from = path_scaled) %>% 
   mutate(case = case_when(
     case == "A" ~ "CurPol",
-    case == "C" ~ "CurPol+allNZ",
     case == "E" ~ "CurPledge+allNZ",
     TRUE ~ case),
-    case = factor(case, levels = c("CurPol", "CurPol+allNZ", "CurPledge+allNZ", "IMP-REN"))) %>% 
+    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN"))) %>% 
   ggplot(aes(year, fill = case)) +
-  geom_ribbon(aes(ymin = Min, ymax = Max), alpha = 0.5) +
-  geom_path(aes(y = Median, colour = case), linewidth = 1) +
-  geom_path(aes(y = Median), linewidth = 1, 
-            data = . %>% filter(year < 2023), colour = "black") +
+  geom_path(aes(y = path_scaled, colour = case, linetype = aggregate), linewidth = 1) +
+  geom_path(aes(y = path_scaled), linewidth = 1, 
+            data = . %>% filter(year < 2023, aggregate == "Median"), colour = "black") +
   scale_colour_brewer(palette = "BrBG", direction = 1) +
   scale_fill_brewer(palette = "BrBG", direction = 1) +
   theme_bw() +
-  labs(x = NULL, y = "GtCO2-FFI", colour = "Scenario", fill = "Scenario")
+  labs(x = NULL, y = "GtCO2-FFI", colour = "Scenario", fill = "Scenario", linetype = "Global pathway")
   
 wrap_plots(wrap_plots(b), a, ncol = 1, heights = c(1,2)) + 
   plot_layout(guides = "collect") & theme(legend.position = "top")

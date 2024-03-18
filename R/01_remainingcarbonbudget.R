@@ -163,7 +163,7 @@ recent_gdpmer <-
 # it's effect is minor at the regional level - this can be tested by commenting this out.
 recent_gdpmer <- recent_gdpmer %>% 
   group_by(iso3c, r10) %>% 
-  mutate(gdpcurrmer = na.approx(gdpcurrmer, rule = 2, maxgap = 5)) %>% 
+  mutate(gdpcurrmer = na.approx(gdpcurrmer, rule = 2, maxgap = 10)) %>% 
   ungroup()
 
 # Check which iso3c are missing in WDI data
@@ -296,6 +296,8 @@ write_csv(iso3c_analysis %>%
 # and adding CO2-FFI emissions from 2020-2022,
 # from Friedlingstein et al (2023), https://doi.org/10.5194/essd-15-5301-2023). 
 rcb2020_nz = 247 + round(pull(recent_prodco2 %>% filter(year %in% 2020:2022) %>% summarise(gtco2 = sum(gtco2))),2)
+rcb2020_nz_low = -200 + round(pull(recent_prodco2 %>% filter(year %in% 2020:2022) %>% summarise(gtco2 = sum(gtco2))),2)
+rcb2020_nz_high = 830 + round(pull(recent_prodco2 %>% filter(year %in% 2020:2022) %>% summarise(gtco2 = sum(gtco2))),2)
 
 # From 1990 to net zero, adding CO2-FFI emissions from 1990-2019,
 # from Friedlingstein et al (2023), https://doi.org/10.5194/essd-15-5301-2023).  
