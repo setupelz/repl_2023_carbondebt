@@ -21,9 +21,15 @@ options(scipen = 999)
 
 # LOAD PROCESSED DATA ----------------------------------------------------------
 
-# Determine country-years for analysis
-iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  select(country.name, iso3c, r10 = iamc_r10)
+# Determine analysis countries
+iso3c_tbl_analysis <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
+  mutate(r10 = ifelse(is.na(r10_iamc), NA_real_, r10_unif)) %>% 
+  select(iso3c, r10) %>% 
+  right_join(read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
+                       sheet = "hist_prodco2") %>% select(iso3c))
+
+# Write to file 
+write_csv(iso3c_tbl_analysis, here("data", "processed", "iso3c_tbl_analysis.csv"))
 
 # Set consistent r10 ordering
 r10order <- tibble(r10 = c("NAM", "EUR", "PAO", "FSU", "MEA", "EAS", "LAM", "PAS", "AFR", "SAS"),
@@ -42,7 +48,7 @@ exp_heatwave <- stars::read_ncdf(netcdf_file, var = "lifetime_exposure") %>%
   stars::as.tbl_cube.stars() %>%
   as_tibble() %>%
   filter(!is.nan(lifetime_exposure)) %>% 
-  mutate(iso3c = countrycode(country, origin = "country.name", destination = "wb"),
+  mutate(iso3c = countrycode(country, origin = "country.name", destination = "iso3c"),
          run = ceiling(run),
          gcm = case_when(
            run %in% 1:3 ~ "gcm1",
@@ -56,18 +62,18 @@ cohort_pop <- stars::read_ncdf(here("Data", "impacts", "nc_cohort_sizes.nc4"),
   stars::as.tbl_cube.stars() %>%
   as_tibble() %>%
   filter(ages == 0) %>%
-  mutate(iso3c = countrycode(country, origin = "country.name", destination = "wb")) %>%
+  mutate(iso3c = countrycode(country, origin = "country.name", destination = "iso3c")) %>%
   select(birth_year = time, iso3c, cohort_size)
 
 # PROCESS HEATWAVE EXPOSURE DATA -----------------------------------------------
 
 # Determine which countries we assess are covered in the exposure dataset
 iso3c_exp <- distinct(exp_heatwave, country) %>% mutate(data = 1) %>%
-  mutate(iso3c = countrycode(country, origin = "country.name", destination = "wb")) %>%
+  mutate(iso3c = countrycode(country, origin = "country.name", destination = "iso3c")) %>%
   select(iso3c, country, data) %>%
-  right_join(iso3c_tbl) %>%
+  right_join(iso3c_tbl_analysis) %>%
   ungroup() %>%
-  select(iso3c, country, country.name, r10, data)
+  select(iso3c, country, r10, data)
 
 # Add population data for weighted aggregation to r10 level
 exp_heatwave <- left_join(exp_heatwave, cohort_pop) %>%
@@ -75,7 +81,7 @@ exp_heatwave <- left_join(exp_heatwave, cohort_pop) %>%
 
 # Aggregate to r10 level and separate assessed pathways from IMP-REN
 exp_heatwave_r10 <- exp_heatwave %>%
-  left_join(iso3c_tbl %>% select(iso3c, r10)) %>% 
+  left_join(iso3c_tbl_analysis %>% select(iso3c, r10)) %>% 
   separate_wider_delim(GMT, delim = "_", names = c("case", "case2", "aggregate", "quantile")) %>% 
   filter(aggregate == "Median") %>% 
   group_by(birth_year, r10, case, aggregate, quantile, gcm, run) %>%
@@ -126,7 +132,7 @@ exp_heatwave_r10_emf_impren %>%
                 position = position_dodge(width = 0.7), width = 0.05) +
   scale_y_continuous(labels = scales::dollar_format(prefix = "", suffix = "x")) +
   scale_colour_brewer(palette = "Set2", direction = -1) +
-  facet_wrap(~quantile, ncol = 1, scales = "free_y") +
+  facet_wrap(~quantile, ncol = 1) +
   theme_bw() +
   labs(x = NULL, y = "EMF relative to illustrative 1.5C Scenario (AR6 IMP-REN)",
        colour = NULL) +
@@ -136,4 +142,4 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp_quantile.png"),
        height = 10, width = 4)
 
 # Write to file
-write_csv(exp_heatwave_r10_emf_impren, here("Data", "processed", "exp_heatwave_r10_emf.csv"))
+write_csv(exp_heatwave_r10_emf_impren, here("Data", "processed", "r10_exp_heatwave_emf.csv"))

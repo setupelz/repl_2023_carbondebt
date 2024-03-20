@@ -23,38 +23,40 @@ options(scipen = 999)
 
 # Determine country-years for analysis
 iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  select(country.name, iso3c, r10 = iamc_r10) %>% 
-  group_by(country.name, iso3c, r10) %>% 
+  mutate(r10 = ifelse(is.na(r10_iamc), NA_real_, r10_unif)) %>% 
+  select(iso3c, r10) %>% 
+  group_by(iso3c, r10) %>% 
   expand(year = 1850:2050) %>% 
   ungroup()
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("NAM", "EUR", "PAO", "FSU", "MEA", "EAS", "LAM", "PAS", "AFR", "SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "MEA", "EAS", "LAC", "SAP", "AFR", "SAS"),
+r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                                    "Eastern Europe and West-Central Asia", "Middle East", "Eastern Asia",
-                                    "Latin America and Caribbean", "South-East Asia and developing Pacific",
-                                    "Africa", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia", "Africa & Middle East", 
+                                    "Eastern & South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", "Southern Asia"))
 
 # Remaining carbon budgets from 1990 to 2020, aggregated to r10
 r10_rcb19902020gtco2 <- read_csv(here("Data", "processed", "r10_rcb19902020.csv")) %>% 
   filter(year >= 1990, year <= 2020) 
 
-# Recent production-based emissions
-recent_prodco2 <- read_csv(here("Data", "processed", "iso3c_emiss19902022gtco2.csv")) %>% 
-  select(country.name, iso3c, r10, year, gtco2)
-
-r10recent_prodco2 <- recent_prodco2 %>% 
+# Recent production-based emissions, aggregated to r10
+r10_recent_prodco2 <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
+                            sheet = "recent_prodco2") %>% 
   group_by(r10, year) %>% 
   summarise(gtco2 = sum(gtco2)) %>% 
   arrange(year)
 
-# Population
-projected_pop <- read_csv(here("Data", "processed", "iso3c_popssp218502100.csv")) %>% 
-  filter(r10 %in% r10order$r10, iso3c %in% iso3c_tbl$iso3c) 
+# Population, aggregated to r10
+r10_popproj <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
+                     sheet = "popproj") %>% 
+  group_by(r10, year) %>% 
+  summarise(pop = sum(pop)) %>% 
+  arrange(year)
 
 # AR6 CO2-FFI data
-ar6_co2ffi <- read_csv(here("Data", "pathways", "ar6_all", "ar6_all_co2ffi.csv"))
+r10_ar6_co2ffi <- read_csv(here("Data", "pathways", "ar6_all", "ar6_all_co2ffi.csv"))
 
 # RCB quantities
 rcb <- read_csv(here("Data", "processed", "rcbquantities.csv"))
@@ -62,7 +64,7 @@ rcb <- read_csv(here("Data", "processed", "rcbquantities.csv"))
 # DETERMINE PEAK/NETZERO PATHWAYS USING AR6 DATABASE ---------------------------
 
 # Pivot data and interpolate between modelled periods (linear)
-ar6_co2ffi_processed <- ar6_co2ffi %>% 
+r10_ar6_co2ffi_processed <- r10_ar6_co2ffi %>% 
   select(-Unit) %>% 
   filter(!is.na(Category)) %>% 
   pivot_longer(-c(Model, Scenario, Region, Variable, Category),
@@ -80,17 +82,20 @@ ar6_co2ffi_processed <- ar6_co2ffi %>%
   ungroup() %>% 
   transmute(model = Model, scen = Scenario, 
             r10 = case_when(
-              Region == "R10AFRICA" ~ "AFR",
-              Region == "R10PAC_OECD" ~ "PAO",
-              Region == "R10EUROPE" ~ "EUR",
-              Region == "R10INDIA+" ~ "SAS",
-              Region == "R10LATIN_AM" ~ "LAM",
-              Region == "R10MIDDLE_EAST" ~ "MEA",
-              Region == "R10NORTH_AM" ~ "NAM",
-              Region == "R10CHINA+" ~ "EAS",
-              Region == "R10REF_ECON" ~ "FSU",
-              Region == "R10REST_ASIA" ~ "PAS"),
-            cat = Category, year = Year, gtco2 = mtco2 / 1e3, pop)
+              Region == "R10AFRICA" ~ "R10AFRMEA",
+              Region == "R10PAC_OECD" ~ "R10PAO",
+              Region == "R10EUROPE" ~ "R10EUR",
+              Region == "R10INDIA+" ~ "R10SAS",
+              Region == "R10LATIN_AM" ~ "R10LAM",
+              Region == "R10MIDDLE_EAST" ~ "R10AFRMEA",
+              Region == "R10NORTH_AM" ~ "R10NAM",
+              Region == "R10CHINA+" ~ "R10EASPAS",
+              Region == "R10REF_ECON" ~ "R10FSU",
+              Region == "R10REST_ASIA" ~ "R10EASPAS"),
+            cat = Category, year = Year, gtco2 = mtco2 / 1e3, pop) %>% 
+  group_by(model, scen, r10, cat, year) %>% 
+  summarise(gtco2 = sum(gtco2),
+            pop = sum(pop))
 
 # Function to apply historical data scaling to each group, harmonising modelled
 # pathways to historical 2022 values, converging to modelled pathways at a desired year.
@@ -110,7 +115,7 @@ hist_scaling <- function(path, history, harmonisationyear, convergenceyear) {
 }
 
 # Apply scaling to all model-scenario-r10 groups
-ar6_co2ffi_processed_scaled <- ar6_co2ffi_processed %>%
+r10_ar6_co2ffi_processed_scaled <- r10_ar6_co2ffi_processed %>%
   # Remove regional pathways missing any co2-ffi data
   filter(!is.na(gtco2)) %>%
   group_by(model, scen, r10) %>% 
@@ -119,17 +124,19 @@ ar6_co2ffi_processed_scaled <- ar6_co2ffi_processed %>%
   select(-n) %>% 
   # Apply historical scaling
   group_by(model, scen, r10) %>%
-  do(hist_scaling(., filter(r10recent_prodco2, r10 == first(.$r10)), 
+  do(hist_scaling(., filter(r10_recent_prodco2, r10 == first(.$r10)), 
                   harmonisationyear = 2022, convergenceyear = 2050)) %>%
   ungroup() %>% 
   mutate(year = as.numeric(year))
 
 # Determine cumulative CO2-FFI emissions distributions for each combination
-ar6_co2ffi_processed_scaled_cmltv <- ar6_co2ffi_processed_scaled %>% 
+r10_ar6_co2ffi_processed_scaled_cmltv <- r10_ar6_co2ffi_processed_scaled %>% 
   # Add historical data pre-harmonisation
-  left_join(r10recent_prodco2, by = c("r10", "year")) %>%
+  left_join(r10_recent_prodco2, by = c("r10", "year")) %>%
   mutate(gtco2_histscale = ifelse(is.na(gtco2_histscale), gtco2.y, gtco2_histscale)) %>% 
   select(model, scen, r10, cat, year, pop, gtco2_orig = gtco2.x, gtco2_histscale) %>% 
+  # Remove scenarios not reporting any emissions
+  na.omit() %>% 
   group_by(model, scen, r10) %>% 
   mutate(
     # Determine implied CDR
@@ -164,7 +171,7 @@ ar6_co2ffi_processed_scaled_cmltv <- ar6_co2ffi_processed_scaled %>%
 
 # Determine change in cumulative emissions from the year 2023 onwards between
 # harmonised and original modelled pathways (SI)
-ar6_co2ffi_processed_scaled_cmltv %>% 
+r10_ar6_co2ffi_processed_scaled_cmltv %>% 
   mutate(percentage_change = gtco2_cmltv / gtco2_orig_cmltv - 1) %>% 
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   ungroup() %>% 
@@ -188,7 +195,7 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_ar6harmonisation_cmltvco2ffi.png"
 # Visualise distributions of all combinations
 for (region in r10order$r10) {
   
-  data <- ar6_co2ffi_processed_scaled_cmltv %>% 
+  data <- r10_ar6_co2ffi_processed_scaled_cmltv %>% 
     filter(r10 == region) %>%
     mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10labellong))
   
@@ -213,12 +220,12 @@ for (region in r10order$r10) {
 }
 
 # Write to file
-ar6_co2ffi_processed_scaled_cmltv %>% 
+r10_ar6_co2ffi_processed_scaled_cmltv %>% 
   write_csv(here("Data", "processed", "r10_ar6_gtco2ffi_cmltv.csv"))
 
 # NET-ZERO CARBON DEBTS --------------------------------------------------------
 
-carbondebt_2100 <- ar6_co2ffi_processed_scaled_cmltv %>% 
+r10_carbondebt_2100 <- r10_ar6_co2ffi_processed_scaled_cmltv %>% 
   arrange(r10, pkyearbin, nzyearbin) %>% 
   left_join(r10_rcb19902020gtco2 %>% 
               filter(year == 2020) %>% 
@@ -228,11 +235,11 @@ carbondebt_2100 <- ar6_co2ffi_processed_scaled_cmltv %>%
   select(model, scen, r10, peakyearbin, pkyearbin, netzeroyearbin, nzyearbin, category, ppp_pf, 
          rcb2100_gtco2_cmltv, gtco2_cdr_cmltv)
   
-write_csv(carbondebt_2100, here("Data", "processed", "r10_carbondebt_2100_gtco2.csv"))
+write_csv(r10_carbondebt_2100, here("Data", "processed", "r10_carbondebt_2100_gtco2.csv"))
 
 # REVISED FIGURE 1 -------------------------------------------------------------
 
-a <- carbondebt_2100 %>% 
+a <- r10_carbondebt_2100 %>% 
   
   filter(category %in% c("1_PP1990")) %>% 
   
@@ -259,7 +266,7 @@ a <- carbondebt_2100 %>%
   
   annotate(geom = "text", x = 20, y = "NAM", label = "Debt", vjust = 0.5, hjust = 0) +
   
-  scale_fill_brewer(palette = "RdYlBu", direction = -1) +
+  scale_fill_brewer(palette = "RdYlBu", direction = 1) +
   
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10), position = "bottom") +
   
@@ -267,12 +274,12 @@ a <- carbondebt_2100 %>%
   
   theme(legend.position = "top") +
   
-  guides(fill = guide_legend(nrow = 1)) +
+  guides(fill = guide_legend(nrow = 1, reverse = T)) +
   
   labs(y = NULL, x = "Regional net-zero carbon debt (GtCO2)", 
        fill = "Regional net-zero CO2-FFI year bin")
 
-b <- carbondebt_2100 %>% 
+b <- r10_carbondebt_2100 %>% 
   
   filter(category %in% c("1_PP1990")) %>% 
   
@@ -317,7 +324,7 @@ ggsave(filename = here("Manuscript", "Figures", "fig1.png"),
        height = 8, width = 11)
 
 # Figure 1A SI using other allocation approaches
-fig1asi <- carbondebt_2100 %>% 
+fig1asi <- r10_carbondebt_2100 %>% 
   
   filter(ppp_pf %in% c("NA", "MER_1/sqrt(x)", "PPP_1/sqrt(x)")) %>% 
   
@@ -342,7 +349,7 @@ fig1asi <- carbondebt_2100 %>%
   
   geom_vline(xintercept = 0, linetype = 2, linewidth = 0.5) +
   
-  annotate(geom = "text", x = -40, y = "NAM", label = "No debt", vjust = 0.5, hjust = 1) +
+  annotate(geom = "text", x = -40, y = "NAM", label = "Credit", vjust = 0.5, hjust = 1) +
   
   annotate(geom = "text", x = 40, y = "NAM", label = "Debt", vjust = 0.5, hjust = 0) +
   

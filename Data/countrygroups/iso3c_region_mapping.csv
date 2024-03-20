@@ -1,249 +1,249 @@
-country.name,iso3c,iamc_r5,iamc_r10,iamc_r11,iamc_r12,region_ar6_6_ipcc_fgd,region_ar6_10_ipcc_fgd,region_ar6_22_ipcc_fgd,Annex_I_unfccc,EU,OECD,Income _status_WB
-China,CHN,ASIA,EAS,CPA,CHN,Asia and developing Pacific,Eastern Asia,Eastern Asia,Non-Annex I,NA,NA,Upper middle
-"Hong Kong SAR, China",HKG,ASIA,EAS,CPA,CHN,Asia and developing Pacific,Eastern Asia,Eastern Asia,Territory,NA,NA,High
-"Macao SAR, China",MAC,ASIA,EAS,CPA,CHN,Asia and developing Pacific,Eastern Asia,Eastern Asia,Territory,NA,NA,High
-Mongolia,MNG,ASIA,EAS,CPA,RCPA,Asia and developing Pacific,Eastern Asia,Eastern Asia,Non-Annex I,NA,NA,Lower-middle
-"Korea, Dem. People's Rep.",PRK,ASIA,EAS,CPA,RCPA,Asia and developing Pacific,Eastern Asia,Eastern Asia,Non-Annex I,NA,NA,Low
-"Taiwan, China",TWN,ASIA,EAS,CPA,CHN,Asia and developing Pacific,Eastern Asia,Eastern Asia,Territory,NA,NA,High
-Guam,GUM,ASIA,NAM,NAM,NAM,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,High
-Cocos (Keeling) Islands,CCK,ASIA,PAO,PAO,PAO,Developed Countries,Asia-Pacific Developed,Asia-Pacific Developed (others),Territory,NA,NA,N/A
-American Samoa,ASM,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,Upper middle
-Brunei Darussalam,BRN,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,High
-Fiji,FJI,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Upper middle
-"Micronesia, Fed. Sts.",FSM,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Lower-middle
-Indonesia,IDN,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Lower-middle
-Cambodia,KHM,ASIA,PAS,CPA,RCPA,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Lower-middle
-Kiribati,KIR,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Lower-middle
-Lao People's Democratic Republic,LAO,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Lower-middle
-Marshall Islands,MHL,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Upper middle
-Myanmar,MMR,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Lower-middle
-Northern Mariana Islands,MNP,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,High
-Malaysia,MYS,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Upper middle
-New Caledonia,NCL,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,High
-Philippines,PHL,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Lower-middle
-Palau,PLW,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,High
-Papua New Guinea,PNG,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Lower-middle
-French Polynesia,PYF,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,High
-Singapore,SGP,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,High
-Solomon Islands,SLB,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Lower-middle
-Thailand,THA,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Upper middle
-Timor-Leste,TLS,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Lower-middle
-Tonga,TON,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Upper middle
-Vietnam,VNM,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,South-East Asia,Non-Annex I,NA,NA,Lower-middle
-Vanuatu,VUT,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Lower-middle
-Samoa,WSM,ASIA,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Lower-middle
-Afghanistan,AFG,ASIA,SAS,SAS,SAS,Asia and developing Pacific,Southern Asia,Rest of Southern Asia,Non-Annex I,NA,NA,Low
-Bangladesh,BGD,ASIA,SAS,SAS,SAS,Asia and developing Pacific,Southern Asia,Rest of Southern Asia,Non-Annex I,NA,NA,Lower-middle
-Bhutan,BTN,ASIA,SAS,SAS,SAS,Asia and developing Pacific,Southern Asia,Rest of Southern Asia,Non-Annex I,NA,NA,Lower-middle
-India,IND,ASIA,SAS,SAS,SAS,Asia and developing Pacific,Southern Asia,India & Sri Lanka,Non-Annex I,NA,NA,Lower-middle
-Sri Lanka,LKA,ASIA,SAS,SAS,SAS,Asia and developing Pacific,Southern Asia,India & Sri Lanka,Non-Annex I,NA,NA,Lower-middle
-Maldives,MDV,ASIA,SAS,SAS,SAS,Asia and developing Pacific,Southern Asia,Rest of Southern Asia,Non-Annex I,NA,NA,Upper middle
-Nepal,NPL,ASIA,SAS,SAS,SAS,Asia and developing Pacific,Southern Asia,Rest of Southern Asia,Non-Annex I,NA,NA,Lower-middle
-Pakistan,PAK,ASIA,SAS,SAS,SAS,Asia and developing Pacific,Southern Asia,Rest of Southern Asia,Non-Annex I,NA,NA,Lower-middle
-Aruba,ABW,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-Anguilla,AIA,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,N/A
-Argentina,ARG,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Upper middle
-Antigua and Barbuda,ATG,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,High
-"Bonaire, Sint Eustatius and Saba",BES,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,N/A
-Bahamas,BHS,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,High
-Saint Bartholemy,BLM,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,N/A
-Belize,BLZ,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Meso America,Non-Annex I,NA,NA,Lower-middle
-Bermuda,BMU,LAM,LAM,LAM,LAM,Developed Countries,North America,"Greenland, Bermuda + others",Territory,NA,NA,High
-Bolivia (Plurinational State of),BOL,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Lower-middle
-Brazil,BRA,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Upper middle
-Barbados,BRB,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,High
-Bouvet Island,BVT,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Territory,NA,NA,N/A
-Chile,CHL,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,OECD,High
-Colombia,COL,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,OECD,Upper middle
-Costa Rica,CRI,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Meso America,Non-Annex I,NA,OECD,Upper middle
-Cuba,CUB,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,Upper middle
-Curaçao,CUW,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-Cayman Islands,CYM,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-Dominica,DMA,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,Upper middle
-Dominican Republic,DOM,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,Upper middle
-Ecuador,ECU,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Upper middle
-Falkland Islands (Malvinas),FLK,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Territory,NA,NA,N/A
-Guadeloupe,GLP,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,N/A
-Grenada,GRD,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,Upper middle
-Guatemala,GTM,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Meso America,Non-Annex I,NA,NA,Upper middle
-French Guiana,GUF,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Territory,NA,NA,N/A
-Guyana,GUY,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Upper middle
-Honduras,HND,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Meso America,Non-Annex I,NA,NA,Lower-middle
-Haiti,HTI,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,Lower-middle
-Jamaica,JAM,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,Upper middle
-St. Kitts and Nevis,KNA,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,High
-St. Lucia,LCA,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,Upper middle
-St. Martin (French part),MAF,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-Mexico,MEX,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Meso America,Non-Annex I,NA,OECD,Upper middle
-Montserrat,MSR,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,N/A
-Martinique,MTQ,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,N/A
-Nicaragua,NIC,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Meso America,Non-Annex I,NA,NA,Lower-middle
-Panama,PAN,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Meso America,Non-Annex I,NA,NA,Upper middle
-Peru,PER,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Upper middle
-Paraguay,PRY,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Upper middle
-South Georgia and the South Sandwich Islands,SGS,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Territory,NA,NA,N/A
-El Salvador,SLV,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Meso America,Non-Annex I,NA,NA,Lower-middle
-Suriname,SUR,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Upper middle
-Sint Maarten (Dutch part),SXM,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-Turks and Caicos Islands,TCA,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-Trinidad and Tobago,TTO,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,High
-Uruguay,URY,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,High
-St. Vincent and the Grenadines,VCT,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Non-Annex I,NA,NA,Upper middle
-Venezuela (Bolivarian Republic of),VEN,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,South America,Non-Annex I,NA,NA,Upper middle
-British Virgin Islands,VGB,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-Virgin Islands (U.S.),VIR,LAM,LAM,LAM,LAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-Angola,AGO,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Lower-middle
-French Southern Territories,ATF,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Territory,NA,NA,N/A
-Burundi,BDI,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Benin,BEN,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Lower-middle
-Burkina Faso,BFA,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Botswana,BWA,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Upper middle
-Central African Republic,CAF,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Low
-Cote d'Ivoire,CIV,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Lower-middle
-Cameroon,CMR,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Lower-middle
-Democratic Republic of the Congo,COD,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Low
-Congo,COG,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Lower-middle
-Comoros,COM,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Lower-middle
-Cabo Verde,CPV,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Lower-middle
-Djibouti,DJI,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Lower-middle
-Algeria,DZA,MAF,AFR,AFR,AFR,Africa,Africa,North Africa,Non-Annex I,NA,NA,Lower-middle
-Egypt,EGY,MAF,AFR,AFR,AFR,Africa,Africa,North Africa,Non-Annex I,NA,NA,Lower-middle
-Eritrea,ERI,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Western Sahara,ESH,MAF,AFR,AFR,AFR,Africa,Africa,North Africa,Territory,NA,NA,N/A
-Ethiopia,ETH,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Gabon,GAB,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Upper middle
-Ghana,GHA,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Lower-middle
-Guinea,GIN,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Gambia,GMB,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Guinea-Bissau,GNB,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Equatorial Guinea,GNQ,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Upper middle
-British Indian Ocean Territory,IOT,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Territory,NA,NA,N/A
-Kenya,KEN,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Lower-middle
-Liberia,LBR,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Libya,LBY,MAF,AFR,AFR,AFR,Africa,Africa,North Africa,Non-Annex I,NA,NA,Upper middle
-Lesotho,LSO,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Lower-middle
-Morocco,MAR,MAF,AFR,AFR,AFR,Africa,Africa,North Africa,Non-Annex I,NA,NA,Lower-middle
-Madagascar,MDG,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Mali,MLI,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Mozambique,MOZ,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Mauritania,MRT,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Lower-middle
-Mauritius,MUS,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Upper middle
-Malawi,MWI,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Mayotte,MYT,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Territory,NA,NA,N/A
-Namibia,NAM,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Upper middle
-Niger,NER,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Nigeria,NGA,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Lower-middle
-Réunion,REU,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Territory,NA,NA,N/A
-Rwanda,RWA,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Sudan,SDN,MAF,AFR,AFR,AFR,Africa,Africa,North Africa,Non-Annex I,NA,NA,Low
-Senegal,SEN,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Lower-middle
-Saint Helena,SHN,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Territory,NA,NA,N/A
-Sierra Leone,SLE,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Somalia,SOM,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-South Sudan,SSD,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Sao Tome and Principe,STP,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Lower-middle
-Eswatini,SWZ,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Lower-middle
-Seychelles,SYC,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,High
-Chad,TCD,MAF,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Low
-Togo,TGO,MAF,AFR,AFR,AFR,Africa,Africa,Western Africa,Non-Annex I,NA,NA,Low
-Tunisia,TUN,MAF,AFR,AFR,AFR,Africa,Africa,North Africa,Non-Annex I,NA,NA,Lower-middle
-United Republic of Tanzania,TZA,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Lower-middle
-Uganda,UGA,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Low
-Zambia,ZMB,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Lower-middle
-Zimbabwe,ZWE,MAF,AFR,AFR,AFR,Africa,Africa,Eastern Africa,Non-Annex I,NA,NA,Lower-middle
-United Arab Emirates,ARE,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,High
-Bahrain,BHR,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,High
-"Iran, Islamic Rep.",IRN,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,Lower-middle
-Iraq,IRQ,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,Upper middle
-Israel,ISR,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,OECD,High
-Jordan,JOR,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,Upper middle
-Kuwait,KWT,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,High
-Lebanon,LBN,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,Upper middle
-Oman,OMN,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,High
-State of Palestine,PSE,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,Lower-middle
-Qatar,QAT,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,High
-Saudi Arabia,SAU,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,High
-Syrian Arab Republic,SYR,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,Low
-"Yemen, Rep.",YEM,MAF,MEA,MEA,MEA,Middle East,Middle East,Middle East,Non-Annex I,NA,NA,Low
-Puerto Rico,PRI,NAM,LAM,NAM,NAM,Latin America and Caribbean,Latin America and Caribbean,Caribbean,Territory,NA,NA,High
-South Africa,ZAF,OECD,AFR,AFR,AFR,Africa,Africa,Southern and middle Africa,Non-Annex I,NA,NA,Upper middle
-"Korea, Rep.",KOR,OECD,EAS,CPA,RCPA,Asia and developing Pacific,Eastern Asia,Eastern Asia,Non-Annex I,NA,OECD,High
-Aland Islands,ALA,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Territory,NA,NA,N/A
-Andorra,AND,OECD,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Non-Annex I,NA,NA,High
-Austria,AUT,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Belgium,BEL,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Switzerland,CHE,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,NA,OECD,High
-Germany,DEU,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Denmark,DNK,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Spain,ESP,OECD,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Finland,FIN,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-France,FRA,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Faroe Islands,FRO,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Territory,NA,NA,High
-United Kingdom of Great Britain and Northern Ireland,GBR,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,NA,OECD,High
-Guernsey,GGY,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Territory,NA,NA,High
-Gibraltar,GIB,OECD,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Territory,NA,NA,High
-Greece,GRC,OECD,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Greenland,GRL,OECD,EUR,NAM,NAM,Developed Countries,North America,"Greenland, Bermuda + others",Territory,NA,NA,High
-Isle of Man,IMN,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Territory,NA,NA,High
-Ireland,IRL,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Iceland,ISL,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,NA,OECD,High
-Italy,ITA,OECD,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Jersey,JEY,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Territory,NA,NA,High
-Liechtenstein,LIE,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,NA,NA,High
-Luxembourg,LUX,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Monaco,MCO,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,NA,NA,High
-Netherlands,NLD,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Norway,NOR,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,NA,OECD,High
-Portugal,PRT,OECD,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Svalbard and Jan Mayen,SJM,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Territory,NA,NA,N/A
-San Marino,SMR,OECD,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Non-Annex I,NA,NA,High
-Sweden,SWE,OECD,EUR,WEU,WEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Holy See,VAT,OECD,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Territory,NA,NA,N/A
-Saint Pierre and Miquelon,SPM,OECD,LAM,NAM,NAM,Developed Countries,North America,"Greenland, Bermuda + others",Territory,NA,NA,N/A
-Canada,CAN,OECD,NAM,NAM,NAM,Developed Countries,North America,USA & Canada,Annex I,NA,OECD,High
-United States,USA,OECD,NAM,NAM,NAM,Developed Countries,North America,USA & Canada,Annex I,NA,OECD,High
-Australia,AUS,OECD,PAO,PAO,PAO,Developed Countries,Asia-Pacific Developed,Australia & New Zealand,Annex I,NA,OECD,High
-Christmas Island,CXR,OECD,PAO,PAO,PAO,Developed Countries,Asia-Pacific Developed,Asia-Pacific Developed (others),Territory,NA,NA,N/A
-Heard Island and McDonald Islands,HMD,OECD,PAO,PAO,PAO,Developed Countries,Asia-Pacific Developed,Asia-Pacific Developed (others),Territory,NA,NA,N/A
-Japan,JPN,OECD,PAO,PAO,PAO,Developed Countries,Asia-Pacific Developed,Asia-Pacific Developed (others),Annex I,NA,OECD,High
-Norfolk Island,NFK,OECD,PAO,PAO,PAO,Developed Countries,Asia-Pacific Developed,Asia-Pacific Developed (others),Territory,NA,NA,N/A
-New Zealand,NZL,OECD,PAO,PAO,PAO,Developed Countries,Asia-Pacific Developed,Australia & New Zealand,Annex I,NA,OECD,High
-Cook Islands,COK,OECD,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,N/A
-Niue,NIU,OECD,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,N/A
-Nauru,NRU,OECD,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,High
-Pitcairn,PCN,OECD,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,N/A
-Tokelau,TKL,OECD,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,N/A
-Tuvalu,TUV,OECD,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Non-Annex I,NA,NA,Upper middle
-United States Minor Outlying Islands,UMI,OECD,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,N/A
-Wallis and Futuna Islands,WLF,OECD,PAS,PAS,PAS,Asia and developing Pacific,South-East Asia and developing Pacific,Developing Pacific,Territory,NA,NA,N/A
-Albania,ALB,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Non-Annex I,NA,NA,Upper middle
-Bulgaria,BGR,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,NA,Upper middle
-Bosnia and Herzegovina,BIH,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Non-Annex I,NA,NA,Upper middle
-Cyprus,CYP,REF,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,NA,High
-Czechia,CZE,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Estonia,EST,REF,EUR,EEU,EEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Croatia,HRV,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,NA,High
-Hungary,HUN,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Lithuania,LTU,REF,EUR,EEU,EEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-Latvia,LVA,REF,EUR,EEU,EEU,Developed Countries,Europe,Northern and western Europe,Annex I,EU,OECD,High
-North Macedonia,MKD,REF,EUR,EEU,EEU,Europe,Europe,Southern and eastern Europe,Non-Annex I,NA,NA,Upper middle
-Malta,MLT,REF,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,NA,High
-Montenegro,MNE,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Non-Annex I,NA,NA,Upper middle
-Poland,POL,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Romania,ROU,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,NA,Upper middle
-Serbia,SRB,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Non-Annex I,NA,NA,Upper middle
-Slovakia,SVK,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Slovenia,SVN,REF,EUR,EEU,EEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,EU,OECD,High
-Turkey,TUR,REF,EUR,WEU,WEU,Developed Countries,Europe,Southern and eastern Europe,Annex I,NA,OECD,Upper middle
-Armenia,ARM,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Upper middle
-Azerbaijan,AZE,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Upper middle
-Belarus,BLR,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Annex I,NA,NA,Upper middle
-Georgia,GEO,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Upper middle
-Kazakhstan,KAZ,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Upper middle
-Kyrgyz Republic,KGZ,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Lower-middle
-Republic of Moldova,MDA,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Upper middle
-Russian Federation,RUS,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Annex I,NA,NA,Upper middle
-Tajikistan,TJK,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Lower-middle
-Turkmenistan,TKM,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Upper middle
-Ukraine,UKR,REF,FSU,FSU,FSU,Developed Countries,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Annex I,NA,NA,Lower-middle
-Uzbekistan,UZB,REF,FSU,FSU,FSU,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Eastern Europe and West-Central Asia,Non-Annex I,NA,NA,Lower-middle
+iso3c,m49code,r5_iamc,r6_ipcc,r10_unif,r10_iamc,r10_ipcc,r10_message,r11_message,r12_message,r12_remind,r12_witch,r22_ipcc,m49hi_ipcc,m49med_ipcc,m49lo_ipcc,m49dev_ipcc,m49sids_ipcc,m49lldc_ipcc,m49ldc_ipcc,annexi_ipcc,wmo_ipcc,eu_ipcc,oecd_ipcc,wb_ipcc
+AGO,24,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Lower-middle
+ARE,784,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,High
+ATF,260,NA,Africa,R10AFRMEA,NA,Africa,NA,NA,NA,Other Asia,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+BDI,108,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+BEN,204,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Lower-middle
+BFA,854,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+BHR,48,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,High
+BWA,72,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Southern Africa,Developing,NA,LLDC,NA,Non-Annex I,I,NA,NA,Upper middle
+CAF,140,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+CIV,384,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+CMR,120,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+COD,180,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+COG,178,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+COM,174,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,SIDS,NA,LDC,Non-Annex I,I,NA,NA,Lower-middle
+CPV,132,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,SIDS,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+DJI,262,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,mena,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Lower-middle
+DZA,12,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,North Africa,Africa,Northern Africa,Northern Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+EGY,818,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,North Africa,Africa,Northern Africa,Northern Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+ERI,232,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+ESH,732,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,North Africa,Africa,Northern Africa,Northern Africa,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+ETH,231,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+GAB,266,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Upper middle
+GHA,288,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+GIN,324,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+GMB,270,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+GNB,624,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,SIDS,NA,LDC,Non-Annex I,I,NA,NA,Low
+GNQ,226,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Upper middle
+IOT,86,NA,Africa,R10AFRMEA,NA,Africa,Europe,Western Europe,NA,Other Asia,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+IRN,364,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Southern Asia,Southern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Lower-middle
+IRQ,368,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Upper middle
+ISR,376,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developed,NA,NA,NA,Non-Annex I,VI,NA,OECD,High
+JOR,400,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,VI,NA,NA,Upper middle
+KEN,404,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+KWT,414,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,High
+LBN,422,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,VI,NA,NA,Upper middle
+LBR,430,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+LBY,434,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,North Africa,Africa,Northern Africa,Northern Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Upper middle
+LSO,426,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Southern Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Lower-middle
+MAR,504,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,North Africa,Africa,Northern Africa,Northern Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+MDG,450,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+MLI,466,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+MOZ,508,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+MRT,478,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Lower-middle
+MUS,480,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,SIDS,NA,NA,Non-Annex I,I,NA,NA,Upper middle
+MWI,454,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+MYT,175,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Europe,Western Europe,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+NAM,516,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Southern Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Upper middle
+NER,562,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+NGA,566,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+OMN,512,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,High
+PSE,275,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,N/A,NA,NA,Lower-middle
+QAT,634,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,High
+REU,638,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Europe,Western Europe,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+RWA,646,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+SAU,682,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,High
+SDN,729,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",ssa,North Africa,Africa,Northern Africa,Northern Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+SEN,686,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Lower-middle
+SHN,654,NA,Africa,R10AFRMEA,NA,Africa,Europe,Western Europe,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+SLE,694,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+SOM,706,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+SSD,728,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Middle East and North Africa,Middle East and North Africa,R12MEA,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+STP,678,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,SIDS,NA,LDC,Non-Annex I,I,NA,NA,Lower-middle
+SWZ,748,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Southern Africa,Developing,NA,LLDC,NA,Non-Annex I,I,NA,NA,Lower-middle
+SYC,690,NA,Africa,R10AFRMEA,NA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,SIDS,NA,NA,Non-Annex I,I,NA,NA,High
+SYR,760,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,VI,NA,NA,Low
+TCD,148,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Southern and middle Africa,Africa,Sub-Saharan Africa,Middle Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+TGO,768,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Western Africa,Africa,Sub-Saharan Africa,Western Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Low
+TUN,788,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,North Africa,Africa,Northern Africa,Northern Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Lower-middle
+TZA,834,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,NA,LDC,Non-Annex I,I,NA,NA,Lower-middle
+UGA,800,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Low
+YEM,887,R5MAF,Middle East,R10AFRMEA,R10MIDDLE_EAST,Middle East,Middle East and North Africa,Middle East and North Africa,R12MEA,"Middle East, North Africa, Central Asia",mena,Middle East,Asia,Western Asia,Western Asia,Developing,NA,NA,LDC,Non-Annex I,II,NA,NA,Low
+ZAF,710,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,kosau,Southern and middle Africa,Africa,Sub-Saharan Africa,Southern Africa,Developing,NA,NA,NA,Non-Annex I,I,NA,NA,Upper middle
+ZMB,894,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,LLDC,LDC,Non-Annex I,I,NA,NA,Lower-middle
+ZWE,716,R5MAF,Africa,R10AFRMEA,R10AFRICA,Africa,Sub-saharan Africa,Sub-saharan Africa,R12AFR,Sub-saharan Africa,ssa,Eastern Africa,Africa,Sub-Saharan Africa,Eastern Africa,Developing,NA,LLDC,NA,Non-Annex I,I,NA,NA,Lower-middle
+ASM,16,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,Upper middle
+BRN,96,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,NA,NA,Non-Annex I,V,NA,NA,High
+CHN,156,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,Eastern Asia,Centrally Planned Asia and China,Centrally Planned Asia and China,R12CHN,China,china,Eastern Asia,Asia,Eastern Asia,Eastern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Upper middle
+COK,184,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,cajaz,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,N/A
+FJI,242,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Melanesia,Melanesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,Upper middle
+FSM,583,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Micronesia,Micronesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,Lower-middle
+HKG,344,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,Eastern Asia,Centrally Planned Asia and China,Centrally Planned Asia and China,R12CHN,China,china,Eastern Asia,Asia,Eastern Asia,Eastern Asia,Developing,NA,NA,NA,Territory,N/A,NA,NA,High
+IDN,360,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,NA,NA,Non-Annex I,V,NA,NA,Lower-middle
+KHM,116,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,South-East Asia and developing Pacific,Centrally Planned Asia and China,Centrally Planned Asia and China,R12RCPA,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,NA,LDC,Non-Annex I,II,NA,NA,Lower-middle
+KIR,296,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Micronesia,Micronesia,Developing,SIDS,NA,LDC,Non-Annex I,V,NA,NA,Lower-middle
+KOR,410,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,Eastern Asia,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,kosau,Eastern Asia,Asia,Eastern Asia,Eastern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,OECD,High
+LAO,418,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,South-East Asia and developing Pacific,Centrally Planned Asia and China,Centrally Planned Asia and China,R12RCPA,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,LLDC,LDC,Non-Annex I,II,NA,NA,Lower-middle
+MAC,446,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,Eastern Asia,Centrally Planned Asia and China,Centrally Planned Asia and China,R12PAS,China,china,Eastern Asia,Asia,Eastern Asia,Eastern Asia,Developing,NA,NA,NA,Territory,N/A,NA,NA,High
+MHL,584,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Micronesia,Micronesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,Upper middle
+MMR,104,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,NA,LDC,Non-Annex I,II,NA,NA,Lower-middle
+MNG,496,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,Eastern Asia,Centrally Planned Asia and China,Centrally Planned Asia and China,R12RCPA,Other Asia,easia,Eastern Asia,Asia,Eastern Asia,Eastern Asia,Developing,NA,LLDC,NA,Non-Annex I,II,NA,NA,Lower-middle
+MNP,580,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Micronesia,Micronesia,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+MYS,458,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,NA,NA,Non-Annex I,V,NA,NA,Upper middle
+NCL,540,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Melanesia,Melanesia,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+NIU,570,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,cajaz,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,N/A
+NRU,520,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,kosau,Developing Pacific,Oceania,Micronesia,Micronesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,High
+PCN,612,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Europe,Western Europe,R12PAS,Other Asia,cajaz,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+PHL,608,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,NA,NA,Non-Annex I,V,NA,NA,Lower-middle
+PLW,585,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Micronesia,Micronesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,High
+PNG,598,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Melanesia,Melanesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,Lower-middle
+PRK,408,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,Eastern Asia,Centrally Planned Asia and China,Centrally Planned Asia and China,R12RCPA,Other Asia,easia,Eastern Asia,Asia,Eastern Asia,Eastern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Low
+PYF,258,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+SGP,702,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,High
+SLB,90,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Melanesia,Melanesia,Developing,SIDS,NA,LDC,Non-Annex I,V,NA,NA,Lower-middle
+THA,764,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Upper middle
+TKL,772,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Pacific OECD,Pacific OECD,R12PAS,Other Asia,cajaz,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+TLS,626,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,SIDS,NA,LDC,Non-Annex I,V,NA,NA,Lower-middle
+TON,776,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,Upper middle
+TUV,798,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,cajaz,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,SIDS,NA,LDC,Non-Annex I,V,NA,NA,Upper middle
+TWN,NA,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,Eastern Asia,Other Pacific Asia,Other Pacific Asia,R12PAS,China,china,Eastern Asia,Asia,Eastern Asia,Eastern Asia,Developing,NA,NA,NA,Territory,N/A,NA,NA,High
+UMI,581,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,North America,North America,NA,Other Asia,cajaz,Developing Pacific,Oceania,Micronesia,Micronesia,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+VNM,704,R5ASIA,Asia and developing Pacific,R10EASPAS,R10CHINA+,South-East Asia and developing Pacific,Centrally Planned Asia and China,Centrally Planned Asia and China,R12RCPA,Other Asia,easia,South-East Asia,Asia,South-Eastern Asia,South-Eastern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Lower-middle
+VUT,548,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Melanesia,Melanesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,Lower-middle
+WLF,876,NA,Asia and developing Pacific,R10EASPAS,NA,South-East Asia and developing Pacific,Europe,Western Europe,R12PAS,Other Asia,cajaz,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+WSM,882,R5ASIA,Asia and developing Pacific,R10EASPAS,R10REST_ASIA,South-East Asia and developing Pacific,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Developing Pacific,Oceania,Polynesia,Polynesia,Developing,SIDS,NA,NA,Non-Annex I,V,NA,NA,Lower-middle
+ALA,248,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,NA,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Territory,N/A,NA,NA,N/A
+ALB,8,R5OECD90+EU,Developed Countries,R10EUR,NA,Europe,Europe,Eastern Europe,R12EEU,Non-EU28 Europe,te,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Non-Annex I,VI,NA,NA,Upper middle
+AND,20,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Non-Annex I,VI,NA,NA,High
+AUT,40,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+BEL,56,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+BGR,100,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Southern and eastern Europe,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,EU,NA,Upper middle
+BIH,70,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,Non-EU28 Europe,te,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Non-Annex I,VI,NA,NA,Upper middle
+CHE,756,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,NA,OECD,High
+CYP,196,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Southern and eastern Europe,Asia,Western Asia,Western Asia,Developed,NA,NA,NA,Annex I,VI,EU,NA,High
+CZE,203,R5OECD90+EU,Developed Countries,R10EUR,NA,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Southern and eastern Europe,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+DEU,276,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+DNK,208,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+ESP,724,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+EST,233,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+FIN,246,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+FRA,250,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+FRO,234,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Territory,N/A,NA,NA,High
+GBR,826,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,NA,OECD,High
+GGY,831,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,NA,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Channel Islands,Developed,NA,NA,NA,Territory,N/A,NA,NA,High
+GIB,292,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Territory,N/A,NA,NA,High
+GRC,300,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+GRL,304,NA,Developed Countries,R10EUR,NA,North America,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,"Greenland, Bermuda + others",Americas,Northern America,Northern America,Developed,NA,NA,NA,Territory,N/A,NA,NA,High
+HRV,191,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Annex I,VI,EU,NA,High
+HUN,348,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Southern and eastern Europe,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+IMN,833,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Territory,N/A,NA,NA,High
+IRL,372,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+ISL,352,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,NA,OECD,High
+ITA,380,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+JEY,832,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,NA,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Channel Islands,Developed,NA,NA,NA,Territory,N/A,NA,NA,High
+LIE,438,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,NA,NA,High
+LTU,440,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+LUX,442,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+LVA,428,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+MCO,492,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,NA,NA,High
+MKD,807,R5OECD90+EU,Europe,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,Non-EU28 Europe,te,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,LLDC,NA,Non-Annex I,VI,NA,NA,Upper middle
+MLT,470,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Annex I,VI,EU,NA,High
+MNE,499,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,Non-EU28 Europe,te,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Non-Annex I,VI,NA,NA,Upper middle
+NLD,528,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Western Europe,Western Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+NOR,578,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,NA,OECD,High
+POL,616,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Southern and eastern Europe,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+PRT,620,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+ROU,642,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Southern and eastern Europe,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,EU,NA,Upper middle
+SJM,744,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Territory,N/A,NA,NA,N/A
+SMR,674,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Non-Annex I,VI,NA,NA,High
+SRB,688,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,Non-EU28 Europe,te,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Non-Annex I,VI,NA,NA,Upper middle
+SVK,703,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Southern and eastern Europe,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+SVN,705,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Eastern Europe,R12EEU,EU 28,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+SWE,752,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,EU 28,europe,Northern and western Europe,Europe,Northern Europe,Northern Europe,Developed,NA,NA,NA,Annex I,VI,EU,OECD,High
+TUR,792,R5OECD90+EU,Developed Countries,R10EUR,R10EUROPE,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,te,Southern and eastern Europe,Asia,Western Asia,Western Asia,Developed,NA,NA,NA,Annex I,VI,NA,OECD,Upper middle
+VAT,336,NA,Developed Countries,R10EUR,NA,Europe,Europe,Western Europe,R12WEU,Non-EU28 Europe,europe,Southern and eastern Europe,Europe,Southern Europe,Southern Europe,Developed,NA,NA,NA,Territory,N/A,NA,NA,N/A
+ARM,51,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Asia,Western Asia,Western Asia,Developing,NA,LLDC,NA,Non-Annex I,VI,NA,NA,Upper middle
+AZE,31,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Asia,Western Asia,Western Asia,Developing,NA,LLDC,NA,Non-Annex I,VI,NA,NA,Upper middle
+BLR,112,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,NA,NA,Upper middle
+GEO,268,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Asia,Western Asia,Western Asia,Developing,NA,NA,NA,Non-Annex I,VI,NA,NA,Upper middle
+KAZ,398,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Asia,Central Asia,Central Asia,Developing,NA,LLDC,NA,Non-Annex I,II,NA,NA,Upper middle
+KGZ,417,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Asia,Central Asia,Central Asia,Developing,NA,LLDC,NA,Non-Annex I,II,NA,NA,Lower-middle
+MDA,498,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Europe,Eastern Europe,Eastern Europe,Developed,NA,LLDC,NA,Non-Annex I,VI,NA,NA,Upper middle
+RUS,643,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,NA,NA,Upper middle
+TJK,762,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Asia,Central Asia,Central Asia,Developing,NA,LLDC,NA,Non-Annex I,II,NA,NA,Lower-middle
+TKM,795,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Asia,Central Asia,Central Asia,Developing,NA,LLDC,NA,Non-Annex I,II,NA,NA,Upper middle
+UKR,804,R5REF,Developed Countries,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Europe,Eastern Europe,Eastern Europe,Developed,NA,NA,NA,Annex I,VI,NA,NA,Lower-middle
+UZB,860,R5REF,Eastern Europe and West-Central Asia,R10FSU,R10REF_ECON,Eastern Europe and West-Central Asia,Former Soviet Union,Former Soviet Union,R12FSU,Countries from the Reforming Economies of the Former Soviet Union,te,Eastern Europe and West-Central Asia,Asia,Central Asia,Central Asia,Developing,NA,LLDC,NA,Non-Annex I,II,NA,NA,Lower-middle
+ABW,533,R5LAM,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+AIA,660,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,N/A
+ARG,32,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Non-Annex I,III,NA,NA,Upper middle
+ATG,28,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,High
+BES,535,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,NA,NA,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,N/A
+BHS,44,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,High
+BLM,652,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Europe,Western Europe,NA,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+BLZ,84,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Meso America,Americas,Latin America and the Caribbean,Central America,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,Lower-middle
+BMU,60,NA,Developed Countries,R10LAM,NA,North America,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,"Greenland, Bermuda + others",Americas,Northern America,Northern America,Developed,NA,NA,NA,Territory,N/A,NA,NA,High
+BOL,68,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,LLDC,NA,Non-Annex I,III,NA,NA,Lower-middle
+BRA,76,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Non-Annex I,III,NA,NA,Upper middle
+BRB,52,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,High
+BVT,74,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,NA,NA,NA,Latin America and the Caribbean,ssa,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+CHL,152,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Non-Annex I,III,NA,OECD,High
+COL,170,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Non-Annex I,III,NA,OECD,Upper middle
+CRI,188,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Meso America,Americas,Latin America and the Caribbean,Central America,Developing,NA,NA,NA,Non-Annex I,IV,NA,OECD,Upper middle
+CUB,192,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+CUW,531,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,NA,NA,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+CYM,136,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,NA,NA,NA,Territory,N/A,NA,NA,High
+DMA,212,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+DOM,214,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+ECU,218,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Non-Annex I,III,NA,NA,Upper middle
+FLK,238,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+GLP,312,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+GRD,308,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+GTM,320,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Meso America,Americas,Latin America and the Caribbean,Central America,Developing,NA,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+GUF,254,R5LAM,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+GUY,328,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,SIDS,NA,NA,Non-Annex I,III,NA,NA,Upper middle
+HND,340,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Meso America,Americas,Latin America and the Caribbean,Central America,Developing,NA,NA,NA,Non-Annex I,IV,NA,NA,Lower-middle
+HTI,332,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,LDC,Non-Annex I,IV,NA,NA,Lower-middle
+JAM,388,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+KNA,659,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,High
+LCA,662,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+MAF,663,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Europe,Western Europe,NA,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,NA,NA,NA,Territory,N/A,NA,NA,High
+MEX,484,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Meso America,Americas,Latin America and the Caribbean,Central America,Developing,NA,NA,NA,Non-Annex I,IV,NA,OECD,Upper middle
+MSR,500,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,N/A
+MTQ,474,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+NIC,558,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Meso America,Americas,Latin America and the Caribbean,Central America,Developing,NA,NA,NA,Non-Annex I,IV,NA,NA,Lower-middle
+PAN,591,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Meso America,Americas,Latin America and the Caribbean,Central America,Developing,NA,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+PER,604,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Non-Annex I,III,NA,NA,Upper middle
+PRI,630,R5OECD90+EU,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,North America,North America,R12NAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+PRY,600,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,LLDC,NA,Non-Annex I,III,NA,NA,Upper middle
+SGS,239,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Europe,Western Europe,NA,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Territory,N/A,NA,NA,N/A
+SLV,222,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Meso America,Americas,Latin America and the Caribbean,Central America,Developing,NA,NA,NA,Non-Annex I,IV,NA,NA,Lower-middle
+SPM,666,NA,Developed Countries,R10LAM,NA,North America,Europe,Western Europe,R12NAM,"Canada, NZ, Australia",europe,"Greenland, Bermuda + others",Americas,Northern America,Northern America,Developed,NA,NA,NA,Territory,N/A,NA,NA,N/A
+SUR,740,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,SIDS,NA,NA,Non-Annex I,III,NA,NA,Upper middle
+SXM,534,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,NA,NA,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+TCA,796,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,NA,NA,NA,Territory,N/A,NA,NA,High
+TTO,780,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,High
+URY,858,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Non-Annex I,III,NA,NA,High
+VCT,670,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Non-Annex I,IV,NA,NA,Upper middle
+VEN,862,R5LAM,Latin America and Caribbean,R10LAM,R10LATIN_AM,Latin America and Caribbean,Latin America and the Caribbean,Latin America and the Caribbean,R12LAM,Latin America and the Caribbean,laca,South America,Americas,Latin America and the Caribbean,South America,Developing,NA,NA,NA,Non-Annex I,III,NA,NA,Upper middle
+VGB,92,NA,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,Europe,Western Europe,R12LAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+VIR,850,R5LAM,Latin America and Caribbean,R10LAM,NA,Latin America and Caribbean,North America,North America,R12NAM,Latin America and the Caribbean,laca,Caribbean,Americas,Latin America and the Caribbean,Caribbean,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+CAN,124,R5OECD90+EU,Developed Countries,R10NAM,R10NORTH_AM,North America,North America,North America,R12NAM,"Canada, NZ, Australia",cajaz,USA & Canada,Americas,Northern America,Northern America,Developed,NA,NA,NA,Annex I,IV,NA,OECD,High
+GUM,316,R5OECD90+EU,Asia and developing Pacific,R10NAM,R10NORTH_AM,South-East Asia and developing Pacific,North America,North America,R12NAM,Other Asia,easia,Developing Pacific,Oceania,Micronesia,Micronesia,Developing,SIDS,NA,NA,Territory,N/A,NA,NA,High
+USA,840,R5OECD90+EU,Developed Countries,R10NAM,R10NORTH_AM,North America,North America,North America,R12NAM,United States of America,usa,USA & Canada,Americas,Northern America,Northern America,Developed,NA,NA,NA,Annex I,IV,NA,OECD,High
+AUS,36,R5OECD90+EU,Developed Countries,R10PAO,R10PAC_OECD,Asia-Pacific Developed,Pacific OECD,Pacific OECD,R12PAO,"Canada, NZ, Australia",kosau,Australia & New Zealand,Oceania,Australia and New Zealand,Australia and New Zealand,Developed,NA,NA,NA,Annex I,V,NA,OECD,High
+CCK,166,NA,Developed Countries,R10PAO,NA,Asia-Pacific Developed,Other Pacific Asia,Other Pacific Asia,R12PAS,Other Asia,easia,Asia-Pacific Developed (others),Oceania,Australia and New Zealand,Australia and New Zealand,Developed,NA,NA,NA,Territory,N/A,NA,NA,N/A
+CXR,162,NA,Developed Countries,R10PAO,NA,Asia-Pacific Developed,Pacific OECD,Pacific OECD,R12PAS,Other Asia,kosau,Asia-Pacific Developed (others),Oceania,Australia and New Zealand,Australia and New Zealand,Developed,NA,NA,NA,Territory,N/A,NA,NA,N/A
+HMD,334,NA,Developed Countries,R10PAO,NA,Asia-Pacific Developed,Pacific OECD,Pacific OECD,NA,"Canada, NZ, Australia",kosau,Asia-Pacific Developed (others),Oceania,Australia and New Zealand,Australia and New Zealand,Developed,NA,NA,NA,Territory,N/A,NA,NA,N/A
+JPN,392,R5OECD90+EU,Developed Countries,R10PAO,R10PAC_OECD,Asia-Pacific Developed,Pacific OECD,Pacific OECD,R12PAO,Japan,cajaz,Asia-Pacific Developed (others),Asia,Eastern Asia,Eastern Asia,Developed,NA,NA,NA,Annex I,II,NA,OECD,High
+NFK,574,NA,Developed Countries,R10PAO,NA,Asia-Pacific Developed,Europe,Western Europe,R12PAS,Other Asia,kosau,Asia-Pacific Developed (others),Oceania,Australia and New Zealand,Australia and New Zealand,Developed,NA,NA,NA,Territory,N/A,NA,NA,N/A
+NZL,554,R5OECD90+EU,Developed Countries,R10PAO,R10PAC_OECD,Asia-Pacific Developed,Pacific OECD,Pacific OECD,R12PAO,"Canada, NZ, Australia",cajaz,Australia & New Zealand,Oceania,Australia and New Zealand,Australia and New Zealand,Developed,NA,NA,NA,Annex I,V,NA,OECD,High
+AFG,4,R5ASIA,Asia and developing Pacific,R10SAS,R10INDIA+,Southern Asia,South Asia,South Asia,R12SAS,Other Asia,sasia,Rest of Southern Asia,Asia,Southern Asia,Southern Asia,Developing,NA,LLDC,LDC,Non-Annex I,II,NA,NA,Low
+BGD,50,R5ASIA,Asia and developing Pacific,R10SAS,R10INDIA+,Southern Asia,South Asia,South Asia,R12SAS,Other Asia,sasia,Rest of Southern Asia,Asia,Southern Asia,Southern Asia,Developing,NA,NA,LDC,Non-Annex I,II,NA,NA,Lower-middle
+BTN,64,R5ASIA,Asia and developing Pacific,R10SAS,R10INDIA+,Southern Asia,South Asia,South Asia,R12SAS,Other Asia,sasia,Rest of Southern Asia,Asia,Southern Asia,Southern Asia,Developing,NA,LLDC,LDC,Non-Annex I,II,NA,NA,Lower-middle
+IND,356,R5ASIA,Asia and developing Pacific,R10SAS,R10INDIA+,Southern Asia,South Asia,South Asia,R12SAS,India,india,India & Sri Lanka,Asia,Southern Asia,Southern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Lower-middle
+LKA,144,R5ASIA,Asia and developing Pacific,R10SAS,R10INDIA+,Southern Asia,South Asia,South Asia,R12SAS,Other Asia,sasia,India & Sri Lanka,Asia,Southern Asia,Southern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Lower-middle
+MDV,462,R5ASIA,Asia and developing Pacific,R10SAS,R10INDIA+,Southern Asia,South Asia,South Asia,R12SAS,Other Asia,sasia,Rest of Southern Asia,Asia,Southern Asia,Southern Asia,Developing,SIDS,NA,NA,Non-Annex I,II,NA,NA,Upper middle
+NPL,524,R5ASIA,Asia and developing Pacific,R10SAS,R10INDIA+,Southern Asia,South Asia,South Asia,R12SAS,Other Asia,sasia,Rest of Southern Asia,Asia,Southern Asia,Southern Asia,Developing,NA,LLDC,LDC,Non-Annex I,II,NA,NA,Lower-middle
+PAK,586,R5ASIA,Asia and developing Pacific,R10SAS,R10INDIA+,Southern Asia,South Asia,South Asia,R12SAS,Other Asia,sasia,Rest of Southern Asia,Asia,Southern Asia,Southern Asia,Developing,NA,NA,NA,Non-Annex I,II,NA,NA,Lower-middle

@@ -23,19 +23,23 @@ options(scipen = 999)
 
 # Determine country-years for analysis
 iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  select(country.name, iso3c, r10 = iamc_r10)
+  mutate(r10 = ifelse(is.na(r10_iamc), NA_real_, r10_unif)) %>% 
+  select(iso3c, r10)
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("NAM", "EUR", "PAO", "FSU", "MEA", "EAS", "LAM", "PAS", "AFR", "SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "MEA", "EAS", "LAC", "SAP", "AFR", "SAS"),
+r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                                    "Eastern Europe and West-Central Asia", "Middle East", "Eastern Asia",
-                                    "Latin America and Caribbean", "South-East Asia and developing Pacific",
-                                    "Africa", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia", "Africa & Middle East", 
+                                    "Eastern & South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", "Southern Asia"))
 
-# Population
-projected_pop <- read_csv(here("Data", "processed", "iso3c_popssp218502100.csv")) %>% 
-  filter(r10 %in% r10order$r10, iso3c %in% iso3c_tbl$iso3c) 
+# Population, aggregated to r10
+r10_popproj <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
+                         sheet = "popproj") %>% 
+  group_by(r10, year) %>% 
+  summarise(pop = sum(pop)) %>% 
+  arrange(year)
 
 # RCB quantities
 rcb <- read_csv(here("Data", "processed", "rcbquantities.csv"))
@@ -48,7 +52,7 @@ r10_rcb19902020gtco2 <- read_csv(here("Data", "processed", "r10_rcb19902020.csv"
 r10_ndclts_impren_emiss <- read_csv(here("Data", "processed", "r10_ndclts_impren_emiss.csv"))
 
 # Heatwave EMFs
-exp_heatwave_r10_emf <- read_csv(here("Data", "processed", "exp_heatwave_r10_emf.csv"))
+r10_exp_heatwave_emf <- read_csv(here("Data", "processed", "r10_exp_heatwave_emf.csv"))
 
 # ASSESS MODELLED NDC / NET-ZERO PATHWAYS --------------------------------------
 
@@ -84,8 +88,7 @@ r10_ndclts_impren_debt <- r10_ndclts_impren_emiss %>%
          totaldebt = sum(ifelse(rcb2100 < 0, rcb2100, NA_real_), na.rm = T),
          totaloffset = sum(ifelse(rcb2100 > 0, rcb2100, NA_real_), na.rm = T),
          drawdown_resp = ifelse(rcb2100 < 0, rcb2100 / totaldebt * exceedance, 0)) %>% 
-  left_join(projected_pop %>% group_by(r10, year) %>% 
-              summarise(pop = sum(pop, na.rm = T)) %>% 
+  left_join(r10_popproj %>% 
               mutate(pop_cmltv = cumsum(pop),
                      pop_cmltv_rem_2050 = pop_cmltv[year == 2100] - pop_cmltv[year == 2050]) %>% 
               filter(year == 2100) %>% 
@@ -93,7 +96,7 @@ r10_ndclts_impren_debt <- r10_ndclts_impren_emiss %>%
   ungroup()
 
 # Add in r10 exceedance drawdown responsibility
-exp_heatwave_r10_emf_temp_r10debt <- left_join(exp_heatwave_r10_emf,
+r10_exp_heatwave_emf_temp_debt <- left_join(r10_exp_heatwave_emf,
                                                r10_ndclts_impren_debt,
                                                by = c("case", "r10"))
 
@@ -207,7 +210,7 @@ ggsave(here("Manuscript", "Figures", "fig2.png"),
 
 # FIGURE 3 ---------------------------------------------------------------------
 
-exp_heatwave_r10_emf_temp_r10debt %>%
+r10_exp_heatwave_emf_temp_debt %>%
   filter(birth_year %in% c(2020), case != "IMP-REN", quantile == 0.66, category == "1_PP1990",
          aggregate == "Median") %>%
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
@@ -286,4 +289,4 @@ r10_ndclts_impren_rcbyear %>%
        y = "Remaining carbon budget allocation (GtCO2)")
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_fig3c.png"),
-       height = 10, width = 14)
+       height = 6, width = 14)

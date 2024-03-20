@@ -19,17 +19,13 @@ p_load(here, countrycode, zoo)
 # options
 options(scipen = 999)
 
-# Determine country-years for analysis
-iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  select(country.name, iso3c, r10 = iamc_r10)
-
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("NAM", "EUR", "PAO", "FSU", "MEA", "EAS", "LAM", "PAS", "AFR", "SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "MEA", "EAS", "LAC", "SAP", "AFR", "SAS"),
+r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                                    "Eastern Europe and West-Central Asia", "Middle East", "Eastern Asia",
-                                    "Latin America and Caribbean", "South-East Asia and developing Pacific",
-                                    "Africa", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia", "Africa & Middle East", 
+                                    "Eastern & South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", "Southern Asia"))
 
 # Function to apply historical data scaling to each group, harmonising modelled
 # pathways to historical 2022 values, converging to modelled pathways in 2100
@@ -50,11 +46,9 @@ hist_scaling <- function(path, history, harmonisationyear, convergenceyear) {
 
 # LOAD PROCESSED DATA ----------------------------------------------------------
 
-# Recent production-based emissions
-recent_prodco2 <- read_csv(here("Data", "processed", "iso3c_emiss19902022gtco2.csv")) %>% 
-  select(country.name, iso3c, r10, year, gtco2) 
-
-r10recent_prodco2 <- recent_prodco2 %>% 
+# Recent production-based emissions, aggregated to r10
+r10_recent_prodco2 <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
+                                sheet = "recent_prodco2") %>% 
   group_by(r10, year) %>% 
   summarise(gtco2 = sum(gtco2)) %>% 
   arrange(year)
@@ -62,7 +56,7 @@ r10recent_prodco2 <- recent_prodco2 %>%
 # READ IN AND PROCESS REGIONAL EMISSIONS PATHS ---------------------------------
 
 # Read modelled in r10-nz paths
-ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "infilled_extended_and_infilled_unep_r10.csv")) %>%
+ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "kyoto_and_co2_emissions_summary_r10_6.csv")) %>%
   separate_wider_delim(col = Scenario, delim = "|", names = c("aggregate", paste0("category_", 1:4)), too_few = "align_start") %>% 
   mutate(
     model = ifelse(grepl(category_2, pattern = "MESSAGE"), "MESSAGEix-GLOBIOM", "REMIND-MAgPIE"),
@@ -71,10 +65,6 @@ ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "infilled_ex
         grepl(category_2, pattern = "KyotoFromPrice_incrate2") &
         is.na(category_3) &
         is.na(category_4) ~ "A",
-      Model == "Current policies" & 
-        grepl(category_2, pattern = "KyotoFromPrice_incrate3") &
-        grepl(category_3, pattern = "nz_all_GHG") &
-        grepl(category_4, pattern = "cert_allconf_0.1") ~ "C",
       Model == "NDC case - unconditional" & 
         grepl(category_2, pattern = "KyotoFromPrice_incrate3") &
         grepl(category_3, pattern = "nz_all_GHG") &
@@ -82,22 +72,25 @@ ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "infilled_ex
     )) %>% 
   filter(!is.na(case), Variable == "Emissions|CO2|Energy and Industrial Processes",
          Region != "World") %>% 
-  select(model, case, r10 = Region, aggregate, matches("\\d{4}")) %>% 
-  arrange(model, case, r10, aggregate) %>% 
+  arrange(model, case, Region, aggregate) %>% 
   mutate(
     r10 = case_when(
-      r10 == "R10AFRICA" ~ "AFR",
-      r10 == "R10PAC_OECD" ~ "PAO",
-      r10 == "R10EUROPE" ~ "EUR",
-      r10 == "R10INDIA+" ~ "SAS",
-      r10 == "R10LATIN_AM" ~ "LAM",
-      r10 == "R10MIDDLE_EAST" ~ "MEA",
-      r10 == "R10NORTH_AM" ~ "NAM",
-      r10 == "R10CHINA+" ~ "EAS",
-      r10 == "R10REF_ECON" ~ "FSU",
-      r10 == "R10REST_ASIA" ~ "PAS"),
+      Region == "R10AFRICA" ~ "R10AFRMEA",
+      Region == "R10PAC_OECD" ~ "R10PAO",
+      Region == "R10EUROPE" ~ "R10EUR",
+      Region == "R10INDIA+" ~ "R10SAS",
+      Region == "R10LATIN_AM" ~ "R10LAM",
+      Region == "R10MIDDLE_EAST" ~ "R10AFRMEA",
+      Region == "R10NORTH_AM" ~ "R10NAM",
+      Region == "R10CHINA+" ~ "R10EASPAS",
+      Region == "R10REF_ECON" ~ "R10FSU",
+      Region == "R10REST_ASIA" ~ "R10EASPAS"),
   ) %>% 
-  filter(model == "REMIND-MAgPIE")
+  filter(model == "MESSAGEix-GLOBIOM") %>% 
+  select(model, case, r10, aggregate, matches("\\d{4}")) %>% 
+  group_by(model, case, r10, aggregate) %>% 
+  summarise(across(matches("\\d{4}"), ~sum(.))) %>% 
+  ungroup()
 
 # Interpolate between model years
 ndclts_r10_interp <- ndclts_r10 %>% 
@@ -115,14 +108,14 @@ ndclts_r10_interp <- ndclts_r10 %>%
 # Harmonise to historical 2022 values
 ndclts_r10_interp_scaled <- ndclts_r10_interp %>%
   group_by(model, case, r10, aggregate) %>%
-  do(hist_scaling(., filter(r10recent_prodco2, r10 == first(.$r10)), 
+  do(hist_scaling(., filter(r10_recent_prodco2, r10 == first(.$r10)), 
                   harmonisationyear = 2022, convergenceyear = 2030)) %>%
   ungroup() %>% 
   mutate(year = as.numeric(year))
 
 # Combine historical and pathways data and interpolate to annual values 1990-2100 
 ndclts_r10_interp_scaled <- full_join(
-  r10recent_prodco2 %>% 
+  r10_recent_prodco2 %>% 
     select(r10, year, gtco2) %>%
     left_join(ndclts_r10_interp_scaled %>% distinct(r10, model, case, aggregate),
               relationship = "many-to-many"),
@@ -148,18 +141,21 @@ impren_r10 <- read_csv(here("Data", "pathways", "ar6_imp_rensp", "ar6_snapshot_1
     case = case_when(
       Scenario == "DeepElec_SSP2_ HighRE_Budg900" ~ "IMP-REN"),
     r10 = case_when(
-      r10 == "Countries of Sub-Saharan Africa" ~ "AFR",
-      r10 == "Pacific OECD" ~ "PAO",
-      r10 == "Eastern and Western Europe (i.e., the EU28)" ~ "EUR",
-      r10 == "Countries of South Asia; primarily India" ~ "SAS",
-      r10 == "Countries of Latin America and the Caribbean" ~ "LAM",
-      r10 == "Countries of the Middle East; Iran, Iraq, Israel, Saudi Arabia, Qatar, etc." ~ "MEA",
-      r10 == "North America; primarily the United States of America and Canada" ~ "NAM",
-      r10 == "Countries of centrally-planned Asia; primarily China" ~ "EAS",
-      r10 == "Reforming Economies of Eastern Europe and the Former Soviet Union; primarily Russia" ~ "FSU",
-      r10 == "Other countries of Asia" ~ "PAS"),
+      r10 == "Countries of Sub-Saharan Africa" ~ "R10AFRMEA",
+      r10 == "Pacific OECD" ~ "R10PAO",
+      r10 == "Eastern and Western Europe (i.e., the EU28)" ~ "R10EUR",
+      r10 == "Countries of South Asia; primarily India" ~ "R10SAS",
+      r10 == "Countries of Latin America and the Caribbean" ~ "R10LAM",
+      r10 == "Countries of the Middle East; Iran, Iraq, Israel, Saudi Arabia, Qatar, etc." ~ "R10AFRMEA",
+      r10 == "North America; primarily the United States of America and Canada" ~ "R10NAM",
+      r10 == "Countries of centrally-planned Asia; primarily China" ~ "R10EASPAS",
+      r10 == "Reforming Economies of Eastern Europe and the Former Soviet Union; primarily Russia" ~ "R10FSU",
+      r10 == "Other countries of Asia" ~ "R10EASPAS"),
     aggregate = "Median") %>% 
   select(model, case, r10, aggregate, matches("\\d{4}")) %>% 
+  group_by(model, case, r10, aggregate) %>% 
+  summarise(across(matches("\\d{4}"), ~sum(.))) %>% 
+  ungroup() %>% 
   pivot_longer(-c(model, case, r10, aggregate), names_to = "year", values_to = "gtco2") 
 
 # Interpolate between model years
@@ -177,14 +173,14 @@ impren_r10_interp <- impren_r10 %>%
 # Harmonise to historical 2022 values
 impren_r10_interp_scaled <- impren_r10_interp %>%
   group_by(model, case, r10, aggregate) %>%
-  do(hist_scaling(., filter(r10recent_prodco2, r10 == first(.$r10)), 
+  do(hist_scaling(., filter(r10_recent_prodco2, r10 == first(.$r10)), 
                   harmonisationyear = 2015, convergenceyear = 2030)) %>%
   ungroup() %>% 
   mutate(year = as.numeric(year))
 
 # Combine historical and pathways data and interpolate to annual values 1990-2100 
 impren_r10_interp_scaled <- full_join(
-  r10recent_prodco2 %>% 
+  r10_recent_prodco2 %>% 
     select(r10, year, gtco2) %>%
     left_join(impren_r10_interp_scaled %>% distinct(r10, model, case, aggregate),
               relationship = "many-to-many"),
@@ -206,12 +202,14 @@ rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>%
   group_by(model, case, aggregate, r10) %>% 
   summarise(path_scaled = sum(path_scaled),
             path = sum(path)) %>% 
-  mutate(percentage = path_scaled / path - 1) %>% 
+  mutate(percentage = path_scaled / path - 1,
+         r10 = factor(r10, levels = r10order$r10)) %>% 
   ggplot(aes(r10, percentage)) +
   geom_col(position = "dodge") +
   facet_wrap(~case, ncol = 4) +
   scale_y_continuous(labels = scales::percent_format()) +
   theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(x = NULL, y = "Percentage difference in cumulative GtCO2-FFI",
        subtitle = "Percentage difference in regional (R10) cumulative CO2-FFI emissions 2023-2100 after harmonising to historical data and converging to modelled paths in 2030")
 
@@ -230,10 +228,6 @@ ndclts_temp <- read_csv(here("data", "pathways", "egr_paths", "r10", "2023_emiss
         grepl(scenario, pattern = "KyotoFromPrice_incrate2") &
         !grepl(scenario, pattern = "nz_all_GHG") &
         !grepl(scenario, pattern = "cert_allconf_0.1") ~ "A",
-      model == "Current_policies" & 
-        grepl(scenario, pattern = "KyotoFromPrice_incrate3") &
-        grepl(scenario, pattern = "nz_all_GHG") &
-        grepl(scenario, pattern = "cert_allconf_0.1") ~ "C",
       model == "NDC_case_-_conditional" & 
         grepl(scenario, pattern = "KyotoFromPrice_incrate3") &
         grepl(scenario, pattern = "nz_all_GHG") &
@@ -246,7 +240,7 @@ ndclts_temp <- read_csv(here("data", "pathways", "egr_paths", "r10", "2023_emiss
   arrange(model, case, aggregate, quantile, year)  %>% 
   filter(year >= 1990) %>% 
   mutate(year = as.numeric(year)) %>% 
-  filter(model == "REMIND-MAgPIE")
+  filter(model == "MESSAGEix-GLOBIOM")
 
 # ADD IN IMP-REN PATHWAY -------------------------------------------------------
 
@@ -274,49 +268,60 @@ rbind(ndclts_temp, impren_temp) %>%
 
 # VISUALISE FOR SI -------------------------------------------------------------
 
-a <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>% 
+a <- rbind(ndclts_temp,impren_temp) %>% 
+  filter(quantile == 0.5) %>% 
+  pivot_wider(names_from = aggregate, values_from = gmt) %>% 
+  mutate(case = factor(case, levels = c("A", "E", "IMP-REN"),
+                       labels = c("CurPol", "CurPledge+allNZ", "IMP-REN"))) %>% 
+  ggplot(aes(year, fill = case)) +
+  geom_ribbon(aes(ymin = Min, ymax = Max), alpha = 0.5) +
+  geom_path(aes(y = Median, colour = case), linewidth = 1) +
+  scale_colour_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
+  scale_fill_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
+  theme_bw() +
+  labs(x = NULL, y = "Temperature (C)", colour = "Scenario", fill = "Scenario")
+
+b <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>% 
   select(r10, year, case, aggregate, path_scaled) %>% 
   pivot_wider(names_from = aggregate, values_from = path_scaled) %>% 
   mutate(case = case_when(
     case == "A" ~ "CurPol",
-    case == "C" ~ "CurPol+allNZ",
     case == "E" ~ "CurPledge+allNZ",
     TRUE ~ case),
-    case = factor(case, levels = c("CurPol", "CurPol+allNZ", "CurPledge+allNZ", "IMP-REN")),
+    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN")),
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   ggplot(aes(year, fill = case)) +
   geom_ribbon(aes(ymin = Min, ymax = Max), alpha = 0.5) +
   geom_path(aes(y = Median, colour = case), linewidth = 1) +
   geom_path(aes(y = Median), linewidth = 1, 
             data = . %>% filter(year < 2023), colour = "black") +
-  facet_wrap(~r10, ncol = 5) +
-  scale_colour_brewer(palette = "BrBG", direction = 1) +
-  scale_fill_brewer(palette = "BrBG", direction = 1) +
+  facet_wrap(~r10, ncol = 4) +
+  scale_colour_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
+  scale_fill_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
   theme_bw() +
   labs(x = NULL, y = "GtCO2-FFI", colour = "Scenario", fill = "Scenario")
 
-b <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>% 
+c <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>% 
   group_by(year, case, aggregate) %>% 
   summarise(path_scaled = sum(path_scaled)) %>% 
   select(year, case, aggregate, path_scaled) %>% 
   pivot_wider(names_from = aggregate, values_from = path_scaled) %>% 
   mutate(case = case_when(
     case == "A" ~ "CurPol",
-    case == "C" ~ "CurPol+allNZ",
     case == "E" ~ "CurPledge+allNZ",
     TRUE ~ case),
-    case = factor(case, levels = c("CurPol", "CurPol+allNZ", "CurPledge+allNZ", "IMP-REN"))) %>% 
+    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN"))) %>% 
   ggplot(aes(year, fill = case)) +
   geom_ribbon(aes(ymin = Min, ymax = Max), alpha = 0.5) +
   geom_path(aes(y = Median, colour = case), linewidth = 1) +
   geom_path(aes(y = Median), linewidth = 1, 
             data = . %>% filter(year < 2023), colour = "black") +
-  scale_colour_brewer(palette = "BrBG", direction = 1) +
-  scale_fill_brewer(palette = "BrBG", direction = 1) +
+  scale_colour_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
+  scale_fill_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
   theme_bw() +
   labs(x = NULL, y = "GtCO2-FFI", colour = "Scenario", fill = "Scenario")
   
-wrap_plots(wrap_plots(b), a, ncol = 1, heights = c(1,2)) + 
+wrap_plots(wrap_plots(a,c), b, ncol = 1, heights = c(1,2)) + 
   plot_layout(guides = "collect") & theme(legend.position = "top")
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_ndclts_paths_regional.png"),
