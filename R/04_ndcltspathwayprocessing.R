@@ -86,7 +86,7 @@ ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "kyoto_and_c
       Region == "R10REF_ECON" ~ "R10FSU",
       Region == "R10REST_ASIA" ~ "R10EASPAS"),
   ) %>% 
-  filter(model == "MESSAGEix-GLOBIOM") %>% 
+  filter(model == "REMIND-MAgPIE") %>% 
   select(model, case, r10, aggregate, matches("\\d{4}")) %>% 
   group_by(model, case, r10, aggregate) %>% 
   summarise(across(matches("\\d{4}"), ~sum(.))) %>% 
@@ -240,7 +240,7 @@ ndclts_temp <- read_csv(here("data", "pathways", "egr_paths", "r10", "2023_emiss
   arrange(model, case, aggregate, quantile, year)  %>% 
   filter(year >= 1990) %>% 
   mutate(year = as.numeric(year)) %>% 
-  filter(model == "MESSAGEix-GLOBIOM")
+  filter(model == "REMIND-MAgPIE")
 
 # ADD IN IMP-REN PATHWAY -------------------------------------------------------
 
