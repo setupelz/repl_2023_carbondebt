@@ -66,7 +66,17 @@ r10_ndclts_impren_rcbyear <- r10_ndclts_impren_emiss %>%
   left_join(r10_rcb19902020gtco2 %>% distinct(r10, category, ppp_pf)) %>% 
   left_join(r10_rcb19902020gtco2 %>% filter(year == 1990) %>% 
               select(r10, category, ppp_pf, rcb1990 = rcb)) %>% 
-  mutate(rcbyear = rcb1990 - gtco2_cmltv)
+  mutate(rcbyear = rcb1990 - gtco2_cmltv) %>% 
+  arrange(model, case, aggregate, category, ppp_pf, r10, year) %>% 
+  group_by(model, case, aggregate, category, ppp_pf, year) %>% 
+  mutate(exceedanceyear = ifelse(sum(-rcbyear) > 0, sum(-rcbyear), 0),
+         debtyear = ifelse(-rcbyear > 0, -rcbyear, 0)) %>% 
+  group_by(r10, model, case, aggregate, category, ppp_pf) %>% 
+  mutate(exceedancecmltv = cumsum(exceedanceyear),
+         debtcmltv = cumsum(debtyear)) %>% 
+  group_by(model, case, aggregate, category, ppp_pf, year) %>% 
+  mutate(exceedanceshareyear = debtyear / sum(debtyear),
+         exceedancesharecmltv = debtcmltv / sum(debtcmltv))
 
 # Determine regional net-zero carbon debt associated with assessed paths
 r10_ndclts_impren_debt <- r10_ndclts_impren_emiss %>%
@@ -102,80 +112,21 @@ r10_exp_heatwave_emf_temp_debt <- left_join(r10_exp_heatwave_emf,
 
 # FIGURE 2 ---------------------------------------------------------------------
 
-a <- r10_ndclts_impren_debt %>% 
+a <- r10_ndclts_impren_rcbyear %>% 
+  ungroup() %>% 
   filter(category == "1_PP1990", case != "IMP-REN") %>% 
-  distinct(case, aggregate, exceedance, totaldebt, totaloffset) %>% 
-  mutate(totaldebt = -totaldebt, totaloffset = -totaloffset,
-         case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
-                       labels = c("Current policies", "Current policies and\nnet-zero targets",
-                                  "All pledges and\nnet-zero targets", "IMP-REN"))) %>% 
-  rename(`NZ carbon debt` = totaldebt,
-         `NZ carbon credit` = totaloffset) %>% 
-  pivot_longer(-c(case, aggregate)) %>% 
-  pivot_wider(names_from = aggregate, values_from = value) %>% 
-  ggplot() +
-  geom_col(aes(x = fct_rev(case), y = Median, fill = fct_rev(name)), position = "stack", width = 0.3,
-           data = . %>% filter(name != "exceedance"), alpha = 0.5, show.legend = F) +
-  geom_errorbar(aes(x = case, ymin = Min, ymax = Max, colour = fct_rev(name)), width = 0.2, linewidth = 0.8,
-                data = . %>% filter(name != "exceedance"),  show.legend = F) +
-  geom_point(aes(x = case, y = Median, shape = "Total 1.5C RCB exceedance"), size = 3,
-             data = . %>% filter(name == "exceedance")) +
-  geom_errorbar(aes(x = case, ymin = Min, ymax = Max), width = 0.1, linewidth = 0.8,
-                data = . %>% filter(name == "exceedance")) + 
-  geom_hline(yintercept = 0, linetype = 2, colour = "red") +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
-  scale_fill_manual(values = c("maroon", "lightgrey")) +
-  scale_colour_manual(values = c("maroon", "lightgrey")) +
-  theme_bw() + 
-  labs(x = NULL, y = "Total net-zero carbon debt (GtCO2-FFI)", fill = NULL,
-       shape = NULL) +
-  guides(shape = guide_legend(label.theme = element_text(size = 15))) +
-  theme_bw() +
-  theme(legend.position = "top", legend.box = "vertical", legend.direction = "vertical", legend.margin = unit(x = 0.5, units = "mm"),
-        legend.justification = "left", legend.box.just = "left")
-
-b <- r10_ndclts_impren_debt %>% 
-  mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
-         debt = -rcb2100) %>% 
-  filter(category == "1_PP1990", case != "IMP-REN") %>% 
-  distinct(case, aggregate, category, r10, debt, drawdown_resp) %>% 
-  mutate(
-    case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
-                  labels = c("Current policies", "Current policies and\nnet-zero targets",
-                             "All pledges and\nnet-zero targets", "IMP-REN"))) %>% 
-  pivot_wider(names_from = aggregate, values_from = c(debt, drawdown_resp)) %>% 
-  group_by(case, category) %>% 
-  ggplot(aes(x = fct_rev(case), fill = r10, colour = r10)) +
-  geom_col(aes(y = debt_Median), position = position_dodge(width = 0.7), alpha = 0.5, width = 0.7) +
-  geom_errorbar(aes(y = debt_Median, ymin = debt_Min, ymax = debt_Max), position = position_dodge(width = 0.7), width = 0.5) +
-  geom_text(aes(y = ifelse(debt_Median < 0, ifelse(case == "IMP-REN", debt_Median, debt_Min), ifelse(case == "IMP-REN", debt_Median, debt_Max)), hjust = ifelse(debt_Median < 0, 1.1, -0.1), label = r10), 
-            position = position_dodge(width = 0.7), size = 3, angle = 90) +
-  geom_errorbar(aes(y = drawdown_resp_Median, ymin = drawdown_resp_Min, ymax = drawdown_resp_Max), position = position_dodge(width = 0.7), 
-                colour = "black", width = 0.2) +
-  geom_point(aes(y = drawdown_resp_Median, shape = "Regional 1.5C RCB exceedance responsibility"), position = position_dodge(width = 0.7), 
-                colour = "black") +
-  geom_hline(yintercept = 0, linetype = 2, colour = "red") +
-  scale_fill_discrete_qualitative(palette = "Harmonic") +
-  scale_colour_discrete_qualitative(palette = "Harmonic") +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
-  labs(x = NULL, y = "Regional net-zero carbon debt (GtCO2-FFI)", shape = NULL) +
-  guides(fill = "none", colour = "none", 
-         shape = guide_legend(label.theme = element_text(size = 15), override.aes = aes(size = 3.1))) +
-  theme_bw() +
-  theme(legend.position = "top", legend.box = "vertical", legend.direction = "vertical", legend.margin = unit(x = 0.5, units = "mm"),
-        legend.justification = "left", legend.box.just = "left")
-
-c <- r10_ndclts_impren_rcbyear %>% 
-  filter(category == "1_PP1990", case != "IMP-REN", aggregate == "Median") %>% 
+  select(r10, case, aggregate, year, rcbyear) %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
     case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
                   labels = c("Current policies", "Current policies and net-zero targets",
-                             "All pledges and net-zero targets", "IMP-REN"))) %>% 
-  ggplot(aes(x = year, y = rcbyear, colour = r10)) +
+                             "All pledges and net-zero targets", "IMP-REN")),
+    hjust = as.numeric(r10) / 8) %>% 
+  pivot_wider(names_from = aggregate, values_from = rcbyear) %>% 
+  ggplot(aes(x = year)) +
   geom_hline(yintercept = 0, linetype = 2) +
-  geom_textpath(aes(label = r10), hjust = "auto",
-                alpha = 0.8) +
+  geom_ribbon(aes(fill = r10, ymin = Min, ymax = Max), alpha = 0.3) +
+  geom_textpath(aes(colour = r10, y = Median, label = r10, hjust = hjust), alpha = 1, size = 3) +
   geom_text(x = 2100, y = -30, aes(label = ifelse(case == "Current policies", "Debt", "")), 
             alpha = 1, hjust = 1, colour = "darkgrey", size = 3,
             data = . %>% distinct(case)) +
@@ -183,8 +134,39 @@ c <- r10_ndclts_impren_rcbyear %>%
             alpha = 1, hjust = 1, colour = "darkgrey", size = 3,
             data = . %>% distinct(case)) +
   scale_x_continuous(breaks = c(1990, seq(2000,2100,20))) +
-  scale_colour_discrete_qualitative(palette = "Harmonic") +
-  facet_wrap(~fct_rev(case)) +
+  scale_y_continuous(position = "right") +
+  scale_colour_discrete_qualitative() +
+  scale_fill_discrete_qualitative() +
+  facet_wrap(~fct_rev(case), ncol = 1, strip.position = "left") +
+  theme_bw() +
+  theme(legend.position = "top",
+        strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
+        strip.text.x = element_text(size = 12),
+        # Change y axis ticks to right side
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13), panel.grid = element_blank()) +
+  guides(colour = "none", fill = "none") +
+  labs(x = NULL, y = NULL,
+       subtitle = "Remaining budget (GtCO2)")
+
+b <- r10_ndclts_impren_rcbyear %>% 
+  filter(category == "1_PP1990", case != "IMP-REN", r10 == "R10NAM") %>% 
+  select(r10, case, aggregate, year, exceedanceyear) %>% 
+  mutate(
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
+    case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
+                  labels = c("Current policies", "Current policies and net-zero targets",
+                             "All pledges and net-zero targets", "IMP-REN"))) %>% 
+  pivot_wider(names_from = aggregate, values_from = exceedanceyear) %>% 
+  ggplot(aes(x = year)) +
+  geom_ribbon(aes(ymin = Min, ymax = Max), fill = "black", alpha = 0.3) +
+  geom_path(aes(y = Median), colour = "black") +
+  facet_wrap(~fct_rev(case), scales = "free", ncol = 1)  +
+  scale_x_continuous(breaks = c(1990, seq(2000,2100,20))) +
+  scale_y_continuous(position = "right") +
+  scale_fill_discrete_qualitative() +
+  facet_wrap(~fct_rev(case), ncol = 1, strip.position = "left") +
   theme_bw() +
   theme(legend.position = "top",
         strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
@@ -192,21 +174,157 @@ c <- r10_ndclts_impren_rcbyear %>%
         axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
         axis.text = element_text(size = 12),
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
-  guides(colour = "none") +
-  labs(x = NULL, 
-       y = "Remaining carbon budget allocation (GtCO2)")
+  guides(fill = "none") +
+  labs(x = NULL, y = NULL,
+       subtitle = "Global exceedance (GtCO2)")
 
-wrap_plots(wrap_plots(a,b, ncol = 2, widths = c(0.85,1)), c, ncol = 1, heights = c(1, 0.7)) + 
-  plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
-                  caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, MEA: Middle East\nEAS: Eastern Asia, LAC: Latin America and Caribbean, SAP: South-East Asia and developing Pacific, AFR: Africa, SAS: Southern Asia") & 
-  theme(legend.position = "top", legend.justification = "left",
-        axis.text.y = element_text(size = 13),
-        axis.title.y = element_text(size = 14),
-        axis.text.x = element_text(size = 10),
-        panel.grid = element_blank())
+c <- r10_ndclts_impren_rcbyear %>% 
+  ungroup() %>% 
+  filter(category == "1_PP1990", case != "IMP-REN") %>% 
+  mutate(
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
+    case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
+                  labels = c("Current policies", "Current policies and net-zero targets",
+                             "All pledges and net-zero targets", "IMP-REN")),
+    hjust = as.numeric(r10) / 8,
+    exceedanceshareyear = exceedanceshareyear * exceedanceyear) %>% 
+  select(r10, case, aggregate, year, exceedanceshareyear, hjust) %>% 
+  group_by(case, year, aggregate) %>%
+  mutate(exceedanceshareyear = exceedanceshareyear / sum(exceedanceshareyear)) %>% 
+  pivot_wider(names_from = aggregate, values_from = exceedanceshareyear) %>% 
+  ggplot(aes(x = year)) +
+  geom_ribbon(aes(fill = r10, ymin = Min, ymax = Max), alpha = 0.3) +
+  geom_textpath(aes(colour = r10, y = Median, label = r10, hjust = hjust), alpha = 1, size = 3) +
+  scale_x_continuous(breaks = c(1990, seq(2000,2100,20))) +
+  scale_y_continuous(labels = scales::percent_format(), limits = c(0,0.6), 
+                     position = "right") +
+  scale_colour_discrete_qualitative() +
+  facet_wrap(~fct_rev(case), ncol = 1, strip.position = "left") +
+  theme_bw() +
+  theme(legend.position = "top",
+        strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
+        strip.text.x = element_text(size = 12),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13), panel.grid = element_blank()) +
+  guides(fill = "none", colour = "none") +
+  labs(x = NULL, y = NULL,
+       subtitle = "Exceedance responsibility (% of GtCO2)")
+
+d <- r10_ndclts_impren_rcbyear %>% 
+  ungroup() %>% 
+  filter(category == "1_PP1990", case != "IMP-REN") %>% 
+  mutate(
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
+    case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
+                  labels = c("Current policies", "Current policies and net-zero targets",
+                             "All pledges and net-zero targets", "IMP-REN")),
+    hjust = as.numeric(r10) / 8,
+    exceedancesharecmltv = exceedancesharecmltv * exceedancecmltv) %>% 
+  select(r10, case, aggregate, year, exceedancesharecmltv, hjust) %>% 
+  group_by(case, year, aggregate) %>%
+  mutate(exceedancesharecmltv = exceedancesharecmltv / sum(exceedancesharecmltv)) %>% 
+  pivot_wider(names_from = aggregate, values_from = exceedancesharecmltv) %>% 
+  ggplot(aes(x = year)) +
+  geom_ribbon(aes(fill = r10, ymin = Min, ymax = Max), alpha = 0.3) +
+  geom_textpath(aes(colour = r10, y = Median, label = r10, hjust = hjust), alpha = 1, size = 3) +
+  scale_x_continuous(breaks = c(1990, seq(2000,2100,20))) +
+  scale_y_continuous(labels = scales::percent_format(), limits = c(0,0.6),
+                     position = "right") +
+  scale_colour_discrete_qualitative() +
+  facet_wrap(~fct_rev(case), ncol = 1, strip.position = "left") +
+  theme_bw() +
+  theme(legend.position = "top",
+        strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
+        strip.text.x = element_text(size = 12),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13), panel.grid = element_blank()) +
+  guides(fill = "none", colour = "none") +
+  labs(x = NULL, y = NULL,
+       subtitle = "Cumulative responsibility (% of GtCO2 x Yrs)")
+
+wrap_plots(a,b,c,d, ncol = 4) 
 
 ggsave(here("Manuscript", "Figures", "fig2.png"),
-       height = 13, width = 13)
+       height = 6, width = 14)
+
+# SI 
+
+a <- r10_ndclts_impren_rcbyear %>% 
+  ungroup() %>% 
+  filter(case != "IMP-REN") %>% 
+  mutate(
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
+    case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
+                  labels = c("Current policies", "Current policies and net-zero targets",
+                             "All pledges and net-zero targets", "IMP-REN")),
+    hjust = as.numeric(r10) / 8,
+    exceedanceshareyear = exceedanceshareyear * exceedanceyear, 
+    ppp_pf = ifelse(is.na(ppp_pf), "", ppp_pf)) %>% 
+  filter(ppp_pf %in% c("", "PPP_1/sqrt(x)")) %>% 
+  select(r10, case, aggregate, year, exceedanceshareyear, category, ppp_pf, hjust) %>% 
+  group_by(case, year, aggregate, category, ppp_pf) %>%
+  mutate(exceedanceshareyear = exceedanceshareyear / sum(exceedanceshareyear)) %>% 
+  pivot_wider(names_from = aggregate, values_from = exceedanceshareyear) %>% 
+  ggplot(aes(x = year, group = interaction(category, ppp_pf))) +
+  geom_ribbon(aes(fill = interaction(category, ppp_pf), ymin = Min, ymax = Max), alpha = 0.6) +
+  geom_path(aes(colour = interaction(category, ppp_pf), y = Median, label = r10, hjust = hjust), alpha = 1) +
+  scale_x_continuous(breaks = c(1990, seq(2000,2100,20))) +
+  scale_y_continuous(labels = scales::percent_format(), position = "left") +
+  scale_colour_discrete_qualitative() +
+  facet_grid(fct_rev(case) ~ r10) +
+  theme_bw() +
+  theme(legend.position = "top",
+        strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
+        strip.text.x = element_text(size = 12),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13), panel.grid = element_blank()) +
+  guides(fill = "none") +
+  labs(x = NULL, y = NULL,
+       title = "Regional exceedance responsibility (% of GtCO2)",
+       colour = "Allocation approach")
+
+b <- r10_ndclts_impren_rcbyear %>% 
+  ungroup() %>% 
+  filter(case != "IMP-REN") %>% 
+  mutate(
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
+    case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
+                  labels = c("Current policies", "Current policies and net-zero targets",
+                             "All pledges and net-zero targets", "IMP-REN")),
+    hjust = as.numeric(r10) / 8,
+    exceedancesharecmltv = exceedancesharecmltv * exceedancecmltv,
+    ppp_pf = ifelse(is.na(ppp_pf), "", ppp_pf)) %>% 
+  filter(ppp_pf %in% c("", "PPP_1/sqrt(x)")) %>% 
+  select(r10, case, aggregate, year, exceedancesharecmltv, category, ppp_pf, hjust) %>% 
+  group_by(case, year, aggregate, category, ppp_pf) %>%
+  mutate(exceedancesharecmltv = exceedancesharecmltv / sum(exceedancesharecmltv)) %>% 
+  pivot_wider(names_from = aggregate, values_from = exceedancesharecmltv) %>% 
+  ggplot(aes(x = year, group = interaction(category, ppp_pf))) +
+  geom_ribbon(aes(fill = interaction(category, ppp_pf), ymin = Min, ymax = Max), alpha = 0.6) +
+  geom_path(aes(colour = interaction(category, ppp_pf), y = Median, label = r10, hjust = hjust), alpha = 1) +
+  scale_x_continuous(breaks = c(1990, seq(2000,2100,20))) +
+  scale_y_continuous(labels = scales::percent_format(), position = "left") +
+  scale_colour_discrete_qualitative() +
+  facet_grid(fct_rev(case) ~ r10) +
+  theme_bw() +
+  theme(legend.position = "top",
+        strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
+        strip.text.x = element_text(size = 12),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13), panel.grid = element_blank()) +
+  guides(fill = "none") +
+  labs(x = NULL, y = NULL,
+       title = "Regional cumulative exceedance responsibility (% of GtCO2 x Yrs)",
+       colour = "Allocation approach")
+
+wrap_plots(a,b, ncol = 1) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+
+ggsave(here("Manuscript", "Figures", "SI", "SI_fig2.png"),
+       height = 8, width = 14)
 
 # FIGURE 3 ---------------------------------------------------------------------
 
@@ -235,11 +353,11 @@ r10_exp_heatwave_emf_temp_debt %>%
   scale_x_continuous(labels = scales::dollar_format(prefix = "", suffix = "x"),
                      breaks = seq(1,9,1)) +
   scale_y_continuous(labels = scales::dollar_format(prefix = "", suffix = "x"),
-                     breaks = seq(1,10,1), limits = c(0.5,10)) +  
+                     breaks = seq(1,10,1), limits = c(0.5,10), position = "left") +  
   scale_size_continuous(range = c(1,15)) +
-  facet_wrap(~fct_rev(case)) +
+  facet_wrap(~fct_rev(case), strip.position = "right", scales = "free_y") +
   theme_bw() +
-  theme(legend.position = "top",
+  theme(legend.position = "bottom",
         strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
         strip.text.x = element_text(size = 12),
         axis.text = element_text(size = 12),

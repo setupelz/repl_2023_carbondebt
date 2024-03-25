@@ -111,17 +111,16 @@ exp_heatwave_r10_emf_impren <- left_join(exp_heatwave_r10, exp_heatwave_r10_impr
   summarise(emf_impren_0.5 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.5),
             emf_impren_0.33 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.33),
             emf_impren_0.66 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.66)) %>% 
-  filter(case %in% c("A", "C", "E"))
+  filter(case %in% c("A", "E"))
 
 # Save temperature response quantile panels for SI
 exp_heatwave_r10_emf_impren %>% 
   mutate(
     case = case_when(
       case == "A" ~ "CurPol",
-      case == "C" ~ "CurPol+allNZ",
       case == "E" ~ "CurPledge+allNZ",
       TRUE ~ case),
-    case = factor(case, levels = c("CurPol", "CurPol+allNZ", "CurPledge+allNZ", "IMP-REN"))) %>% 
+    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN"))) %>% 
   filter(birth_year == 2020, quantile %in% c(0.33, 0.5, 0.66)) %>% 
   ggplot() +
   geom_hline(yintercept = 1, linetype = 2, colour = "red") +
