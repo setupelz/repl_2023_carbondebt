@@ -131,11 +131,12 @@ exp_heatwave_r10_emf_impren %>%
                 position = position_dodge(width = 0.7), width = 0.05) +
   scale_y_continuous(labels = scales::dollar_format(prefix = "", suffix = "x")) +
   scale_colour_brewer(palette = "Set2", direction = -1) +
-  facet_wrap(~quantile, ncol = 1) +
+  facet_wrap(~quantile, ncol = 3) +
   theme_bw() +
   labs(x = NULL, y = "EMF relative to illustrative 1.5C Scenario (AR6 IMP-REN)",
        colour = NULL) +
-  theme(legend.position = "top")
+  theme(legend.position = "top",
+        axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp_quantile.png"),
        height = 10, width = 4)
