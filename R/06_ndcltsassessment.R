@@ -288,7 +288,7 @@ a <- r10_exp_heatwave_emf_temp_debt %>%
   scale_y_continuous(labels = scales::dollar_format(prefix = "", suffix = "x"),
                      breaks = seq(1,10,1), limits = c(0.5,10), position = "left") +  
   scale_size_continuous(range = c(1,15)) +
-  facet_wrap(aggregate~fct_rev(case), strip.position = "right", scales = "free_y", ncol = 2) +
+  facet_wrap(~fct_rev(case), strip.position = "right", scales = "free_y", ncol = 2) +
   theme_bw() +
   theme(legend.position = "top",
         strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
@@ -297,43 +297,41 @@ a <- r10_exp_heatwave_emf_temp_debt %>%
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   guides(colour = "none",
          size = guide_legend(nrow = 1)) +
-  labs(y = "Regional cmltv. CO2-FFI as multiple of allocation", 
+  labs(y = "Cmltv. CO2-FFI as multiple of allocation", 
        size = "Required regional average annual exceedance drawdown (tCO2/capita/yr, 2050-2100)",
        x = "Increase in 2020 birth cohort lifetime heatwave exposure relative to illustrative 1.5C pathway (IMP-REN, AR6)",
        caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, MEA: Middle East\nEAS: Eastern Asia, LAC: Latin America and Caribbean, SAP: South-East Asia and developing Pacific, AFR: Africa, SAS: Southern Asia")
 
-r10_ndclts_impren_rcbyear %>% 
+b <- r10_exp_heatwave_emf_temp_debt %>%
+      filter(birth_year %in% c(1990, 2000, 2010, 2020), case != "IMP-REN", category == "1_PP1990", aggregate == "Median") %>%
+  left_join(r10_ndclts_impren_rcbyear %>% 
+              ungroup() %>% 
+              filter(year %in% c(1990, 2000, 2010, 2020), case != "IMP-REN", category == "1_PP1990", aggregate == "Median") %>% 
+              select(case, aggregate, r10, birth_year = year, rcbyear)) %>% 
+  mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
+         case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
+                       labels = c("Current policies", "Current policies and all net-zero targets",
+                                  "All pledges and net-zero targets", "IMP-REN"))) %>% 
   ungroup() %>% 
-  filter(category == "1_PP1990", case != "IMP-REN", year == 2100) %>% 
-  mutate(
-    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
-    case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
-                  labels = c("Current policies", "Current policies and net-zero targets",
-                             "All pledges and net-zero targets", "IMP-REN")),
-    hjust = as.numeric(r10) / 8,
-    exceedance_cap_2100 = exceedanceyear * exceedanceshareyear * 1e9 / pop_cmltv) %>% 
-  select(r10, case, aggregate, year, exceedance_cap_2100, hjust) %>% 
-  pivot_wider(names_from = aggregate, values_from = exceedance_cap_2100) %>% 
-  full_join(
-    r10_exp_heatwave_emf_temp_debt %>%
-      filter(birth_year %in% c(2020), case != "IMP-REN", category == "1_PP1990",
-             aggregate == "Median") %>%
-      mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
-             case = factor(case, levels = c("A", "C", "E", "IMP-REN"),
-                           labels = c("Current policies", "Current policies and all net-zero targets",
-                                      "All pledges and net-zero targets", "IMP-REN"))) %>% 
-      ungroup() %>% 
-      mutate(drawdown_resp_cap = drawdown_resp * 1e9 / pop_cmltv_rem_2050,
-             debt_ratio = rcb2100 / rcb1990)
-  ) %>% 
-  group_by(case) %>% 
-  mutate(drawdown_rel = drawdown_resp / sum(drawdown_resp),
-         across(matches("add_impren"), ~ sum(.) * drawdown_rel, .names = "{.col}_rel")) %>% 
-  ggplot(aes(x = r10)) +
-  geom_point(aes(y = add_impren_0.5_rel / (add_impren_0.5))) +
-  facet_wrap(aggregate~fct_rev(case), strip.position = "right", ncol = 2)
+  mutate(drawdown_resp_cap = drawdown_resp * 1e9 / pop_cmltv_rem_2050,
+         debt_ratio = rcb2100 / rcb1990) %>% 
+  ggplot(aes(x = add_impren_0.5, y = rcbyear)) +
+  geom_hline(yintercept = 0, linetype = 2, colour = "red", linewidth = .1) +
+  geom_errorbar(aes(xmin = add_impren_0.33, xmax = add_impren_0.66), alpha = 0.6) +
+  geom_point(aes(shape = factor(birth_year))) +
+  facet_grid(fct_rev(case)~r10) +
+  labs(y = "Regional remaining carbon budget in year of birth",
+       x = "Lifetime additional years with extreme heatwave exposure beyond illustrative 1.5C pathway (IMP-REN, AR6)",
+       shape = "Cohort birth year") +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        strip.background = element_blank(), strip.placement = "inside", strip.text = element_text(hjust = 0),
+        strip.text.x = element_text(size = 12),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13), panel.grid = element_blank()) +
+  guides(shape = guide_legend(nrow = 1))
+
+wrap_plots(a,b, ncol = 1)
 
 ggsave(here("Manuscript", "Figures", "fig3.png"),
-       height = 6, width = 10)
-
-
+       height = 12, width = 10)
