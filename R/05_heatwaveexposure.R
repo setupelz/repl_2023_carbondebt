@@ -11,7 +11,7 @@ library(pacman)
 
 # processing
 p_load(dplyr, tidyr, readr, readxl, writexl, purrr, ggplot2, forcats, stringr, 
-       patchwork, ggrepel, geomtextpath, colorspace)
+       patchwork, ggrepel, geomtextpath, colorspace, Hmisc)
 
 # misc
 p_load(here, countrycode, zoo)
@@ -32,12 +32,12 @@ iso3c_tbl_analysis <- read_csv(here("Data", "countrygroups", "iso3c_region_mappi
 write_csv(iso3c_tbl_analysis, here("data", "processed", "iso3c_tbl_analysis.csv"))
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("NAM", "EUR", "PAO", "FSU", "MEA", "EAS", "LAM", "PAS", "AFR", "SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "MEA", "EAS", "LAC", "SAP", "AFR", "SAS"),
+r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                                    "Eastern Europe and West-Central Asia", "Middle East", "Eastern Asia",
-                                    "Latin America and Caribbean", "South-East Asia and developing Pacific",
-                                    "Africa", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia", "Africa & Middle East", 
+                                    "Eastern & South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", "Southern Asia"))
 
 # LOAD UNPROCESSED HEATWAVE EXPOSURE DATA --------------------------------------
 
@@ -83,63 +83,125 @@ exp_heatwave <- left_join(exp_heatwave, cohort_pop) %>%
 exp_heatwave_r10 <- exp_heatwave %>%
   left_join(iso3c_tbl_analysis %>% select(iso3c, r10)) %>% 
   separate_wider_delim(GMT, delim = "_", names = c("case", "case2", "aggregate", "quantile")) %>% 
-  filter(aggregate == "Median") %>% 
+  filter(case %in% c("A", "E", "IMP-REN")) %>% 
   group_by(birth_year, r10, case, aggregate, quantile, gcm, run) %>%
-  summarise(lifetime_exposure = weighted.mean(lifetime_exposure, weights = cohort_size))
+  summarise(lifetime_exposure = wtd.mean(lifetime_exposure, weights = cohort_size, na.rm = T))
 
 exp_heatwave_r10_impren <- exp_heatwave_r10 %>% 
   filter(case == "IMP-REN") %>% 
   ungroup() %>% 
-  pivot_wider(names_from = case, values_from = lifetime_exposure) %>% 
-  rename(lifetime_exposure_impren = `IMP-REN`) %>% 
-  select(birth_year, r10, quantile, gcm, run, lifetime_exposure_impren)
+  rename(lifetime_exposure_impren = lifetime_exposure) %>% 
+  select(-case, -aggregate)
 
 # Check distribution of EMFs
 left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
-  filter(birth_year == 2020, quantile %in% c(0.33, 0.5, 0.66)) %>% 
-  ggplot(aes(x = r10, y = lifetime_exposure / lifetime_exposure_impren,
-             colour = case)) +
-  geom_boxplot() +
-  facet_wrap(~quantile, ncol = 1)
-
-# Determine EMFs relative to IMP-REN
-exp_heatwave_r10_emf_impren <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
-  na.omit() %>% 
-  ungroup() %>%
-  mutate(quantile = as.numeric(quantile)) %>% 
-  group_by(birth_year, r10, case, quantile) %>% 
-  summarise(emf_impren_0.5 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.5),
-            emf_impren_0.33 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.33),
-            emf_impren_0.66 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.66)) %>% 
-  filter(case %in% c("A", "E"))
-
-# Save temperature response quantile panels for SI
-exp_heatwave_r10_emf_impren %>% 
+  filter(birth_year == 2020, aggregate == "Median") %>% 
+  group_by(birth_year, r10, case, aggregate, quantile) %>% 
+  summarise(lifetime_exposure_mean = mean(lifetime_exposure),
+            lifetime_exposure_sd = sd(lifetime_exposure)) %>% 
   mutate(
     case = case_when(
       case == "A" ~ "CurPol",
       case == "E" ~ "CurPledge+allNZ",
       TRUE ~ case),
-    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN"))) %>% 
-  filter(birth_year == 2020, quantile %in% c(0.33, 0.5, 0.66)) %>% 
+    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN")),
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
+  ggplot(aes(x = quantile, group = case)) +
+  geom_ribbon(aes(ymin = lifetime_exposure_mean - lifetime_exposure_sd,
+                  ymax = lifetime_exposure_mean + lifetime_exposure_sd,
+                  fill = case), alpha = 0.2) +
+  geom_line(aes(y = lifetime_exposure_mean, colour = case)) +
+  facet_wrap(~r10, ncol = 4) +
+  theme_bw() +
+  theme(legend.position = "top") +
+  labs(x = "Temperature response quantile",
+       y = "Lifetime exposure (years with extreme heatwaves)",
+       colour = NULL, fill = NULL)
+
+ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp_quantile.png"),
+       height = 6, width = 14)
+
+# Determine additional years of exposure relative to IMP-REN
+exp_heatwave_r10_emf_impren <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
+  na.omit() %>% 
+  ungroup() %>%
+  group_by(birth_year, r10, case, aggregate) %>% 
+  summarise(add_impren_0.5 = quantile(lifetime_exposure - lifetime_exposure_impren, probs = 0.5),
+            add_impren_0.33 = quantile(lifetime_exposure - lifetime_exposure_impren, probs = 0.33),
+            add_impren_0.66 = quantile(lifetime_exposure - lifetime_exposure_impren, probs = 0.66),
+            emf_impren_0.5 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.5),
+            emf_impren_0.33 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.33),
+            emf_impren_0.66 = quantile(lifetime_exposure / lifetime_exposure_impren, probs = 0.66),
+            lifetime_exposure_impren_0.5 = quantile(lifetime_exposure_impren, probs = 0.5),
+            lifetime_exposure_impren_0.33 = quantile(lifetime_exposure_impren, probs = 0.33),
+            lifetime_exposure_impren_0.66 = quantile(lifetime_exposure_impren, probs = 0.66)) %>%
+  filter(case %in% c("A", "E"))
+
+# Save temperature response quantile panels for SI
+a <- exp_heatwave_r10_emf_impren %>% 
+  mutate(
+    case = case_when(
+      case == "A" ~ "CurPol",
+      case == "E" ~ "CurPledge+allNZ",
+      TRUE ~ case),
+    case = factor(case, levels = c("CurPledge+allNZ", "CurPol"),
+                  labels = c("All pledges and net-zero targets", "Current policies")),
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
+  filter(birth_year == 2020, aggregate == "Median") %>% 
   ggplot() +
   geom_hline(yintercept = 1, linetype = 2, colour = "red") +
-  geom_point(aes(x = r10, y = emf_impren_0.5, colour = case),
-             position = position_dodge(width = 0.7)) +
-  geom_errorbar(aes(x = r10, ymin = emf_impren_0.33, 
-                    ymax = emf_impren_0.66, colour = case), 
-                position = position_dodge(width = 0.7), width = 0.05) +
-  scale_y_continuous(labels = scales::dollar_format(prefix = "", suffix = "x")) +
-  scale_colour_brewer(palette = "Set2", direction = -1) +
-  facet_wrap(~quantile, ncol = 3) +
+  geom_point(aes(x = lifetime_exposure_impren_0.5, y = add_impren_0.5, colour = r10)) +
+  geom_errorbar(aes(x = lifetime_exposure_impren_0.5, ymin = add_impren_0.33, 
+                    ymax = add_impren_0.66, colour = r10), width = 0,  alpha = 0.4) +
+  geom_errorbar(aes(y = add_impren_0.5, xmin = lifetime_exposure_impren_0.33,
+                    xmax = lifetime_exposure_impren_0.66 , colour = r10), width = 0, alpha = 0.4) +
+  scale_colour_discrete_qualitative() +
+  facet_wrap(~case, ncol = 3) +
   theme_bw() +
-  labs(x = NULL, y = "EMF relative to illustrative 1.5C Scenario (AR6 IMP-REN)",
+  labs(x = "Lifetime years with extreme heatwaves in IMP-REN, relative to pre-industrial control", 
+       y = "Additional years with extreme heatwaves in scenario, relative to IMP-REN",
        colour = NULL) +
   theme(legend.position = "top",
         axis.text.x = element_text(angle = 45, hjust = 1))
 
-ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp_quantile.png"),
-       height = 10, width = 4)
+b <- exp_heatwave_r10_emf_impren %>% 
+  mutate(
+    case = case_when(
+      case == "A" ~ "CurPol",
+      case == "E" ~ "CurPledge+allNZ",
+      TRUE ~ case),
+    case = factor(case, levels = c("CurPledge+allNZ", "CurPol"),
+                  labels = c("All pledges and net-zero targets", "Current policies")),
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
+  filter(birth_year == 2020, aggregate == "Median") %>% 
+  ggplot() +
+  geom_hline(yintercept = 1, linetype = 2, colour = "red") +
+  geom_point(aes(x = lifetime_exposure_impren_0.5, y = emf_impren_0.5, colour = r10)) +
+  geom_errorbar(aes(x = lifetime_exposure_impren_0.5, ymin = emf_impren_0.33, 
+                    ymax = emf_impren_0.66, colour = r10), width = 0,  alpha = 0.4) +
+  geom_errorbar(aes(y = emf_impren_0.5, xmin = lifetime_exposure_impren_0.33,
+                    xmax = lifetime_exposure_impren_0.66 , colour = r10), width = 0, alpha = 0.4) +
+  scale_colour_discrete_qualitative() +
+  facet_wrap(~case, ncol = 3) +
+  theme_bw() +
+  labs(x = "Lifetime years with extreme heatwaves in IMP-REN, relative to pre-industrial control", 
+       y = "Exposure multiplication factor, relative to IMP-REN",
+       colour = NULL) +
+  theme(legend.position = "top",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+wrap_plots(a,b, ncol = 1) + plot_layout(guides = "collect") & 
+  theme(legend.position = "top") & guides(colour = guide_legend(nrow = 1))
+
+ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp.png"),
+       height = 12, width = 10)
 
 # Write to file
+exp_heatwave_r10_emf_impren <- 
+  exp_heatwave_r10_emf_impren %>% 
+  left_join(cohort_pop %>% right_join(iso3c_tbl_analysis) %>% 
+              group_by(r10, birth_year) %>% 
+              summarise(cohort_size = sum(cohort_size, na.rm = T)))
+
 write_csv(exp_heatwave_r10_emf_impren, here("Data", "processed", "r10_exp_heatwave_emf.csv"))
+
