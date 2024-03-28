@@ -515,5 +515,5 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_r10_rcb19902020.png"),
 
 r10_rcb19902020 %>% 
   arrange(r10, category, ppp_pf, year) %>% 
-  select(r10, category, pf, ppp, ppp_pf, year, rcb) %>% 
+  select(r10, category, pf, ppp, ppp_pf, year, rcb, pop_yearto2050) %>% 
   write_csv(here("Data", "processed", "r10_rcb19902020.csv"))
