@@ -228,7 +228,7 @@ c <- r10_ndclts_impren_rcbyear %>%
   labs(x = NULL, y = NULL,
        subtitle = "Exceedance responsibility (% of GtCO2)")
 
-wrap_plots(a,b,c, ncol = 3) 
+wrap_plots(b,a,c, ncol = 3) 
 
 ggsave(here("Manuscript", "Figures", "fig2.png"),
        height = 6, width = 12)
