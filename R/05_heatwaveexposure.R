@@ -94,7 +94,7 @@ exp_heatwave_r10_impren <- exp_heatwave_r10 %>%
   select(-case, -aggregate)
 
 # Check distribution of EMFs
-left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
+a <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
   filter(birth_year == 2020, aggregate == "Median") %>% 
   group_by(birth_year, r10, case, aggregate, quantile) %>% 
   summarise(lifetime_exposure_mean = mean(lifetime_exposure),
@@ -111,6 +111,7 @@ left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>%
                   ymax = lifetime_exposure_mean + lifetime_exposure_sd,
                   fill = case), alpha = 0.2) +
   geom_line(aes(y = lifetime_exposure_mean, colour = case)) +
+  scale_colour_discrete_qualitative(drop = F) +
   facet_wrap(~r10, ncol = 4) +
   theme_bw() +
   theme(legend.position = "top") +
@@ -118,8 +119,34 @@ left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>%
        y = "Lifetime exposure (years with extreme heatwaves)",
        colour = NULL, fill = NULL)
 
+b <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
+  filter(birth_year == 2020, aggregate == "Median") %>% 
+  group_by(birth_year, r10, case, aggregate) %>% 
+  mutate(add = lifetime_exposure - lifetime_exposure_impren,
+         emf = lifetime_exposure / lifetime_exposure_impren) %>% 
+  mutate(
+    case = case_when(
+      case == "A" ~ "CurPol",
+      case == "E" ~ "CurPledge+allNZ",
+      TRUE ~ case),
+    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN")),
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
+  filter(case != "IMP-REN") %>% 
+  ggplot(aes(colour = case)) +
+  geom_point(aes(x = emf, y = add), alpha = 0.6, size = 3) +
+  scale_colour_discrete_qualitative(drop = F) +
+  facet_wrap(~r10, ncol = 4) +
+  guides(colour = "none") +
+  theme_bw() +
+  theme(legend.position = "top") +
+  labs(y = "Increase in years with extreme heatwave exposure relative to IMP-REN (Years)",
+       x = "Increase in extreme heatwave exposure relative to IMP-REN (Factor)",
+       colour = NULL, fill = NULL)
+
+wrap_plots(a,b, ncol = 1)
+
 ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp_quantile.png"),
-       height = 6, width = 14)
+       height = 12, width = 12)
 
 # Determine additional years of exposure relative to IMP-REN
 exp_heatwave_r10_emf_impren <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 

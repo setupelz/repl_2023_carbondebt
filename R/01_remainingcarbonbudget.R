@@ -480,7 +480,8 @@ r10_rcb19902020 %>%
        subtitle = "Remaining carbon budgets to 2050, at the beginning of each year") +
   guides(colour = guide_legend(order = 3),
          shape = guide_legend(order = 2),
-         linetype = guide_legend(order = 1))
+         linetype = guide_legend(order = 1)) +
+  plot_annotation(caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia")
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_r10_rcb19902020pc.png"),
        height = 8, width = 14)
@@ -506,7 +507,8 @@ r10_rcb19902020 %>%
        subtitle = "Remaining carbon budgets to 2050, at the beginning of each year") +
   guides(colour = guide_legend(order = 3),
          shape = guide_legend(order = 2),
-         linetype = guide_legend(order = 1))
+         linetype = guide_legend(order = 1)) +
+  plot_annotation(caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia")
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_r10_rcb19902020.png"),
        height = 8, width = 14)

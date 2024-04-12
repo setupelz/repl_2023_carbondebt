@@ -318,12 +318,12 @@ b <- r10_carbondebt_2100 %>%
   guides(colour = "none") +
 
   labs(y = "Average required per capita drawdown rate (tCO2/capita/yr, 2050-2100)",
-       x = "Responsibility for exceedance (%)")
+       x = "Responsibility for exceedance in scenario (%)")
 
 wrap_plots(a,b, ncol = 2, widths = c(0.8,1)) + 
   plot_layout(guides = "collect", tag_level = "new") & 
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
-                  caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, MEA: Middle East\nEAS: Eastern Asia, LAC: Latin America and Caribbean, SAP: South-East Asia and developing Pacific, AFR: Africa, SAS: Southern Asia") & 
+                  caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia") &
   theme(legend.position = "bottom",
         axis.text.x = element_text(size = 12),
         legend.text = element_text(size = 12),
@@ -377,7 +377,8 @@ fig1asi <- r10_carbondebt_2100 %>%
   guides(fill = guide_legend(nrow = 1)) +
   
   labs(y = NULL, x = "Regional net-zero carbon debt (GtCO2)", 
-       fill = "Regional net-zero CO2-FFI year bin") +
+       fill = "Regional net-zero CO2-FFI year bin",
+       caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia") +
   
   facet_grid(ppp_pf ~ category)
 
