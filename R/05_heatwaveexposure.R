@@ -217,7 +217,9 @@ b <- exp_heatwave_r10_emf_impren %>%
   theme(legend.position = "top",
         axis.text.x = element_text(angle = 45, hjust = 1))
 
-wrap_plots(a,b, ncol = 1) + plot_layout(guides = "collect") & 
+wrap_plots(a,b, ncol = 1) + plot_layout(guides = "collect") +
+  plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
+                  caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia") & 
   theme(legend.position = "top") & guides(colour = guide_legend(nrow = 1))
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp.png"),
