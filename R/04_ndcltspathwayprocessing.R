@@ -20,12 +20,13 @@ p_load(here, countrycode, zoo)
 options(scipen = 999)
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
+r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_ECON", "R10CHINA+", "R10MIDDLE_EAST", "R10REST_ASIA", "R10LATIN_AM", "R10AFRICA", "R10INDIA+"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EAS", "MEA", "PAS", "LAC", "AFR", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                                    "Eastern Europe and West-Central Asia", "Africa & Middle East", 
-                                    "Eastern & South-East Asia and developing Pacific",
-                                    "Latin America and Caribbean", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia",
+                                    "Eastern Asia", "North Africa and Middle East", "South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", 
+                                    "Sub-saharan Africa", "Southern Asia"))
 
 # Function to apply historical data scaling to each group, harmonising modelled
 # pathways to historical 2022 values, converging to modelled pathways in 2100
@@ -74,18 +75,7 @@ ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "kyoto_and_c
          Region != "World") %>% 
   arrange(model, case, Region, aggregate) %>% 
   mutate(
-    r10 = case_when(
-      Region == "R10AFRICA" ~ "R10AFRMEA",
-      Region == "R10PAC_OECD" ~ "R10PAO",
-      Region == "R10EUROPE" ~ "R10EUR",
-      Region == "R10INDIA+" ~ "R10SAS",
-      Region == "R10LATIN_AM" ~ "R10LAM",
-      Region == "R10MIDDLE_EAST" ~ "R10AFRMEA",
-      Region == "R10NORTH_AM" ~ "R10NAM",
-      Region == "R10CHINA+" ~ "R10EASPAS",
-      Region == "R10REF_ECON" ~ "R10FSU",
-      Region == "R10REST_ASIA" ~ "R10EASPAS"),
-  ) %>% 
+    r10 = Region) %>% 
   filter(model == "REMIND-MAgPIE") %>% 
   select(model, case, r10, aggregate, matches("\\d{4}")) %>% 
   group_by(model, case, r10, aggregate) %>% 
@@ -141,16 +131,16 @@ impren_r10 <- read_csv(here("Data", "pathways", "ar6_imp_rensp", "ar6_snapshot_1
     case = case_when(
       Scenario == "DeepElec_SSP2_ HighRE_Budg900" ~ "IMP-REN"),
     r10 = case_when(
-      r10 == "Countries of Sub-Saharan Africa" ~ "R10AFRMEA",
-      r10 == "Pacific OECD" ~ "R10PAO",
-      r10 == "Eastern and Western Europe (i.e., the EU28)" ~ "R10EUR",
-      r10 == "Countries of South Asia; primarily India" ~ "R10SAS",
-      r10 == "Countries of Latin America and the Caribbean" ~ "R10LAM",
-      r10 == "Countries of the Middle East; Iran, Iraq, Israel, Saudi Arabia, Qatar, etc." ~ "R10AFRMEA",
-      r10 == "North America; primarily the United States of America and Canada" ~ "R10NAM",
-      r10 == "Countries of centrally-planned Asia; primarily China" ~ "R10EASPAS",
-      r10 == "Reforming Economies of Eastern Europe and the Former Soviet Union; primarily Russia" ~ "R10FSU",
-      r10 == "Other countries of Asia" ~ "R10EASPAS"),
+      r10 == "Countries of Sub-Saharan Africa" ~ "R10AFRICA",
+      r10 == "Pacific OECD" ~ "R10PAC_OECD",
+      r10 == "Eastern and Western Europe (i.e., the EU28)" ~ "R10EUROPE",
+      r10 == "Countries of South Asia; primarily India" ~ "R10INDIA+",
+      r10 == "Countries of Latin America and the Caribbean" ~ "R10LATIN_AM",
+      r10 == "Countries of the Middle East; Iran, Iraq, Israel, Saudi Arabia, Qatar, etc." ~ "R10MIDDLE_EAST",
+      r10 == "North America; primarily the United States of America and Canada" ~ "R10NORTH_AM",
+      r10 == "Countries of centrally-planned Asia; primarily China" ~ "R10CHINA+",
+      r10 == "Reforming Economies of Eastern Europe and the Former Soviet Union; primarily Russia" ~ "R10REF_ECON",
+      r10 == "Other countries of Asia" ~ "R10REST_ASIA"),
     aggregate = "Median") %>% 
   select(model, case, r10, aggregate, matches("\\d{4}")) %>% 
   group_by(model, case, r10, aggregate) %>% 
@@ -203,7 +193,7 @@ rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>%
   summarise(path_scaled = sum(path_scaled),
             path = sum(path)) %>% 
   mutate(percentage = path_scaled / path - 1,
-         r10 = factor(r10, levels = r10order$r10)) %>% 
+         r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   ggplot(aes(r10, percentage)) +
   geom_col(position = "dodge") +
   facet_wrap(~case, ncol = 4) +
@@ -211,7 +201,9 @@ rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>%
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(x = NULL, y = "Percentage difference in cumulative GtCO2-FFI",
-       subtitle = "Percentage difference in regional (R10) cumulative CO2-FFI emissions 2023-2100 after harmonising to historical data and converging to modelled paths in 2030")
+       subtitle = "Percentage difference in regional (R10) cumulative CO2-FFI emissions 2023-2100 after harmonising to historical data and converging to modelled paths in 2030",
+       caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                        "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_ndclts_paths_harmonisation.png"),
        height = 4, width = 12)
@@ -269,12 +261,11 @@ rbind(ndclts_temp, impren_temp) %>%
 # VISUALISE FOR SI -------------------------------------------------------------
 
 a <- rbind(ndclts_temp,impren_temp) %>% 
-  filter(quantile == 0.5) %>% 
+  filter(quantile == 0.5, aggregate == "Median") %>% 
   pivot_wider(names_from = aggregate, values_from = gmt) %>% 
   mutate(case = factor(case, levels = c("A", "E", "IMP-REN"),
                        labels = c("CurPol", "CurPledge+allNZ", "IMP-REN"))) %>% 
   ggplot(aes(year, fill = case)) +
-  geom_ribbon(aes(ymin = Min, ymax = Max), alpha = 0.5) +
   geom_path(aes(y = Median, colour = case), linewidth = 1) +
   scale_colour_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
   scale_fill_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
@@ -291,11 +282,10 @@ b <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>%
     case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN")),
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   ggplot(aes(year, fill = case)) +
-  geom_ribbon(aes(ymin = Min, ymax = Max), alpha = 0.5) +
   geom_path(aes(y = Median, colour = case), linewidth = 1) +
   geom_path(aes(y = Median), linewidth = 1, 
             data = . %>% filter(year < 2023), colour = "black") +
-  facet_wrap(~r10, ncol = 4) +
+  facet_wrap(~r10, ncol = 5) +
   scale_colour_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
   scale_fill_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
   theme_bw() +
@@ -312,7 +302,6 @@ c <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>%
     TRUE ~ case),
     case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN"))) %>% 
   ggplot(aes(year, fill = case)) +
-  geom_ribbon(aes(ymin = Min, ymax = Max), alpha = 0.5) +
   geom_path(aes(y = Median, colour = case), linewidth = 1) +
   geom_path(aes(y = Median), linewidth = 1, 
             data = . %>% filter(year < 2023), colour = "black") +
@@ -322,7 +311,10 @@ c <- rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>%
   labs(x = NULL, y = "GtCO2-FFI", colour = "Scenario", fill = "Scenario")
   
 wrap_plots(wrap_plots(a,c), b, ncol = 1, heights = c(1,2)) + 
-  plot_layout(guides = "collect") & theme(legend.position = "top")
+  plot_layout(guides = "collect") + 
+  plot_annotation(caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                                 "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = "")) & 
+  theme(legend.position = "top")
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_ndclts_paths_regional.png"),
        height = 9, width = 10)

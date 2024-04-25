@@ -23,19 +23,20 @@ options(scipen = 999)
 
 # Determine country-years for analysis
 iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  mutate(r10 = ifelse(is.na(r10_iamc), NA_real_, r10_unif)) %>% 
+  mutate(r10 = r10_iamc) %>% 
   select(iso3c, r10) %>% 
   group_by(iso3c, r10) %>% 
   expand(year = 1850:2050) %>% 
   ungroup()
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
+r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_ECON", "R10CHINA+", "R10MIDDLE_EAST", "R10REST_ASIA", "R10LATIN_AM", "R10AFRICA", "R10INDIA+"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EAS", "MEA", "PAS", "LAC", "AFR", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                               "Eastern Europe and West-Central Asia", "Africa & Middle East", 
-                               "Eastern & South-East Asia and developing Pacific",
-                               "Latin America and Caribbean", "Southern Asia"))
+                               "Eastern Europe and West-Central Asia",
+                               "Eastern Asia", "North Africa and Middle East", "South-East Asia and developing Pacific",
+                               "Latin America and Caribbean", 
+                               "Sub-saharan Africa", "Southern Asia"))
 
 # Adjust labels to reflect those for publication
 iso3c_tbl <- iso3c_tbl %>% 
@@ -473,7 +474,7 @@ r10_rcb19902020 %>%
   scale_colour_brewer(type = "div", palette = "Spectral", drop = T) +
   scale_shape(drop = T) +
   scale_linetype(drop = T) +
-  facet_wrap(~r10, ncol = 4) +
+  facet_wrap(~r10, ncol = 5) +
   theme_bw() +
   labs(x = NULL, y = "tCO2 / capita / year", shape = "Adjusted allocations", 
        colour = "Adjustments", linetype = "Unadjusted allocations",
@@ -481,7 +482,7 @@ r10_rcb19902020 %>%
   guides(colour = guide_legend(order = 3),
          shape = guide_legend(order = 2),
          linetype = guide_legend(order = 1)) +
-  plot_annotation(caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia")
+  plot_annotation(caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_r10_rcb19902020pc.png"),
        height = 8, width = 14)
@@ -500,7 +501,7 @@ r10_rcb19902020 %>%
   scale_colour_brewer(type = "div", palette = "Spectral", drop = T) +
   scale_shape(drop = T) +
   scale_linetype(drop = T) +
-  facet_wrap(~r10, ncol = 4) +
+  facet_wrap(~r10, ncol = 5) +
   theme_bw() +
   labs(x = NULL, y = "GtCO2", shape = "Adjusted allocations", 
        colour = "Adjustments", linetype = "Unadjusted allocations",
@@ -508,7 +509,7 @@ r10_rcb19902020 %>%
   guides(colour = guide_legend(order = 3),
          shape = guide_legend(order = 2),
          linetype = guide_legend(order = 1)) +
-  plot_annotation(caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia")
+  plot_annotation(caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_r10_rcb19902020.png"),
        height = 8, width = 14)

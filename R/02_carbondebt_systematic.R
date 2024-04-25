@@ -23,19 +23,20 @@ options(scipen = 999)
 
 # Determine country-years for analysis
 iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  mutate(r10 = ifelse(is.na(r10_iamc), NA_real_, r10_unif)) %>% 
+  mutate(r10 = r10_iamc) %>% 
   select(iso3c, r10) %>% 
   group_by(iso3c, r10) %>% 
   expand(year = 1850:2050) %>% 
   ungroup()
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
+r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_ECON", "R10CHINA+", "R10MIDDLE_EAST", "R10REST_ASIA", "R10LATIN_AM", "R10AFRICA", "R10INDIA+"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EAS", "MEA", "PAS", "LAC", "AFR", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                                    "Eastern Europe and West-Central Asia", "Africa & Middle East", 
-                                    "Eastern & South-East Asia and developing Pacific",
-                                    "Latin America and Caribbean", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia",
+                                    "Eastern Asia", "North Africa and Middle East", "South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", 
+                                    "Sub-saharan Africa", "Southern Asia"))
 
 # Remaining carbon budgets from 1990 to 2020, aggregated to r10
 r10_rcb19902020gtco2 <- read_csv(here("Data", "processed", "r10_rcb19902020.csv")) %>% 
@@ -81,17 +82,7 @@ r10_ar6_co2ffi_processed <- r10_ar6_co2ffi %>%
   pivot_wider(names_from = Variable, values_from = value) %>% 
   ungroup() %>% 
   transmute(model = Model, scen = Scenario, 
-            r10 = case_when(
-              Region == "R10AFRICA" ~ "R10AFRMEA",
-              Region == "R10PAC_OECD" ~ "R10PAO",
-              Region == "R10EUROPE" ~ "R10EUR",
-              Region == "R10INDIA+" ~ "R10SAS",
-              Region == "R10LATIN_AM" ~ "R10LAM",
-              Region == "R10MIDDLE_EAST" ~ "R10AFRMEA",
-              Region == "R10NORTH_AM" ~ "R10NAM",
-              Region == "R10CHINA+" ~ "R10EASPAS",
-              Region == "R10REF_ECON" ~ "R10FSU",
-              Region == "R10REST_ASIA" ~ "R10EASPAS"),
+            r10 = Region,
             cat = Category, year = Year, gtco2 = mtco2 / 1e3, pop) %>% 
   group_by(model, scen, r10, cat, year) %>% 
   summarise(gtco2 = sum(gtco2))
@@ -169,7 +160,7 @@ r10_ar6_co2ffi_processed_scaled_cmltv <- r10_ar6_co2ffi_processed_scaled %>%
 # Only keep scenarios where all region-years are represented
 r10_ar6_co2ffi_processed_scaled_cmltv <- r10_ar6_co2ffi_processed_scaled_cmltv %>% 
   group_by(model, scen) %>% 
-  mutate(complete = n() == 8) %>% 
+  mutate(complete = n() == 10) %>% 
   filter(complete == TRUE) %>% 
   select(-complete)
 
@@ -191,6 +182,8 @@ r10_ar6_co2ffi_processed_scaled_cmltv %>%
   facet_wrap(~netzeroyearbin) +
   theme_bw() +
   labs(x = NULL, y = "Percentage change",
+       caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                        "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""),
        subtitle = "Percentage change in regional (R10) cumulative CO2-FFI emissions 2023-2100 after harmonising to historical 2022 data and converging to modelled paths in 2050")
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_ar6harmonisation_cmltvco2ffi.png"),
@@ -323,7 +316,8 @@ b <- r10_carbondebt_2100 %>%
 wrap_plots(a,b, ncol = 2, widths = c(0.8,1)) + 
   plot_layout(guides = "collect", tag_level = "new") & 
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
-                  caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia") &
+                  caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                                   "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = "")) &
   theme(legend.position = "bottom",
         axis.text.x = element_text(size = 12),
         legend.text = element_text(size = 12),
@@ -334,7 +328,7 @@ wrap_plots(a,b, ncol = 2, widths = c(0.8,1)) +
         strip.background = element_blank())
 
 ggsave(filename = here("Manuscript", "Figures", "fig1.png"),
-       height = 8, width = 11)
+       height = 8, width = 14)
 
 # Figure 1A SI using other allocation approaches
 fig1asi <- r10_carbondebt_2100 %>% 
@@ -378,9 +372,9 @@ fig1asi <- r10_carbondebt_2100 %>%
   
   labs(y = NULL, x = "Regional net-zero carbon debt (GtCO2)", 
        fill = "Regional net-zero CO2-FFI year bin",
-       caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia") +
-  
+       caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                        "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = "")) +
   facet_grid(ppp_pf ~ category)
 
 ggsave(plot = fig1asi, filename = here("Manuscript", "Figures", "SI", "SI_fig1a.png"),
-       height = 10, width = 14)
+       height = 14, width = 14)

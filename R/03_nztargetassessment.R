@@ -23,18 +23,19 @@ options(scipen = 999)
 
 # Determine analysis countries
 iso3c_tbl_analysis <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  mutate(r10 = ifelse(is.na(r10_iamc), NA_real_, r10_unif)) %>% 
+  mutate(r10 = r10_iamc) %>% 
   select(iso3c, r10) %>% 
   right_join(read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
                        sheet = "hist_prodco2") %>% select(iso3c))
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
+r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_ECON", "R10CHINA+", "R10MIDDLE_EAST", "R10REST_ASIA", "R10LATIN_AM", "R10AFRICA", "R10INDIA+"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EAS", "MEA", "PAS", "LAC", "AFR", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                                    "Eastern Europe and West-Central Asia", "Africa & Middle East", 
-                                    "Eastern & South-East Asia and developing Pacific",
-                                    "Latin America and Caribbean", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia",
+                                    "Eastern Asia", "North Africa and Middle East", "South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", 
+                                    "Sub-saharan Africa", "Southern Asia"))
 
 # LOAD PROCESSED AND OTHER DATA ------------------------------------------------
 
@@ -165,7 +166,9 @@ b <- alltargets %>%
 
 wrap_plots(a,b, ncol = 1) + plot_layout(guides = "collect") &
   theme(legend.position = "top") &
-  plot_annotation(title = "Net-zero target coverage by indicators")
+  plot_annotation(title = "Net-zero target coverage by indicators",
+                  caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                                   "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_nztargetcoverage.png"),
        height = 5, width = 12)

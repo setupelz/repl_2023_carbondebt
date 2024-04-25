@@ -24,19 +24,20 @@ options(scipen = 999)
 
 # Determine country-years for analysis
 iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  mutate(r10 = ifelse(is.na(r10_iamc), NA_real_, r10_unif)) %>% 
+  mutate(r10 = r10_iamc) %>% 
   select(iso3c, r10) %>% 
   group_by(iso3c, r10) %>% 
   expand(year = 1850:2050) %>% 
   ungroup()
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
+r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_ECON", "R10CHINA+", "R10MIDDLE_EAST", "R10REST_ASIA", "R10LATIN_AM", "R10AFRICA", "R10INDIA+"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EAS", "MEA", "PAS", "LAC", "AFR", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                               "Eastern Europe and West-Central Asia", "Africa & Middle East", 
-                               "Eastern & South-East Asia and developing Pacific",
-                               "Latin America and Caribbean", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia",
+                                    "Eastern Asia", "North Africa and Middle East", "South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", 
+                                    "Sub-saharan Africa", "Southern Asia"))
 
 # Adjust labels to reflect those for publication
 iso3c_tbl <- iso3c_tbl %>% 
@@ -53,7 +54,7 @@ gmtresp19922022 <- read_csv(here("Data", "equity_data", "GMST_response_1992-2022
 gmtresp19922022 %>% 
   ggplot(aes(x = year, y = data, fill = interaction(gas, component))) +
   geom_col() +
-  facet_wrap(~r10, ncol = 4) +
+  facet_wrap(~r10, ncol = 5) +
   scale_fill_manual(values = c('#8c510a','#d8b365','#f6e8c3','#c7eae5','#5ab4ac','#01665e')) +
   theme_bw() +
   labs(x = NULL, y = "Change in degrees Celsius since 1992", fill = NULL)
@@ -90,13 +91,13 @@ popproj <- pophist %>%
   
 # Keep only those countries present in analysis data
 popproj <- popproj %>% 
-  filter(iso3c %in% unique(gmtresp$iso3c))
+  filter(iso3c %in% unique(gmtresp19922022$iso3c))
 
 # DETERMINE SET OF COUNTRIES WITH COMPLETE DATA --------------------------------
 
 # Remove missing data across all input sources and inner join
 final_iso3c <- 
-  list(gmtresp, popproj) %>% 
+  list(gmtresp19922022, popproj) %>% 
   map(~na.omit(.) %>% distinct(r10, iso3c)) %>% 
   reduce(inner_join)
 
@@ -120,14 +121,14 @@ iso3c_missing <- left_join(iso3c_missing,
 
 # Filter all datasets to analysis iso3c vector and collapse into named list
 analyis_datasets <- 
-  list(gmtresp = gmtresp %>% filter(year == 2022),
+  list(gmtresp19922022 = gmtresp19922022 %>% filter(year == 2022),
        popproj = popproj %>% group_by(r10, iso3c) %>% summarise(pop_19922022 = sum(pop))) %>% 
   map(., function(tibble) {filter(tibble, iso3c %in% final_iso3c$iso3c)})
 
 # SET TOTAL WARMING CONTRIBUTIONS OF ANALYSIS COUNTRIES ------------------------
 
 # Set total warming from warming from 1992 to 2022 across analysis countries
-totwarm19922022 = sum(gmtresp[gmtresp$year == 2022,]$data)
+totwarm19922022 = sum(gmtresp19922022[gmtresp19922022$year == 2022,]$data)
 
 # ALLOCATIONS OVER TIME (1990-2020) --------------------------------------------
 
@@ -201,8 +202,9 @@ d <- iso3c_analysis %>%
 
 wrap_plots(a, wrap_plots(b,c,d, ncol = 1), ncol = 2) +
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
-                  caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia",
+                  caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                                   "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""),
                   title = "Difference between regional contribution to warming and equal cumulative per capita warming allocation, 1992-2022")
 
-ggsave(here("Manuscript", "Figures", "SI", "gmtresp_ghgs.png"), height = 7, width = 10)
+ggsave(here("Manuscript", "Figures", "SI", "gmtresp_ghgs.png"), height = 10, width = 10)
 

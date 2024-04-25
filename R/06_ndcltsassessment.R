@@ -23,16 +23,17 @@ options(scipen = 999)
 
 # Determine country-years for analysis
 iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  mutate(r10 = ifelse(is.na(r10_iamc), NA_real_, r10_unif)) %>% 
+  mutate(r10 = r10_iamc) %>% 
   select(iso3c, r10)
 
 # Set consistent r10 ordering
-r10order <- tibble(r10 = c("R10NAM", "R10EUR", "R10PAO", "R10FSU", "R10EASPAS", "R10LAM", "R10AFRMEA", "R10SAS"),
-                   r10label = c("NAM", "EUR", "APD", "EEA", "EASPAS", "LAC", "AFRMEA", "SAS"),
+r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_ECON", "R10CHINA+", "R10MIDDLE_EAST", "R10REST_ASIA", "R10LATIN_AM", "R10AFRICA", "R10INDIA+"),
+                   r10label = c("NAM", "EUR", "APD", "EEA", "EAS", "MEA", "PAS", "LAC", "AFR", "SAS"),
                    r10labellong = c("North America", "Europe", "Asia-Pacific Developed",
-                                    "Eastern Europe and West-Central Asia", "Africa & Middle East", 
-                                    "Eastern & South-East Asia and developing Pacific",
-                                    "Latin America and Caribbean", "Southern Asia"))
+                                    "Eastern Europe and West-Central Asia",
+                                    "Eastern Asia", "North Africa and Middle East", "South-East Asia and developing Pacific",
+                                    "Latin America and Caribbean", 
+                                    "Sub-saharan Africa", "Southern Asia"))
 
 # Population, aggregated to r10
 r10_popproj <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
@@ -138,7 +139,7 @@ a <- r10_ndclts_impren_rcbyear %>%
     case = factor(case, levels = c("A", "E", "IMP-REN"),
                   labels = c("Current policies", 
                              "All pledges and net-zero targets", "IMP-REN")),
-    hjust = as.numeric(r10) / 8) %>% 
+    hjust = as.numeric(r10) / 10) %>% 
   pivot_wider(names_from = aggregate, values_from = rcbyear) %>% 
   ggplot(aes(x = year)) +
   geom_hline(yintercept = 0, linetype = 2) +
@@ -165,10 +166,10 @@ a <- r10_ndclts_impren_rcbyear %>%
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   guides(colour = "none", fill = "none") +
   labs(x = NULL, y = NULL,
-       subtitle = "Remaining budget (GtCO2)")
+       subtitle = "Regional remaining budget (GtCO2)")
 
 b <- r10_ndclts_impren_rcbyear %>% 
-  filter(category == "1_PP1990", case != "IMP-REN", r10 == "R10NAM") %>% 
+  filter(category == "1_PP1990", case != "IMP-REN", r10 == "R10NORTH_AM") %>% 
   select(r10, case, aggregate, year, exceedanceyear) %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
@@ -193,7 +194,7 @@ b <- r10_ndclts_impren_rcbyear %>%
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   guides(fill = "none") +
   labs(x = NULL, y = NULL,
-       subtitle = "Global exceedance (GtCO2)")
+       subtitle = "Global overshoot (GtCO2)")
 
 c <- r10_ndclts_impren_rcbyear %>% 
   ungroup() %>% 
@@ -203,7 +204,7 @@ c <- r10_ndclts_impren_rcbyear %>%
     case = factor(case, levels = c("A", "E", "IMP-REN"),
                   labels = c("Current policies", 
                              "All pledges and net-zero targets", "IMP-REN")),
-    hjust = as.numeric(r10) / 8,
+    hjust = as.numeric(r10) / 10,
     exceedanceshareyear = exceedanceshareyear * exceedanceyear) %>% 
   select(r10, case, aggregate, year, exceedanceshareyear, hjust) %>% 
   group_by(case, year, aggregate) %>%
@@ -226,11 +227,12 @@ c <- r10_ndclts_impren_rcbyear %>%
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   guides(fill = "none", colour = "none") +
   labs(x = NULL, y = NULL,
-       subtitle = "Exceedance responsibility (% of GtCO2)")
+       subtitle = "Overshoot responsibility (% of GtCO2)")
 
 wrap_plots(b,a,c, ncol = 3) +
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
-                  caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia")
+                  caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                                   "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "fig2.png"),
        height = 6, width = 12)
@@ -271,7 +273,8 @@ r10_ndclts_impren_rcbyear %>%
   labs(x = NULL, y = NULL,
        colour = "Allocation approach",
        fill = "Allocation approach",
-       caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia")
+       caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                        "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_fig2.png"),
        height = 8, width = 14)
@@ -294,7 +297,7 @@ r10_ndclts_impren_rcbyear %>%
   geom_textabline(linetype = 2, label = "identity") +
   geom_point(aes(colour = year)) +
   scale_colour_continuous_sequential() +
-  facet_wrap(~r10, ncol = 4) +
+  facet_wrap(~r10, ncol = 5) +
   theme_bw() +
   theme(legend.position = "bottom",
         legend.key.width = unit(2.5, "cm"),
@@ -302,8 +305,9 @@ r10_ndclts_impren_rcbyear %>%
         strip.text.x = element_text(size = 12),
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   labs(colour = "Year",
-       caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia")
-
+       caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                        "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
+       
 ggsave(here("Manuscript", "Figures", "SI", "SI_fig2b.png"),
        height = 8, width = 14)
 
@@ -345,9 +349,9 @@ a <- r10_exp_heatwave_emf_temp_debt %>%
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   guides(colour = "none",
          size = guide_legend(nrow = 1)) +
-  labs(y = "Regional budget consumption factor in 2100", 
+  labs(y = "Regional relative overshoot responsibility", 
        size = "Required regional average annual exceedance drawdown (tCO2/capita/yr, 2050-2100)",
-       x = "Increase in 2020 birth cohort lifetime extreme heatwave exposure relative to illustrative 1.5C pathway (Factor)")
+       x = "2020 cohort extreme heatwave exposure multiplier factor, relative to illustrative 1.5C pathway (Factor)")
 
 b <- r10_exp_heatwave_emf_temp_debt %>%
       filter(birth_year %in% c(1990, 2000, 2010, 2020), case != "IMP-REN", category == "1_PP1990", aggregate == "Median") %>%
@@ -370,10 +374,10 @@ b <- r10_exp_heatwave_emf_temp_debt %>%
   geom_point(aes(shape = factor(birth_year), colour = fct_rev(case))) +
   facet_grid(~r10) +
   scale_colour_discrete_diverging() +
-  scale_x_continuous(breaks = c(0, 5,10,15)) +
+  scale_x_continuous(breaks = c(0, 10, 20)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 6)) +
-  labs(y = "Remaining budget (tCO2/capita/year, to 2050)",
-       x = "Increase in lifetime years with extreme heatwave exposure relative to illustrative 1.5C pathway (Years)",
+  labs(y = "Budget to 2050 (tCO2/capita/year)",
+       x = "Lifetime additional years with extreme heatwave exposure, relative to illustrative 1.5C pathway (Years)",
        shape = "Cohort birth year",
        colour = "Scenario") +
   theme_bw() +
@@ -387,7 +391,8 @@ b <- r10_exp_heatwave_emf_temp_debt %>%
 
 wrap_plots(b,a, ncol = 1, heights = c(0.7,1)) +  
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
-                  caption = "NAM: North America, EUR: Europe, APD: Asia-Pacific Developed, EEA: Eastern Europe and West-Central Asia, EASPAS: Eastern and South-East Asia and developing Pacific\nLAC: Latin America and Caribbean, AFRMEA: Africa and Middle East, SAS: Southern Asia")
-  
+                  caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+                                   "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
+
 ggsave(here("Manuscript", "Figures", "fig3.png"),
-       height = 10, width = 10)
+       height = 10, width = 12)
