@@ -233,7 +233,12 @@ r10_carbondebt_2100 <- r10_ar6_co2ffi_processed_scaled_cmltv %>%
   select(model, scen, r10, peakyearbin, pkyearbin, netzeroyearbin, nzyearbin, category, ppp_pf, 
          rcb2100_gtco2_cmltv, gtco2_cdr_cmltv, debt2100) %>% 
   group_by(model, scen, category, ppp_pf) %>% 
-  mutate(debtshare = debt2100 / sum(debt2100))
+  mutate(debtshare = debt2100 / sum(debt2100),
+         scen_exceedance = sum(-rcb2100_gtco2_cmltv),
+         scen_exceedance = ifelse(scen_exceedance < 0, 0, scen_exceedance),
+         scen_exceedace_share = ifelse(scen_exceedance == 0, 0, debtshare),
+         scen_exceedance_resp = scen_exceedance * debtshare) %>% 
+  arrange(model, scen, category, ppp_pf)
   
 write_csv(r10_carbondebt_2100, here("Data", "processed", "r10_carbondebt_2100_gtco2.csv"))
 
@@ -281,7 +286,7 @@ a <- r10_carbondebt_2100 %>%
 
 b <- r10_carbondebt_2100 %>% 
   
-  filter(category %in% c("1_PP1990"), nzyearbin <= 2090) %>% 
+  filter(category %in% c("1_PP1990"), nzyearbin <= 2090, scen_exceedance > 0) %>% 
   
   left_join(r10_popproj %>% 
               mutate(pop_cmltv = cumsum(pop),
@@ -289,14 +294,13 @@ b <- r10_carbondebt_2100 %>%
               filter(year == 2100) %>% 
               select(r10, pop_cmltv_rem_2050)) %>% 
   
-  mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
-         rcb2100_gtco2_cmltv = ifelse(rcb2100_gtco2_cmltv > 0, 0, rcb2100_gtco2_cmltv)) %>%
+  mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>%
   
   arrange(desc(nzyearbin)) %>% 
   
-  ggplot(aes(x = debtshare,
+  ggplot(aes(x = scen_exceedace_share,
              colour = factor(nzyearbin),
-             y = -(debt2100 * 1e9 / pop_cmltv_rem_2050))) +
+             y = scen_exceedance_resp * 1e9 / pop_cmltv_rem_2050)) +
   
   geom_jitter(alpha = 0.5, size = 4, shape = 16) +
   
@@ -310,8 +314,8 @@ b <- r10_carbondebt_2100 %>%
   
   guides(colour = "none") +
 
-  labs(y = "Average required per capita drawdown rate (tCO2/capita/yr, 2050-2100)",
-       x = "Responsibility for exceedance in scenario (%)")
+  labs(y = "Required per capita exceedance drawdown rate (tCO2/capita/yr, 2050-2100)",
+       x = "Responsibility for exceedance (%)")
 
 wrap_plots(a,b, ncol = 2, widths = c(0.8,1)) + 
   plot_layout(guides = "collect", tag_level = "new") & 
@@ -328,7 +332,7 @@ wrap_plots(a,b, ncol = 2, widths = c(0.8,1)) +
         strip.background = element_blank())
 
 ggsave(filename = here("Manuscript", "Figures", "fig1.png"),
-       height = 8, width = 14)
+       height = 14, width = 14)
 
 # Figure 1A SI using other allocation approaches
 fig1asi <- r10_carbondebt_2100 %>% 
@@ -378,3 +382,4 @@ fig1asi <- r10_carbondebt_2100 %>%
 
 ggsave(plot = fig1asi, filename = here("Manuscript", "Figures", "SI", "SI_fig1a.png"),
        height = 14, width = 14)
+

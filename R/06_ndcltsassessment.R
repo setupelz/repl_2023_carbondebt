@@ -194,7 +194,7 @@ b <- r10_ndclts_impren_rcbyear %>%
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   guides(fill = "none") +
   labs(x = NULL, y = NULL,
-       subtitle = "Global overshoot (GtCO2)")
+       subtitle = "Global 1.5C RCB exceedance (GtCO2)")
 
 c <- r10_ndclts_impren_rcbyear %>% 
   ungroup() %>% 
@@ -214,8 +214,9 @@ c <- r10_ndclts_impren_rcbyear %>%
   geom_ribbon(aes(fill = r10, ymin = Min, ymax = Max), alpha = 0.3) +
   geom_textpath(aes(colour = r10, y = Median, label = r10, hjust = hjust), alpha = 1, size = 3) +
   scale_x_continuous(breaks = c(1990, seq(2000,2100,20))) +
-  scale_y_continuous(labels = scales::percent_format(), limits = c(0,0.6), 
+  scale_y_continuous(labels = scales::percent_format(), 
                      position = "right") +
+  coord_cartesian(ylim = c(0,0.4)) +
   scale_colour_discrete_qualitative() +
   facet_wrap(~fct_rev(case), ncol = 1, strip.position = "left") +
   theme_bw() +
@@ -227,7 +228,7 @@ c <- r10_ndclts_impren_rcbyear %>%
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   guides(fill = "none", colour = "none") +
   labs(x = NULL, y = NULL,
-       subtitle = "Overshoot responsibility (% of GtCO2)")
+       subtitle = "Exceedance responsibility (% of GtCO2)")
 
 wrap_plots(b,a,c, ncol = 3) +
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
@@ -235,7 +236,7 @@ wrap_plots(b,a,c, ncol = 3) +
                                    "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "fig2.png"),
-       height = 6, width = 12)
+       height = 10, width = 12)
 
 # SI 
 
@@ -349,7 +350,7 @@ a <- r10_exp_heatwave_emf_temp_debt %>%
         axis.title = element_text(size = 13), panel.grid = element_blank()) +
   guides(colour = "none",
          size = guide_legend(nrow = 1)) +
-  labs(y = "Regional relative overshoot responsibility", 
+  labs(y = "Regional relative per-capita exceedance responsibility", 
        size = "Required regional average annual exceedance drawdown (tCO2/capita/yr, 2050-2100)",
        x = "2020 cohort extreme heatwave exposure multiplier factor, relative to illustrative 1.5C pathway (Factor)")
 
@@ -372,7 +373,7 @@ b <- r10_exp_heatwave_emf_temp_debt %>%
   geom_vline(xintercept = 0, linetype = 2, colour = "darkgrey", linewidth = .3) +
   geom_errorbar(aes(xmin = add_impren_0.33, xmax = add_impren_0.66, colour = fct_rev(case)), alpha = 0.6) +
   geom_point(aes(shape = factor(birth_year), colour = fct_rev(case))) +
-  facet_grid(~r10) +
+  facet_wrap(~r10, ncol = 5) +
   scale_colour_discrete_diverging() +
   scale_x_continuous(breaks = c(0, 10, 20)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 6)) +
@@ -389,10 +390,10 @@ b <- r10_exp_heatwave_emf_temp_debt %>%
         panel.grid = element_blank()) +
   guides(shape = guide_legend(nrow = 1, order = 1))
 
-wrap_plots(b,a, ncol = 1, heights = c(0.7,1)) +  
+wrap_plots(b,a, ncol = 1, heights = c(1,.7)) +  
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
                   caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
                                    "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "fig3.png"),
-       height = 10, width = 12)
+       height = 16, width = 12)

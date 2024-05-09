@@ -136,6 +136,7 @@ b <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>%
   ggplot(aes(colour = case)) +
   geom_point(aes(x = emf, y = add), alpha = 0.6, size = 3) +
   scale_colour_discrete_qualitative(drop = F) +
+  coord_cartesian(xlim = c(0, 15)) +
   facet_wrap(~r10, ncol = 5) +
   guides(colour = "none") +
   theme_bw() +
