@@ -1,9 +1,9 @@
-# Replication archive for: "Delaying Carbon Debt Drawdown Fails Younger Generations"
+# Replication archive for: "Using net-zero carbon debt to track climate overshoot responsibility"
 
 # Contact for clarifications: [ANONYMISED]       
 
-# Script contents: Determine remaining carbon budgets from the beginning of 2023
-# using a variety of different indicators and approaches for the SI.
+# Script contents: Exploring warming contributions and allocations across
+# different gasses and sectors.
 
 # LOAD PACKAGES ----------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-# Replication archive for: "Delaying Carbon Debt Drawdown Fails Younger Generations"
+# Replication archive for: "Using net-zero carbon debt to track climate overshoot responsibility"
 
 # Contact for clarifications: [ANONYMISED]       
 
