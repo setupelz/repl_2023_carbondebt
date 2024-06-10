@@ -78,11 +78,16 @@ r10_ndclts_impren_rcbyear <- r10_ndclts_impren_emiss %>%
          gtco2 = ifelse(gtco2 < 0 , 0, gtco2)) %>% 
   group_by(case, aggregate, r10) %>% 
   mutate(gtco2_cmltv = cumsum(gtco2),
+         gtco2_cmltv_2015 = cumsum(ifelse(year >= 2015, gtco2, 0)),
          gtco2_cdr_cmltv = cumsum(gtco2_cdr)) %>% 
   left_join(r10_rcb19902020gtco2 %>% distinct(r10, category, ppp_pf)) %>% 
   left_join(r10_rcb19902020gtco2 %>% filter(year == 1990) %>% 
               select(r10, category, ppp_pf, rcb1990 = rcb)) %>% 
-  mutate(rcbyear = rcb1990 - lag(gtco2_cmltv, default = 0)) %>% 
+  left_join(r10_rcb19902020gtco2 %>% filter(year == 2015, grepl(category, pattern = "2015")) %>% 
+              select(r10, category, ppp_pf, rcb2015 = rcb)) %>% 
+  mutate(rcbyear = ifelse(grepl(category, pattern = "2015"), 
+          rcb2015 - lag(gtco2_cmltv_2015, default = 0),
+          rcb1990 - lag(gtco2_cmltv, default = 0))) %>% 
   arrange(model, case, aggregate, category, ppp_pf, r10, year) %>% 
   group_by(model, case, aggregate, category, ppp_pf, year) %>% 
   mutate(exceedanceyear = ifelse(sum(-rcbyear) > 0, sum(-rcbyear), 0),
@@ -102,12 +107,17 @@ r10_ndclts_impren_debt <- r10_ndclts_impren_emiss %>%
          gtco2 = ifelse(gtco2 < 0 , 0, gtco2)) %>% 
   group_by(case, aggregate, r10) %>% 
   mutate(gtco2_cmltv = cumsum(gtco2),
+         gtco2_cmltv_2015 = cumsum(ifelse(year >= 2015, gtco2, 0)),
          gtco2_cdr_cmltv = cumsum(gtco2_cdr)) %>% 
   filter(year == 2100) %>% 
   left_join(r10_rcb19902020gtco2 %>% distinct(r10, category, ppp_pf)) %>% 
   left_join(r10_rcb19902020gtco2 %>% filter(year == 1990) %>% 
               select(r10, category, ppp_pf, rcb1990 = rcb)) %>% 
-  mutate(rcb2100 = rcb1990 - gtco2_cmltv) %>% 
+  left_join(r10_rcb19902020gtco2 %>% filter(year == 2015, grepl(category, pattern = "2015")) %>% 
+              select(r10, category, ppp_pf, rcb2015 = rcb)) %>% 
+  mutate(rcbyear = ifelse(grepl(category, pattern = "2015"), 
+          rcb2015 - gtco2_cmltv_2015,
+          rcb1990 - gtco2_cmltv)) %>% 
   select(r10, case, aggregate, category, ppp_pf, rcb1990, gtco2_19902100 = gtco2_cmltv, rcb2100, gtco2_cdr_19902100 = gtco2_cdr_cmltv) %>% 
   mutate(ppp_pf = ifelse(is.na(ppp_pf), "NA", ppp_pf)) %>% 
   # determine pathway 1.5 RCB exceedances, total regional nz debts and offsets
@@ -132,7 +142,7 @@ r10_exp_heatwave_emf_temp_debt <- left_join(r10_exp_heatwave_emf,
 
 a <- r10_ndclts_impren_rcbyear %>% 
   ungroup() %>% 
-  filter(category == "1_PP1990", case != "IMP-REN") %>% 
+  filter(category == "PP1990", case != "IMP-REN") %>% 
   select(r10, case, aggregate, year, rcbyear) %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
@@ -169,7 +179,7 @@ a <- r10_ndclts_impren_rcbyear %>%
        subtitle = "Regional remaining budget (GtCO2)")
 
 b <- r10_ndclts_impren_rcbyear %>% 
-  filter(category == "1_PP1990", case != "IMP-REN", r10 == "R10NORTH_AM") %>% 
+  filter(category == "PP1990", case != "IMP-REN", r10 == "R10NORTH_AM") %>% 
   select(r10, case, aggregate, year, exceedanceyear) %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
@@ -198,7 +208,7 @@ b <- r10_ndclts_impren_rcbyear %>%
 
 c <- r10_ndclts_impren_rcbyear %>% 
   ungroup() %>% 
-  filter(category == "1_PP1990", case != "IMP-REN") %>% 
+  filter(category == "PP1990", case != "IMP-REN") %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
     case = factor(case, levels = c("A", "E", "IMP-REN"),
@@ -242,7 +252,7 @@ ggsave(here("Manuscript", "Figures", "fig2.png"),
 
 r10_ndclts_impren_rcbyear %>% 
   ungroup() %>% 
-  filter(case != "IMP-REN") %>% 
+  filter(case != "IMP-REN", !grepl(category, pattern = "2015")) %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
     case = factor(case, levels = c("A", "E", "IMP-REN"),
@@ -280,9 +290,38 @@ r10_ndclts_impren_rcbyear %>%
 ggsave(here("Manuscript", "Figures", "SI", "SI_fig2.png"),
        height = 8, width = 14)
 
+# ELEVATE PRESENTATION FIGURE
 r10_ndclts_impren_rcbyear %>% 
   ungroup() %>% 
-  filter(category == "1_PP1990", case != "IMP-REN", 
+  mutate(category_fig = case_when(
+    category == "PP2015adjATP" & ppp_pf == "PPP_1/sqrt(x)" ~ "Ability to pay (2015)",
+    category == "PP1990" & is.na(ppp_pf) ~ "Responsibility (1990)",
+  )) %>% 
+  filter(!is.na(category_fig)) %>% 
+  filter(year %in% c(2050), case %in% c("E")) %>% 
+  mutate(
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10labellong),
+    case = factor(case, levels = c("A", "E", "IMP-REN"),
+                  labels = c("Current policies",
+                             "All pledges and net-zero targets", "IMP-REN")),
+    hjust = as.numeric(r10) / 8,
+    ppp_pf = ifelse(is.na(ppp_pf), "", ppp_pf)) %>% 
+  select(r10, case, aggregate, year, rcbyear, category_fig, ppp_pf, hjust) %>% 
+  group_by(case, year, aggregate, category_fig, ppp_pf) %>%
+  pivot_wider(names_from = aggregate, values_from = rcbyear) %>% 
+  ggplot(aes(x = r10, y = -Median, fill = category_fig)) +
+  geom_col(position = "dodge", width = 0.7) +
+  scale_fill_brewer(palette = "Paired") +
+  theme_bw() + 
+  theme(panel.grid = element_blank()) +
+  guides(fill = guide_legend(reverse = T)) +
+  coord_flip() +
+  labs(x = NULL, y = "Cumulative carbon debt by 2050 (GtCO2)",
+       fill = "Principled allocation")
+
+r10_ndclts_impren_rcbyear %>% 
+  ungroup() %>% 
+  filter(category == "PP1990", case != "IMP-REN", 
          aggregate == "Median") %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
@@ -315,7 +354,7 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_fig2b.png"),
 # FIGURE 3 ---------------------------------------------------------------------
 
 a <- r10_exp_heatwave_emf_temp_debt %>%
-  filter(birth_year %in% c(2020), case != "IMP-REN", aggregate == "Median", category == "1_PP1990") %>%
+  filter(birth_year %in% c(2020), case != "IMP-REN", aggregate == "Median", category == "PP1990") %>%
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
          case = factor(case, levels = c("A", "E"),
                        labels = c("Current policies",
@@ -355,10 +394,10 @@ a <- r10_exp_heatwave_emf_temp_debt %>%
        x = "2020 cohort extreme heatwave exposure multiplier factor, relative to illustrative 1.5C pathway (Factor)")
 
 b <- r10_exp_heatwave_emf_temp_debt %>%
-      filter(birth_year %in% c(1990, 2000, 2010, 2020), case != "IMP-REN", category == "1_PP1990", aggregate == "Median") %>%
+      filter(birth_year %in% c(1990, 2000, 2010, 2020), case != "IMP-REN", category == "PP1990", aggregate == "Median") %>%
   left_join(r10_ndclts_impren_rcbyear %>% 
               ungroup() %>% 
-              filter(year %in% c(1990, 2000, 2010, 2020), case != "IMP-REN", category == "1_PP1990", aggregate == "Median") %>% 
+              filter(year %in% c(1990, 2000, 2010, 2020), case != "IMP-REN", category == "PP1990", aggregate == "Median") %>% 
               select(case, aggregate, r10, birth_year = year, rcbyear, pop_yearto2050)) %>% 
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
          case = factor(case, levels = c("A", "E"),

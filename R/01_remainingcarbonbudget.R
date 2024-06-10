@@ -256,6 +256,10 @@ analyis_datasets %>% write_xlsx(here("Data", "processed", "analysisdata.xlsx"))
 # from Friedlingstein et al (2023), https://doi.org/10.5194/essd-15-5301-2023). 
 rcb2020_nz = 247 + round(pull(analyis_datasets$recent_prodco2 %>% filter(year %in% 2020:2022) %>% summarise(gtco2 = sum(gtco2))),2)
 
+# From 2015 to net zero, adding CO2-FFI emissions from 2015-2019,
+# from Friedlingstein et al (2023), https://doi.org/10.5194/essd-15-5301-2023).  
+rcb2015_nz = rcb2020_nz + round(pull(analyis_datasets$recent_prodco2 %>% filter(year %in% 2015:2019) %>% summarise(gtco2 = sum(gtco2))),2)
+
 # From 1990 to net zero, adding CO2-FFI emissions from 1990-2019,
 # from Friedlingstein et al (2023), https://doi.org/10.5194/essd-15-5301-2023).  
 rcb1990_nz = rcb2020_nz + round(pull(analyis_datasets$recent_prodco2 %>% filter(year %in% 1990:2019) %>% summarise(gtco2 = sum(gtco2))),2)
@@ -269,8 +273,8 @@ rcb1850_nz = rcb1990_nz + round(pull(analyis_datasets$hist_prodco2 %>% summarise
 rcb1850_1989 = rcb1850_nz - rcb1990_nz
 
 # Write these to file for later use
-write_csv(tibble(rcb = c("rcb2020_nz", "rcb1990_nz", "rcb1850_nz", "rcb1850_1989"),
-                 gtco2 = c(rcb2020_nz, rcb1990_nz, rcb1850_nz, rcb1850_1989)),
+write_csv(tibble(rcb = c("rcb2020_nz", "rcb2015_nz", "rcb1990_nz", "rcb1850_nz", "rcb1850_1989"),
+                 gtco2 = c(rcb2020_nz, rcb2015_nz, rcb1990_nz, rcb1850_nz, rcb1850_1989)),
           here("Data", "processed", "rcbquantities.csv"))
 
 # DEFINE SCALING PENALTY FUNCTIONS ---------------------------------------------
@@ -290,7 +294,8 @@ iso3c_analysis <- analyis_datasets$popproj %>%
       group_by(iso3c) %>% 
       summarise(pop_18502050 = sum(pop, na.rm = T),
                 pop_18501989 = sum(ifelse(year <= 1989, pop, NA_real_), na.rm = T),
-                pop_19902050 = sum(ifelse(year >= 1990 & year <= 2050, pop, NA_real_), na.rm = T)) %>% 
+                pop_19902050 = sum(ifelse(year >= 1990 & year <= 2050, pop, NA_real_), na.rm = T),
+                pop_20152050 = sum(ifelse(year >= 2015 & year <= 2050, pop, NA_real_), na.rm = T)) %>% 
   ungroup() %>% 
   left_join(analyis_datasets$hist_prodco2 %>% select(iso3c, gtco2_18501989))
 
@@ -301,8 +306,11 @@ for(curr_year in 1990:2020) {
     left_join(
       iso3c_analysis,
       analyis_datasets$recent_prodco2 %>% 
+        group_by(r10, iso3c) %>% 
+        mutate(gtco2_cmltv2015 = cumsum(ifelse(year > 2014, gtco2, 0))) %>%
+        ungroup() %>% 
         filter(year == curr_year - 1) %>% 
-        select(iso3c, gtco2_cmltv)) %>% 
+        select(iso3c, gtco2_cmltv, gtco2_cmltv2015)) %>% 
     left_join(
       analyis_datasets$popproj %>% 
         summarise(cmltv_pop1990_curryear = 
@@ -322,8 +330,8 @@ for(curr_year in 1990:2020) {
       cmltv_gdp2017mer = ifelse(cmltv_gdp2017mer == 0, NA_real_, cmltv_gdp2017mer),
       cmltv_gdp2017ppp_pc = cmltv_gdp2017ppp / cmltv_pop1990_curryear,
       cmltv_gdp2017mer_pc = cmltv_gdp2017mer / cmltv_pop1990_curryear) %>% 
-    select(iso3c, pop_19902050, pop_18502050,  pop_18501989, gtco2_18501989, 
-           gtco2_cmltv, cmltv_gdp2017ppp_pc, cmltv_gdp2017mer_pc) %>% 
+    select(iso3c, pop_20152050, pop_19902050, pop_18502050,  pop_18501989, gtco2_18501989, 
+           gtco2_cmltv, gtco2_cmltv2015, cmltv_gdp2017ppp_pc, cmltv_gdp2017mer_pc) %>% 
     # For the year 1990
     mutate(gtco2_cmltv = ifelse(is.na(gtco2_cmltv), 0, gtco2_cmltv))
   
@@ -335,6 +343,8 @@ for(curr_year in 1990:2020) {
       ecpc_pp18501989_tco2 = (rcb1850_1989 * 1e9) / sum(pop_18501989),
       # ECPC 1990-2050
       ecpc_pp1990_tco2 = (rcb1990_nz * 1e9) / sum(pop_19902050),
+      # ECPC 2015-2050
+      ecpc_pp2015_tco2 = (rcb2015_nz * 1e9) / sum(pop_20152050),
       # ECPC 1990-2050, scaled using cumulative GDP per cumulative capita 1990-curr_year (PPP)
       ecpc_pp1990_atp_ppp_pf1 = 
         (penaltyfunc1(cmltv_gdp2017ppp_pc) * (rcb1990_nz * 1e9)) /
@@ -354,19 +364,52 @@ for(curr_year in 1990:2020) {
         sum(penaltyfunc2(cmltv_gdp2017mer_pc) * pop_19902050, na.rm = T),
       ecpc_pp1990_atp_mer_pf3 = 
         (penaltyfunc3(cmltv_gdp2017mer_pc) * (rcb1990_nz * 1e9)) /
-        sum(penaltyfunc3(cmltv_gdp2017mer_pc) * pop_19902050, na.rm = T))
+        sum(penaltyfunc3(cmltv_gdp2017mer_pc) * pop_19902050, na.rm = T),
+      # ECPC 2015-2050, scaled using cumulative GDP per cumulative capita 2015-curr_year (PPP)
+      ecpc_pp2015_atp_ppp_pf1 = 
+        (penaltyfunc1(cmltv_gdp2017ppp_pc) * (rcb2015_nz * 1e9)) /
+        sum(penaltyfunc1(cmltv_gdp2017ppp_pc) * pop_20152050, na.rm = T),
+      ecpc_pp2015_atp_ppp_pf2 = 
+        (penaltyfunc2(cmltv_gdp2017ppp_pc) * (rcb2015_nz * 1e9)) /
+        sum(penaltyfunc2(cmltv_gdp2017ppp_pc) * pop_20152050, na.rm = T),
+      ecpc_pp2015_atp_ppp_pf3 =
+        (penaltyfunc3(cmltv_gdp2017ppp_pc) * (rcb2015_nz * 1e9)) /
+        sum(penaltyfunc3(cmltv_gdp2017ppp_pc) * pop_20152050, na.rm = T),
+      # ECPC 2015-2050, scaled using cumulative GDP per cumulative capita 2015-curr_year (MER)
+      ecpc_pp2015_atp_mer_pf1 = 
+        (penaltyfunc1(cmltv_gdp2017mer_pc) * (rcb2015_nz * 1e9)) /
+        sum(penaltyfunc1(cmltv_gdp2017mer_pc) * pop_20152050, na.rm = T),
+      ecpc_pp2015_atp_mer_pf2 =
+        (penaltyfunc2(cmltv_gdp2017mer_pc) * (rcb2015_nz * 1e9)) /
+        sum(penaltyfunc2(cmltv_gdp2017mer_pc) * pop_20152050, na.rm = T),
+      ecpc_pp2015_atp_mer_pf3 =
+        (penaltyfunc3(cmltv_gdp2017mer_pc) * (rcb2015_nz * 1e9)) /
+        sum(penaltyfunc3(cmltv_gdp2017mer_pc) * pop_20152050, na.rm = T))
+      
   
   iso3_analysis_loop <- iso3_analysis_loop %>% 
     transmute(iso3c = iso3c,
               year = curr_year,
+              "pp2015" = (ecpc_pp2015_tco2 * pop_20152050) / 1e9 - gtco2_cmltv2015,
               "pp1990" = (ecpc_pp1990_tco2 * pop_19902050) / 1e9 - gtco2_cmltv,
               "pp1850" = (ecpc_pp1850_tco2 * pop_18502050) / 1e9 - gtco2_18501989 - gtco2_cmltv,
+              
+              "pp2015_atp_ppp_pf1" = (ecpc_pp2015_atp_ppp_pf1 * pop_20152050) / 1e9 - gtco2_cmltv2015,
+              "pp2015_atp_ppp_pf2" = (ecpc_pp2015_atp_ppp_pf2 * pop_20152050) / 1e9 - gtco2_cmltv2015,
+              "pp2015_atp_ppp_pf3" = (ecpc_pp2015_atp_ppp_pf3 * pop_20152050) / 1e9 - gtco2_cmltv2015,
+              
+              "pp2015_atp_mer_pf1" = (ecpc_pp2015_atp_mer_pf1 * pop_20152050) / 1e9 - gtco2_cmltv2015,
+              "pp2015_atp_mer_pf2" = (ecpc_pp2015_atp_mer_pf2 * pop_20152050) / 1e9 - gtco2_cmltv2015,
+              "pp2015_atp_mer_pf3" = (ecpc_pp2015_atp_mer_pf3 * pop_20152050) / 1e9 - gtco2_cmltv2015,
+              
               "pp1990_atp_ppp_pf1" = (ecpc_pp1990_atp_ppp_pf1 * pop_19902050) / 1e9 - gtco2_cmltv,
               "pp1990_atp_ppp_pf2" = (ecpc_pp1990_atp_ppp_pf2 * pop_19902050) / 1e9 - gtco2_cmltv,
               "pp1990_atp_ppp_pf3" = (ecpc_pp1990_atp_ppp_pf3 * pop_19902050) / 1e9 - gtco2_cmltv,
+              
               "pp1990_atp_mer_pf1" = (ecpc_pp1990_atp_mer_pf1 * pop_19902050) / 1e9 - gtco2_cmltv,
               "pp1990_atp_mer_pf2" = (ecpc_pp1990_atp_mer_pf2 * pop_19902050) / 1e9 - gtco2_cmltv,
               "pp1990_atp_mer_pf3" = (ecpc_pp1990_atp_mer_pf3 * pop_19902050) / 1e9 - gtco2_cmltv,
+              
               "pp1850_atp_ppp_pf1" = ((ecpc_pp18501989_tco2 * pop_18501989) + 
                                         (ecpc_pp1990_atp_ppp_pf1 * pop_19902050)) / 1e9 - gtco2_18501989 - gtco2_cmltv,
               "pp1850_atp_ppp_pf2" = ((ecpc_pp18501989_tco2 * pop_18501989) + 
@@ -438,15 +481,18 @@ r10_rcb19902020 <- rcb19902020 %>%
   ungroup() %>% 
   mutate(
     rcb_pc = case_when(
+      grepl(name, pattern = "2015") ~ rcb * 1e9 / pop_yearto2050,
       grepl(name, pattern = "1990") ~ rcb * 1e9 / pop_yearto2050,
       grepl(name, pattern = "1850") ~ rcb * 1e9 / pop_yearto2050),
     category = case_when(
-      name == "pp1990" ~ "1_PP1990",
-      name == "pp1850" ~ "2_PP1850",
-      grepl(name, pattern = "atp") & grepl(name, pattern = "pp1850") ~ "4_PP1850adjATP",
-      grepl(name, pattern = "atp") ~ "3_PP1990adjATP"),
-    category = factor(category, levels = c("1_PP1990", "2_PP1850",
-                                           "3_PP1990adjATP", "4_PP1850adjATP")),
+      name == "pp2015" ~ "PP2015",
+      name == "pp1990" ~ "PP1990",
+      name == "pp1850" ~ "PP1850",
+      grepl(name, pattern = "atp") & grepl(name, pattern = "pp1850") ~ "PP1850adjATP",
+      grepl(name, pattern = "atp") & grepl(name, pattern = "pp1990") ~ "PP1990adjATP",
+      grepl(name, pattern = "atp") & grepl(name, pattern = "pp2015") ~ "PP2015adjATP"),
+    category = factor(category, levels = c("PP2015", "PP1990", "PP1850", "PP2015adjATP",
+                                           "PP1990adjATP", "PP1850adjATP")),
     pf = case_when(
       grepl(name, pattern = "pf1") ~ "1/x",
       grepl(name, pattern = "pf2") ~ "1/sqrt(x)",
@@ -462,7 +508,7 @@ r10_rcb19902020 <- rcb19902020 %>%
   arrange(category, pf, ppp)
 
 r10_rcb19902020 %>% 
-  select(-name) %>% 
+  filter(!grepl(name, pattern = "2015")) %>% 
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   ggplot(aes(x = year, y = rcb_pc, group = category)) +
   geom_point(aes(shape = category, colour = ppp_pf),
@@ -488,7 +534,7 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_r10_rcb19902020pc.png"),
        height = 8, width = 14)
 
 r10_rcb19902020 %>% 
-  select(-name) %>% 
+  filter(!grepl(name, pattern = "2015")) %>% 
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   filter(rcb_pc != 0) %>% 
   ggplot(aes(x = year, y = rcb, group = category)) +
@@ -518,5 +564,5 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_r10_rcb19902020.png"),
 
 r10_rcb19902020 %>% 
   arrange(r10, category, ppp_pf, year) %>% 
-  select(r10, category, pf, ppp, ppp_pf, year, rcb, pop_yearto2050) %>% 
+  select(r10, category, pf, ppp, ppp_pf, name, year, rcb, pop_yearto2050) %>% 
   write_csv(here("Data", "processed", "r10_rcb19902020.csv"))

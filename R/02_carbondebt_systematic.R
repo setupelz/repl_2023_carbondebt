@@ -246,7 +246,7 @@ write_csv(r10_carbondebt_2100, here("Data", "processed", "r10_carbondebt_2100_gt
 
 a <- r10_carbondebt_2100 %>% 
   
-  filter(category %in% c("1_PP1990")) %>% 
+  filter(category %in% c("PP1990")) %>% 
   
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   
@@ -286,7 +286,7 @@ a <- r10_carbondebt_2100 %>%
 
 b <- r10_carbondebt_2100 %>% 
   
-  filter(category %in% c("1_PP1990"), nzyearbin <= 2090, scen_exceedance > 0) %>% 
+  filter(category %in% c("PP1990"), nzyearbin <= 2090, scen_exceedance > 0) %>% 
   
   left_join(r10_popproj %>% 
               mutate(pop_cmltv = cumsum(pop),
@@ -382,4 +382,67 @@ fig1asi <- r10_carbondebt_2100 %>%
 
 ggsave(plot = fig1asi, filename = here("Manuscript", "Figures", "SI", "SI_fig1a.png"),
        height = 14, width = 14)
+
+# FIGURE FOR AUT KLIMA AKTIV DAY -----------------------------------------------
+
+b <- r10_carbondebt_2100 %>% 
+  
+  filter(category %in% c("PP1990"), r10 %in% c("R10EUROPE", "R10AFRICA", "R10LATIN_AM"), !nzyearbin %in% c(2030,2100,2110)) %>% 
+  
+  mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10labellong),
+         r10 = fct_rev(r10)) %>% 
+  
+  ggplot(aes(x = -rcb2100_gtco2_cmltv, fill = fct_rev(factor(nzyearbin)))) +
+  
+  geom_vline(xintercept = 0, linetype = 2, linewidth = 0.5, alpha = 0.4) +
+  
+  geom_density(alpha = 0.7, linewidth = 0.2) +
+  
+  facet_wrap(~r10, scales = "free_y") +
+  
+  scale_fill_brewer(palette = "RdYlBu", direction = 1) +
+  
+  scale_y_continuous(breaks = seq(-300,500,100), position = "bottom") +
+  
+  theme_minimal() +
+  
+  theme(legend.position = "top",
+        panel.grid = element_blank()) +
+  
+  guides(fill = "none") +
+  
+  labs(y = NULL, x = "Regional net-zero carbon debt, ECPC 1990 (GtCO2)", 
+       fill = "Regional net-zero CO2-FFI year bin")
+
+illustr_fig <- r10_recent_prodco2 %>% 
+  group_by(year) %>% 
+  summarise(gtco2_hist = sum(gtco2))
+
+a <- tibble(year = 2022,
+       nz_year = seq(2040,2090,10),
+       gtco2 = illustr_fig$gtco2_hist[illustr_fig$year == 2022]) %>% 
+  group_by(nz_year) %>% 
+  complete(year = 2022:2090) %>% 
+  mutate(gtco2 = ifelse(year >= nz_year, 0, gtco2)) %>% 
+  mutate(gtco2 = zoo::na.approx(gtco2, na.rm = T)) %>% 
+  filter(year <= nz_year) %>% 
+  complete(year = 1990:2090) %>% 
+  left_join(illustr_fig, by = "year") %>% 
+  mutate(gtco2 = ifelse(is.na(gtco2), gtco2_hist,gtco2)) %>% 
+  ggplot(aes(year, gtco2, colour = factor(nz_year))) +
+  geom_path() +
+  geom_path(colour = "black", data = . %>% filter(year < 2022, nz_year == 2040)) +
+  scale_colour_brewer(palette = "RdYlBu", direction = -1) +
+  scale_x_continuous(breaks = seq(1990,2100,10)) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        legend.position = "top",
+        axis.text.y = element_blank()) +
+  labs(x = NULL, y = "Illustrative CO2-FFI path", colour = "Regional net-zero CO2-FFI year") +
+  guides(colour = guide_legend(nrow = 1))
+
+wrap_plots(a,b, ncol = 1, heights = c(0.6,1))
+
+ggsave(filename = here("Manuscript", "Figures", "SI", "klimaaktiv_fig1.png"),
+       height = 5, width = 8, bg = "white")
 
