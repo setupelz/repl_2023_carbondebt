@@ -70,6 +70,9 @@ r10_ndclts_impren_emiss <- read_csv(here("Data", "processed", "r10_ndclts_impren
 # Heatwave EMFs and additional years
 r10_exp_heatwave_emf <- read_csv(here("Data", "processed", "r10_exp_heatwave_emf.csv"))
 
+# Temperatures
+r10_ndclts_impren_temp <- read_csv(here("Data", "processed", "r10_ndclts_impren_temp.csv"))
+
 # ASSESS MODELLED NDC / NET-ZERO PATHWAYS --------------------------------------
 
 # Determine regional remaining carbon budget allocation evolution along assessed paths
@@ -115,7 +118,7 @@ r10_ndclts_impren_debt <- r10_ndclts_impren_emiss %>%
               select(r10, category, ppp_pf, rcb1990 = rcb)) %>% 
   left_join(r10_rcb19902020gtco2 %>% filter(year == 2015, grepl(category, pattern = "2015")) %>% 
               select(r10, category, ppp_pf, rcb2015 = rcb)) %>% 
-  mutate(rcbyear = ifelse(grepl(category, pattern = "2015"), 
+  mutate(rcb2100 = ifelse(grepl(category, pattern = "2015"), 
           rcb2015 - gtco2_cmltv_2015,
           rcb1990 - gtco2_cmltv)) %>% 
   select(r10, case, aggregate, category, ppp_pf, rcb1990, gtco2_19902100 = gtco2_cmltv, rcb2100, gtco2_cdr_19902100 = gtco2_cdr_cmltv) %>% 
@@ -291,14 +294,14 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_fig2.png"),
        height = 8, width = 14)
 
 # ELEVATE PRESENTATION FIGURE
-r10_ndclts_impren_rcbyear %>% 
+a1 <- r10_ndclts_impren_rcbyear %>% 
   ungroup() %>% 
   mutate(category_fig = case_when(
     category == "PP2015adjATP" & ppp_pf == "PPP_1/sqrt(x)" ~ "Ability to pay (2015)",
     category == "PP1990" & is.na(ppp_pf) ~ "Responsibility (1990)",
   )) %>% 
   filter(!is.na(category_fig)) %>% 
-  filter(year %in% c(2050), case %in% c("E")) %>% 
+  filter(year %in% c(2050), case %in% c("A", "E")) %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10labellong),
     case = factor(case, levels = c("A", "E", "IMP-REN"),
@@ -306,18 +309,107 @@ r10_ndclts_impren_rcbyear %>%
                              "All pledges and net-zero targets", "IMP-REN")),
     hjust = as.numeric(r10) / 8,
     ppp_pf = ifelse(is.na(ppp_pf), "", ppp_pf)) %>% 
-  select(r10, case, aggregate, year, rcbyear, category_fig, ppp_pf, hjust) %>% 
+  select(r10, case, aggregate, year, debtyear , category_fig, ppp_pf, hjust) %>% 
   group_by(case, year, aggregate, category_fig, ppp_pf) %>%
-  pivot_wider(names_from = aggregate, values_from = rcbyear) %>% 
-  ggplot(aes(x = r10, y = -Median, fill = category_fig)) +
-  geom_col(position = "dodge", width = 0.7) +
+  pivot_wider(names_from = aggregate, values_from = debtyear ) %>% 
+  ggplot(aes(x = r10, y = Median, fill = category_fig)) +
+  geom_col(position = "dodge", width = 0.7, data = . %>% filter(case == "Current policies")) +
   scale_fill_brewer(palette = "Paired") +
-  theme_bw() + 
-  theme(panel.grid = element_blank()) +
-  guides(fill = guide_legend(reverse = T)) +
+  scale_y_continuous(limits = c(0,350)) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        legend.position = "top",
+        legend.justification = "right",
+        text = element_text(size = 14)) +
+  guides(fill = guide_legend(reverse = T, nrow = 1)) +
   coord_flip() +
-  labs(x = NULL, y = "Cumulative carbon debt by 2050 (GtCO2)",
+  labs(x = NULL, y = "Cumulative carbon debt by 2050 (GtCO2, median)",
        fill = "Principled allocation")
+
+a2 <- r10_ndclts_impren_temp %>% 
+  filter(quantile == 0.5, year %in% c(2050,2100)) %>% 
+  mutate(case = factor(case, levels = c("A", "E", "IMP-REN"),
+                       labels = c("Current policies",
+                                  "All pledges and net-zero targets", "IMP-REN"))) %>% 
+  pivot_wider(names_from = aggregate, values_from = gmt) %>% 
+  filter(case == "Current policies") %>% 
+  ggplot(aes(x = factor(year), y = Median)) +
+  geom_col(fill = "#9F2305", width = 0.2) +
+  geom_hline(aes(yintercept = 1.5), linetype = 2, alpha = 0.4) +
+  scale_y_continuous(labels = scales::dollar_format(prefix = "", suffix = "°C", scale = 1, accuracy = .1),
+                     breaks = c(1.5,3), limits = c(0,3)) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        text = element_text(size = 14)) +
+  labs(y = NULL, x = "Global mean temperature increase (50th perc.)")
+
+a <- wrap_plots(a1,a2, ncol = 2, widths = c(1,0.7))
+
+b1 <- r10_ndclts_impren_rcbyear %>% 
+  ungroup() %>% 
+  mutate(category_fig = case_when(
+    category == "PP2015adjATP" & ppp_pf == "PPP_1/sqrt(x)" ~ "Ability to pay (2015)",
+    category == "PP1990" & is.na(ppp_pf) ~ "Responsibility (1990)",
+  )) %>% 
+  filter(!is.na(category_fig)) %>% 
+  filter(year %in% c(2050), case %in% c("A", "E")) %>% 
+  mutate(
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10labellong),
+    case = factor(case, levels = c("A", "E", "IMP-REN"),
+                  labels = c("Current policies",
+                             "All pledges and net-zero targets", "IMP-REN")),
+    hjust = as.numeric(r10) / 8,
+    ppp_pf = ifelse(is.na(ppp_pf), "", ppp_pf)) %>% 
+  select(r10, case, aggregate, year, debtyear , category_fig, ppp_pf, hjust) %>% 
+  group_by(case, year, aggregate, category_fig, ppp_pf) %>%
+  pivot_wider(names_from = aggregate, values_from = debtyear ) %>% 
+  ggplot(aes(x = r10, y = Median)) +
+  geom_col(aes(fill = category_fig),
+           position = position_dodge(width = 0.7), size = 1, width = 0.7, data = . %>% filter(case == "All pledges and net-zero targets")) +
+  geom_segment(position = position_dodge(width = 0.7), size = 0.5,
+           data = . %>% select(r10, case, category_fig, Median) %>% 
+             pivot_wider(names_from = case, values_from = Median) %>% 
+             filter(`Current policies` > 0),
+           aes(x = r10, yend = `All pledges and net-zero targets`, y = `Current policies`,
+               colour = category_fig),
+           arrow = arrow(type = "closed", length = unit(0.05, "inches"))) +
+  scale_fill_brewer(palette = "Paired") +
+  scale_colour_brewer(palette = "Paired") +
+  scale_y_continuous(limits = c(0,350)) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        legend.position = "top",
+        legend.justification = "right",
+        text = element_text(size = 14)) +
+  guides(fill = guide_legend(reverse = T), colour = "none") +
+  coord_flip() +
+  labs(x = NULL, y = "Cumulative carbon debt by 2050 (GtCO2, median)",
+       fill = "Principled allocation")
+
+b2 <- r10_ndclts_impren_temp %>% 
+  filter(quantile == 0.5, year %in% c(2050,2100)) %>% 
+  mutate(case = factor(case, levels = c("A", "E", "IMP-REN"),
+                       labels = c("Current policies",
+                                  "All pledges and net-zero targets", "IMP-REN"))) %>% 
+  pivot_wider(names_from = aggregate, values_from = gmt) %>% 
+  ggplot(aes(x = factor(year), y = Median)) +
+  geom_col(fill = "#D38A78", width = 0.2,
+           data = . %>%   filter(case == "All pledges and net-zero targets")) +
+  geom_segment(data = . %>% 
+                 select(year, case, Median) %>% 
+                 pivot_wider(names_from = case, values_from = Median), 
+               colour = "#9F2305", size = 1,
+               aes(x = factor(year), xend = factor(year), y = `Current policies`, yend = `All pledges and net-zero targets`),
+               arrow = arrow(type = "closed", length = unit(0.1, "inches"))) +
+  geom_hline(aes(yintercept = 1.5), linetype = 2, alpha = 0.4) +
+  scale_y_continuous(labels = scales::dollar_format(prefix = "", suffix = "°C", scale = 1, accuracy = .1),
+                     breaks = c(1.5,3), limits = c(0,3)) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        text = element_text(size = 14)) +
+  labs(y = NULL, x = "Global mean temperature increase (50th perc.)")
+
+b <- wrap_plots(b1,b2, ncol = 2, widths = c(1,0.7))
 
 r10_ndclts_impren_rcbyear %>% 
   ungroup() %>% 
