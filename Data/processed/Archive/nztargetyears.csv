@@ -1,0 +1,319 @@
+r10,iso3c,iso3c_grp,end_target,cat_end_target,end_target_year,cat_end_target_year,end_target_year_comb,end_target_comb,end_target_status_comb,end_target_status,cat_end_target_status,end_target_text,gtco2,pp1990,gdpcurrmer,year,mtco2e
+R10AFRICA,CPV,CPV,Net zero,,2050,,2050,GHG,In policy document,In policy document,,https://www4.unfccc.int/sites/ndcstaging/PublishedDocuments/Cabo%20Verde%20First/Cabo%20Verde_NDC%20Update%202021.pdf,5.60592e-4,0.07331171308808006,2266752197.42617,2020,0.7754952612700001
+R10AFRICA,ETH,ETH,Net zero,NOTARGET,2050,No NetZero target,2050,GHG,In policy document,In policy document,No NZT,"""In 2015, as a signatory to the Paris Agreement, Ethiopia formulated an NDC, which was updated in 2021 through improved modeling and new data. Ethiopia pledged to limit its annual net emissions to 126 Mt CO2e or lower by 2030, which would constitute a 278 Mt CO2e (or 69%) reduction from the BAU scenario of 403 Mt CO2e."" p.22 
+
+"" The CRGE is an ambitious national blueprint that intends to reduce Ethiopia’s GHG emissions by 64%, compared to the BAU scenario, by 2030. .... The LT-LEDS outlines ambitious scenarios to decarbonize seven priority sectors of Ethiopia’s economy by 2050. "" p,18",0.016674991,16.93926820160981,95912607970.1686,2020,306.20927064
+R10AFRICA,GHA,GHA,Net zero,,2070,,2070,GHG,Declaration / pledge,Declaration / pledge,,net zero carbon emissions by 2070,0.016418401,4.732178584030278,68337974418.7681,2020,52.12097595599999
+R10AFRICA,GMB,GMB,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"We will endeavour to reach net-zero carbon emissions by 2050, with enhanced adaptive capacities and resilience, and play our part to address climate change through vigorous public agency, backed by the full engagement of our citizens from all walks of life",7.10816e-4,0.3534446927958875,1813609679.15313,2020,3.8966959172999998
+R10AFRICA,LBR,LBR,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"The energy sector is the highest contributor of GHG in Liberia emanating mainly from the use of traditional fuels such as firewood, charcoal and palm oil and the use of fossil fuels,
+especially petroleum products. To reduce the reliance on traditional fuel and increase the use of modern and renewable energy sources, the National Energy Policy (2009) was
+developed with a set of goals targeted at maximizing efficiency, minimizing costs and adverse environmental impacts as principle of extending energy access to all Liberians.
+Most recently, Liberia’s Initial National Communication (2013) reinforces the National Energy Policy with additional long-term targets and related activities, which includes:  
+• Reducing GHGs by at least 10% by 2030
+• Improving energy efficiency by at least 20% by 2030
+• Raising share of renewable energy to at least 30% of electricity production and
+10% of overall energy consumption by 2030
+• Replacing cooking stoves with low thermal efficiency (5-10%) with the higherefficiency (40%) stoves.
+The long-term strategy of Liberia is to achieve carbon neutrality by 2050. The strategic
+options for mitigation considered under the INDC are the energy sector (electricity,
+transport) and the waste sector. The Waste Sector focuses on solid waste disposal on land.
+In 2000, the waste sector accounted for about 0.60% of Liberia’s national total CO2 eq
+emissions. A significant subcategory is CH4 emissions from solid waste disposal sites
+(SWDS) on land, which contributed 91.7%. CH4 mitigation targets will include landfill
+recovery, waste incineration with energy recovery, composting of organic waste,
+controlled wastewater treatment, and recycling and waste minimization.",0.001019598,0.937622236633626,3319596500,2020,18.830756502299998
+R10AFRICA,MAR,MAR,,GHG,,2100,2100,GHG,Declaration / pledge,None,N,,0.068743122,4.1714471664255415,128920265075.525,2020,102.19872640033333
+R10AFRICA,NAM,NAM,Net zero,,2050,,2050,GHG,In policy document,In policy document,,Namibia's mitigation commitment is in the form of a decrease in GHG emissions compared to the Business as Usual (BAU) baseline over the 2015-2030 period. This update presents an improvement in the commitment of the devotion of Namibia to meeting the Paris Agreement goal and following the road to net zero emissions by 2050.,0.004111065,0.3330786310344637,12541928102.7657,2020,21.25721543633333
+R10AFRICA,NGA,NGA,Net zero,GHG,2070,2060,2070,GHG,In law,In law,Y,"This Act provides a framework for achieving low greenhouse gas emission (GHG), inclusive green growth and sustainable economic development by ... (f) setting a target for year 2050 - 2070 for the attainment of a net-zero GHG emission, in line with Nigeria's international climate change obligations. (Section 1 of the Nigeria's Climate Change Act 2021).
+
+https://cdn.climatepolicyradar.org/navigator/NGA/2021/explanatory-memorandum-on-nigeria-s-climate-change-acr_6c83884695bbf609fcd795a49d196e89.pdf
+",0.127337628,31.806689811837416,474517470742.749,2020,433.7823011533333
+R10AFRICA,TUN,TUN,Carbon neutral(ity),,2050,,2050,GHG,In policy document,In policy document,,"L’élément essentiel de la vision est de se fixer un objectif ambitieux sur le long terme (2050), et donc nécessairement porteur de défis, à savoir atteindre la neutralité carbone en 2050. La Tunisie bénéficie de nombreux atouts (position géographique stratégique, un voisinage et des relations économiques et politiques profondes avec l’Union Européenne, etc.) qui devraient lui permettre d’atteindre cet objectif ambitieux.",0.030353465,1.173700787712947,41905637658.6053,2020,41.237772340999996
+R10AFRICA,ZAF,ZAF,Net zero,CO2,2050,2050,2050,GHG,Declaration / pledge,Declaration / pledge,N,"Currently, net zero target is a visionary statement and yet to be formalised. 
+""We thus commit to ultimately moving towards a goal of net zero carbon emissions by 2050, which will require various interventions to reduce greenhouse gas emissions.""
+""This strategy sets out a direction of travel for South Africa as we refine our low carbon emission development pathway to meet our commitments to the international community and address our developmental agenda/priorities and needs. We know that success will require decades of dedicated effort. Therefore, we present this Strategy as a living document, the beginning of our journey towards ultimately reaching a net zero carbon economy by 2050"" https://unfccc.int/sites/default/files/resource/South%20Africa%27s%20Low%20Emission%20Development%20Strategy.pdf
+",0.465429264,-3.037664821577483,388531226582.351,2020,549.7493412263333
+R10AFRICA,AGO,AGO,,,,,,,None,None,,,0.019222173,4.015798385065921,69309110145.7687,2020,190.310432268
+R10AFRICA,BDI,BDI,,,,,,,None,None,,,6.88832e-4,1.7701738548733816,2576518879.39881,2020,8.5290576639
+R10AFRICA,BEN,BEN,,,,,,,None,None,,,0.007116143,1.842001853811716,14391686309.0337,2020,31.001176691000005
+R10AFRICA,BFA,BFA,,,,,,,None,None,,,0.005507514,3.5330850237211355,16178161666.1334,2020,45.86491159333333
+R10AFRICA,BWA,BWA,,,,,,,None,None,,,0.006782064,0.23471466405523683,16725908661.9419,2020,20.713949295
+R10AFRICA,CAF,CAF,,,,,,,None,None,,,2.27168e-4,0.8430490010862047,2221301350.75537,2020,27.248315396000002
+R10AFRICA,CIV,CIV,,,,,,,None,None,,,0.010535081,3.532992912495081,59898479821.1946,2020,83.514339589
+R10AFRICA,CMR,CMR,,,,,,,None,None,,,0.009591827,3.583152912010597,39670976440.3158,2020,67.9246791276667
+R10AFRICA,COD,COD,,,,,,,None,None,,,0.00359217299999999,14.147131396393428,51775829868.7669,2020,590.424984103333
+R10AFRICA,COG,COG,,,,,,,None,None,,,0.007290182,0.7182247002686075,12750338736.1661,2020,36.09062245383335
+R10AFRICA,COM,COM,,,,,,,None,None,,,3.1144e-4,0.13335340541872348,1195019531.03671,2020,1.0388865434099999
+R10AFRICA,DJI,DJI,,,,,,,None,None,,,4.48617e-4,0.15428518017746293,3088853638.56832,2020,1.9078085081466667
+R10AFRICA,DZA,DZA,,,,,,,None,None,,,0.178577209,3.1740981466966565,171760290068.157,2020,266.236565264
+R10AFRICA,EGY,EGY,,NOTARGET,,No NetZero target,,,None,None,No NZT,,0.256140175,10.806464496562226,318678815489.749,2020,322.84801289633333
+R10AFRICA,GAB,GAB,,,,,,,None,None,,,0.005426023,0.12599858288870713,16874405460.1964,2020,24.369835454633332
+R10AFRICA,GIN,GIN,,,,,,,None,None,,,0.003920951,1.8281840745754672,13442861496.5747,2020,44.677662389000005
+R10AFRICA,GNB,GNB,,,,,,,None,None,,,3.22432e-4,0.2848489595127672,1439638410.99593,2020,4.6176722688333305
+R10AFRICA,GNQ,GNQ,,,,,,,None,None,,,0.004637975,0.05283849003104596,11364133546.2494,2020,15.08329352719
+R10AFRICA,KEN,KEN,,,,,,,None,None,,,0.019799187,7.871716694710022,100378435824.178,2020,115.33244568733333
+R10AFRICA,LSO,LSO,,,,,,,None,None,,,0.002388928,0.30680576685469985,2436029587.61009,2020,6.048825983433329
+R10AFRICA,MDG,MDG,,,,,,,None,None,,,0.00425636,4.414401571973503,14104664677.9627,2020,56.04644989200001
+R10AFRICA,MLI,MLI,,,,,,,None,None,,,0.005832595,3.3478188018716755,17280250805.2245,2020,49.78971500133334
+R10AFRICA,MOZ,MOZ,,,,,,,None,None,,,0.007101099,4.5040195390822255,15390031039.9957,2020,78.52744532999999
+R10AFRICA,MRT,MRT,,,,,,,None,None,,,0.00377392,0.6321456543808192,8066118984.30581,2020,16.809699775666658
+R10AFRICA,MUS,MUS,,,,,,,None,None,,,0.004521376,0.12533537806398504,14436347115.2893,2020,4.7115259211266665
+R10AFRICA,MWI,MWI,,,,,,,None,None,,,0.001636507,3.4543795582774677,11025371147.1876,2020,26.487496760999996
+R10AFRICA,NER,NER,,,,,,,None,None,,,0.002513365,4.008252682230931,12916454870.5458,2020,56.507958741666705
+R10AFRICA,RWA,RWA,,,,,,,None,None,,,0.001372734,2.2125576286632787,10346675636.3397,2020,10.1044347237
+R10AFRICA,SDN,SDN,,,,,,,None,None,,,0.021772509,7.623881011508373,32338079165.2893,2020,149.48070130933328
+R10AFRICA,SEN,SEN,,,,,,,None,None,,,0.012713021,2.3775130193361593,23403995984.9306,2020,30.079230855666673
+R10AFRICA,SLE,SLE,,,,,,,None,None,,,0.001003936,1.2097488842599782,4076578653.54714,2020,16.394692423466672
+R10AFRICA,STP,STP,,,,,,,None,None,,,1.42896e-4,0.02738407520927389,427425039.684339,2020,0.24364302229533336
+R10AFRICA,SWZ,SWZ,,,,,,,None,None,,,0.001121184,0.1709347980135007,4466214522.19539,2020,1.5407791016666668
+R10AFRICA,TCD,TCD,,,,,,,None,None,,,0.00230313299999999,2.428033757855649,11314951088.2451,2020,117.32347458833331
+R10AFRICA,TGO,TGO,,,,,,,None,None,,,0.002414997,1.1504295103040727,6992656428.93581,2020,11.353959189700001
+R10AFRICA,TZA,TZA,,,,,,,None,None,,,0.013743298,9.6330195964440275,61026765850.3054,2020,227.43747517999998
+R10AFRICA,UGA,UGA,,,,,,,None,None,,,0.005731925,7.764742420833531,35348155092.292,2020,66.28388159
+R10AFRICA,ZMB,ZMB,,,,,,,None,None,,,0.007750827,2.8054106090904067,23308667781.2258,2020,89.44085217766671
+R10AFRICA,ZWE,ZWE,,,,,,,None,None,,,0.009775428,1.7270108422603532,21832234925.5021,2020,33.22017742
+R10CHINA+,CHN,CHN,Carbon neutral(ity),UNCLEAR,2060,2060,2060,GHG,In policy document,In policy document,N,"China will 'achieve carbon neutrality before 2060.' 
+[p.8, Updated NDC, 2022, retrieved from https://unfccc.int/sites/default/files/NDC/2022-11/Progress%20of%20China%20NDC%202022.pdf]",10.721041952,37.92222473523171,14279968485748,2020,13283.73005606
+R10CHINA+,KHM,KHM,Carbon neutral(ity),CO2,2050,2050,2050,GHG,In policy document,In policy document,N,"""This LTS4CN essentially aims to serve as a roadmap or vision document based on a comprehensive analysis and modelling of all relevant economic sectors, and it looks several decades ahead. It outlines priority mitigation actions for each sector to achieve the country’s goal of a carbon neutral economy in 2050."" (p3)",0.018219576,2.294205563406193,27089390032.8915,2020,80.0771343723333
+R10CHINA+,LAO,LAO,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"As per Paris Agreement Article 4, the 2020 NDC update builds upon the 2015 submission with a view to enhancing its ambition through the introduction of three national level greenhouse gas (GHG) emissions scenarios, namely a baseline emissions scenario, an unconditional mitigation scenario to 2030, as well as a more ambitious conditional mitigation scenario to 2030 towards achieving net zero GHG emissions by 2050.",0.019534333,1.0076051094411649,18740559554.1632,2020,67.4767425423333
+R10CHINA+,VNM,VNM,Net zero,UNCLEAR,2050,2050,2050,GHG,In policy document,In policy document,Y,'The implementation of NDC 2022 is in line with net zero target indicated in the National Climate Change Strategy to 2050 and the measures to implement the methane emission reduction action plan' (p.2).,0.34178877799999996,11.982743191641449,334365257920.289,2020,633.6871236576669
+R10CHINA+,HKG,HKG,,,,,,,None,None,,,0.041900196,0.10508914935274548,363074560517.276,2020,39.9530279411
+R10CHINA+,MMR,MMR,,,,,,,None,None,,,0.033616923,7.522728374751355,68697761477.1809,2020,236.849600975667
+R10CHINA+,MNG,MNG,,,,,,,None,None,,,0.047254523,0.03801308537888082,14206359016.4014,2020,84.13084342533332
+R10EUROPE,AUT,EU27,Climate neutral,GHG,2040,2050,2040,GHG,In law,In law,Y,"Section 4. (1) This Federal Act is intended to contribute to the goals of the Paris Climate Agreement of 2015, to the goal of the European Union to cover at least 32% of the Union’s gross final consumption of energy through renewable sources by 2030, and to the goal to make Austria climate neutral by 2040.",0.067956158,-0.5984189783487424,444621176100.54,2020,69.18138480133332
+R10EUROPE,BEL,EU27,Carbon neutral(ity),GHG,2050,2050,2050,GHG,In policy document,In policy document,Y,"The Brussels-Capital Region has set out to reduce direct GHG emission by at least 90% by 2050 compared to 2005 levels (40% by 2030 and 67% by 2040). The Flemish Region
+committed to reducing its CO2 emissions with 55% by 2030 compared to 2015. The Walloon region has set out to reduce GHG emission by at least 95% by 2050 compared to 1990 levels (55% by 2030) - source: https://www.sustainability.gov/pdfs/belgium-nzgi-roadmap.pdf",0.09947026,-1.5841289165122436,535865692402.342,2020,114.70157962866668
+R10EUROPE,BGR,EU27,,GHG,,2050,2050,GHG,In law,None,Y,,0.042232711,-0.3352259242589746,68911930627.8977,2020,45.04928363333333
+R10EUROPE,CHE,CHE,Net zero,,2050,,2050,GHG,In law,In law,,"""On 28 August 2019, the Federal Council decided that Switzerland would aim to reduce its greenhouse gas emissions to net zero by 2050 and gave the Federal Department of the Environment, Transport, Energy and Communications (DETEC) the task of drawing up a long-term climate strategy, thus ensuring that Switzerland meets a requirement of the Paris Agreement."" [Source: https://www.bafu.admin.ch/bafu/en/home/topics/climate/info-specialists/emission-reduction/reduction-targets/2050-target/climate-strategy-2050.html]",0.036726919,0.05865947790961945,721369112726.724,2020,41.1878150527
+R10EUROPE,CYP,EU27,Climate neutral,GHG,2050,2050,2050,GHG,In law,In law,Y,"Cyprus’ Long-term Low GHG emission development strategy, 2022 Update: Cyprus endorses the objective of achieving a climate-neutral EU by 2050: https://unfccc.int/sites/default/files/resource/2022_lts_final_cyprus.pdf
+https://unfccc.int/sites/default/files/NDC/2023-10/ES-2023-10-17%20EU%20submission%20NDC%20update.pdf
+
+Update of the NDC of the European Union and its Member States, October 2023 https://unfccc.int/sites/default/files/NDC/2023-10/ES-2023-10-17%20EU%20submission%20NDC%20update.pdf
+- The target is an economy-wide legally binding target of a net domestic reduction
+of greenhouse gas emissions by at least 55% compared to 1990 by 2030, without
+contribution from international credits.
+- New target to reduce emissions from the existing EU ETS sectors and maritime of 62% by 2030 compared to 2005 levels. 
+- EU climate target is a net domestic reduction of at least 55% in greenhouse gas emissions by 2030 compared to 1990,  Cyprus member state will reduce its emissions from 2005 levels by 2030 in accordance with the percentage of 32%.",0.007342336,-0.00597921914476581,25945194240.4544,2020,8.0510278294
+R10EUROPE,DEU,EU27,Climate neutral,GHG,2045,2050,2045,GHG,In law,In law,Y,"""By 2045 Germany is to become greenhouse gas neutral. This means that there must be a balance between greenhouse gas emissions and the removal of such gases.""
+(https://www.bundesregierung.de/breg-de/themen/klimaschutz/climate-change-act-2021-1936846)",0.707491365,-12.506956763790066,3888226035921.49,2020,725.6420771033331
+R10EUROPE,DNK,EU27,Net zero,GHG,2045,2050,2045,GHG,Declaration / pledge,Declaration / pledge,Y,"The Climate Act ensures that Denmark works to reduce its carbon emissions by 70 percent in 2030 compared to 1990 levels and towards net-zero by 2045. The Climate Act contains a mechanism for setting milestone targets. Every five years the government must set a legally binding target with a ten-year perspective. The milestone targets will be implemented in Danish law
+
+https://en.kefm.dk/news/news-archive/2019/dec/during-the-cop-denmark-passes-climate-act-with-a-70-percent-reduction-targetws-page-eng
+https://stateofgreen.com/en/news/new-danish-government-moves-forward-net-zero-climate-target-to-2045/",0.030950283,-0.587122526729892,346498737961.635,2020,44.18845097
+R10EUROPE,ESP,EU27,Climate neutral,GHG,2050,2050,2050,GHG,In law,In law,Y,"PSOE already made its green ambitions clear when it adopted Spain's first Climate Change and Energy Transition Law in 2021, which included the target of reaching climate neutrality by 2050.",0.25066079,-0.798229465299543,1394320055129.38,2020,266.733516363
+R10EUROPE,EST,EU27,,GHG,,2050,2050,GHG,In law,None,Y,,0.012323983,-0.3400003472985671,31081901909.2151,2020,15.193994960233328
+R10EUROPE,FIN,EU27,Climate neutral,GHG,2035,2050,2035,GHG,In law,In law,Y,"'1(2)(1) The objective of the Act and the climate policy planning system based on it is to contribute to
+ensuring that: 1) anthropogenic greenhouse gas emissions decrease and the removals by sinks increase so that,
+at the latest by 2035, Finland has reached a situation where its greenhouse gas emissions are at
+most equal to the removals and that the removals continue to increase and emissions decrease
+after that as well.'",0.042454,-0.7744485767070899,268514916972.544,2020,74.50447242700001
+R10EUROPE,FRA,EU27,Net zero,GHG,2050,2050,2050,GHG,In law,In law,Y,"« d'atteindre la neutralité carbone à l'horizon 2050 en divisant les émissions de gaz à effet de serre par un facteur supérieur à six »
+Reach carbon neutrality by 2050 by reducing GHG emissions by at least a factor of 6",0.315449737,-0.4947453174533081,2728870246705.83,2020,363.9396736672223
+R10EUROPE,GBR,GBR,Net zero,GHG,2050,2050,2050,GHG,In law,In law,Y,"""The target will require the UK to bring all greenhouse gas emissions to net zero by 2050, compared with the previous target of at least 80% reduction from 1990 levels.""
+
+""The Act originally committed the UK to cut its emissions by at least 80% below the 1990 baseline level by 2050. On 27 June 2019, this target was amended, committing the UK to a legally binding target of net zero emissions by 2050, set on a whole-economy basis.""
+
+There is a separate end target for Scotland: ""This legislation includes targets for Scotland to reach net zero greenhouse gas emissions by 2045""",0.364753306,-4.685296189947287,2857057847953.02,2020,416.1375334733333
+R10EUROPE,GRC,EU27,Climate neutral,GHG,2050,2050,2050,GHG,In law,In law,Y,"1. Σκοπός του παρόντος νόμου είναι η δημιουργία ενός συνεκτικού πλαισίου για τη βελτίωση της προσαρμοστικής ικανότητας και της κλιματικής ανθεκτικότητας της χώρας και τη διασφάλιση της σταδιακής μετάβασης της χώρας στην κλιματική ουδετερότητα έως το έτος 2050, με τον πλέον περιβαλλοντικά βιώσιμο, κοινωνικά δίκαιο και οικονομικά αποδοτικό τρόπο.",0.06575948,-0.934503267630274,205257014892.498,2020,59.194588916666696
+R10EUROPE,HRV,EU27,Climate neutral,GHG,2050,2050,2050,GHG,In law,In law,Y,"'A binding objective of climate neutrality in the European Union by 2050 at the latest, aiming to achieve negative emissions thereafter' (Update of the NDC of the European Union and its Member States, 2023, p.2)",0.017857446,0.12123384009058168,61329267533.1316,2020,20.3959356052
+R10EUROPE,HUN,EU27,Net zero,GHG,2050,2050,2050,GHG,In law,In law,Y,https://www.parlament.hu/irom41/07021/07021-0010.pdf,0.049310485,-0.09690062541846722,164020460331.659,2020,56.85745090966666
+R10EUROPE,IRL,EU27,Climate neutral,GHG,2050,2050,2050,GHG,In law,In law,Y,"
+EU NDC 2023: https://unfccc.int/sites/default/files/NDC/2023-10/ES-2023-10-17%20EU%20submission%20NDC%20update.pdf
+
+(More recent than Climate Action and Low Carbon Development (Ammendment) Bill 2021)",0.037325752,-0.3841688163556397,399321701632.424,2020,80.81522310800001
+R10EUROPE,ISL,ISL,Carbon neutral(ity),,2040,,2040,GHG,In law,In law,,"a. to reduce the emission of greenhouse gases in an economical and efficient way,
+    b. to increase the sequestration of carbon from the atmosphere,
+    c. to promote adaptation to the consequences of climate change, ... 
+    d. to create conditions for the government to fulfill Iceland's international obligations in climate matters,
+    [e. to achieve carbon neutrality no later than the year 2040. Should the government's climate goals be updated, amendments to this provision shall be proposed accordingly].",0.003558741,-0.02937697382504753,24663643101.958,2020,4.660588821133331
+R10EUROPE,ITA,EU27,Climate neutral,GHG,2050,2050,2050,GHG,In policy document,In policy document,Y,"REGULATION (EU) 2021/1119 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL, of 30 June 2021, outlines goal for climate neutrality by 2050, maintaining the interim 55% by 2030 emissions reduction goal (https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32021R1119&qid=1651147232273). ...the National Long-term Strategy (hereinafter referred to as the “Strategy”) identifies the possible pathways to achieve ""climate neutrality"" in Itay by 2050, in which the remaining greenhouse gas emissions are offset by CO2 sequestration and the eventual use of CCS-CCU.
+
+...the National Long-term Strategy (hereinafter referred to as the “Strategy”) identifies the possible pathways to achieve ""climate neutrality"" in Itay by 2050, in which the remaining greenhouse gas emissions are offset by CO2 sequestration and the eventual use of CCS-CCU.",0.340402522,-3.0162378539141894,2011302198827.41,2020,348.54538815385166
+R10EUROPE,LTU,EU27,Net zero,GHG,2050,2050,2050,GHG,In policy document,In policy document,Y,"""The European Climate Law, adopted in 2021 sets the legally binding EU’s climate neutrality target at the latest by 2050.""
+""The Agenda sets a long-term objective of reaching net-zero emissions by 2050.""
+
+[https://unfccc.int/sites/default/files/resource/8th%20NC%20and%205th%20BR_20230105%20final.pdf]",0.013677775,0.04834145997863276,54760617012.9166,2020,25.49174377533333
+R10EUROPE,LUX,EU27,Net zero,GHG,2050,2050,2050,GHG,In law,In law,Y,"""l’objectif à long terme de la neutralité climatique, qui consiste à atteindre le « zéro émissions nettes » au Luxembourg, d’ici 2050 au plus tard""
+
+Net zero emissions by 2050 (long term carbon neutrality)",0.009769623,-0.2045168054091902,69825641851.0104,2020,8.959762585100002
+R10EUROPE,LVA,EU27,Carbon neutral(ity),GHG,2050,2050,2050,GHG,In policy document,In policy document,Y,Latvia set 2050 as its long-term climate neutrality goal. The CCPI country experts note that this target does not include a clear pathway or action plan to achieve its goal. They also judge Latvia’s National Energy and Climate Plan (NECP) as insufficient.https://ccpi.org/country/lva/,0.007650647,0.07649096482651424,34343961072.8229,2020,15.13273921466667
+R10EUROPE,MLT,EU27,Climate neutral,GHG,2050,2050,2050,GHG,In policy document,In policy document,Y,The Strategy aims to move towards climate neutrality by 2050 in line with Malta’s contribution to EU- wide goals. Carbon neutrality is also one of Malta’s five pillars for economic growth and recovery from the COVID-19 pandemic.,0.00164876399999999,-0.00132244093930684,15881258056.2009,2020,1.7753766904733332
+R10EUROPE,NLD,EU27,,GHG,,2050,2050,GHG,In law,None,Y,,0.152509407,-2.214211887967019,910194347568.61,2020,175.21365613400002
+R10EUROPE,POL,EU27,,GHG,,2050,2050,GHG,In law,None,Y,,0.317682527,-3.6976404298132377,596058473058.766,2020,343.5063136713333
+R10EUROPE,PRT,EU27,Carbon neutral(ity),GHG,2050,2050,2050,GHG,In law,In law,Y,,0.047494045,0.08600447792762478,239986922638.897,2020,51.701440899333335
+R10EUROPE,ROU,EU27,Climate neutral,GHG,2050,2050,2050,GHG,In policy document,In policy document,Y,"Submission by Croatia and the European Commission on behalf of the European Union and its Member States, 6 March 2020: ""On 12 December 2019 the European Council, taking note of the Communication of the European Commission on the European Green Deal, endorsed the objective of achieving a climate-neutral EU by 2050, in line with the objectives of the Paris Agreement"" (https://unfccc.int/documents/210328)",0.076885222,0.23492683096769704,251017797625.017,2020,97.45887103499999
+R10EUROPE,SVK,EU27,Net zero,GHG,2050,2050,2050,GHG,In law,In law,Y,"Page 8 of https://commission.europa.eu/system/files/2023-12/SWD_Assessment_draft_updated_NECP_Slovakia_2023.pdf:
+""The draft updated NECP confirms Slovakia’s commitment to achieve climate neutrality by 2050"".
+From Page 4 of the same document, ""The draft updated NECP refers to the revised energy and climate targets recently agreed under the ‘Fit for 55’ package and the REPowerEU plan.""",0.033778548,-0.3298424470203132,105710052464.625,2020,37.33813141
+R10EUROPE,SVN,EU27,Net zero,GHG,2050,2050,2050,GHG,In policy document,In policy document,Y,"- From Slovenia's Resolution on the Long-Term Climate Strategy until 2050: Slovenija bo leta 2050 podnebno nevtralna in na podnebne spremembe odporna družba na temeljih trajnostnega razvoja.
+
+– From Slovenia's Long-Term Climate Strategy Resolution (13/07/2021): '[T]he Republic of Slovenia sets a clear objective, i.e. to attain net zero emissions or climate neutrality by 2050. By setting the climate objective, the Climate Strategy is determining the goal of attaining net zero emissions by 2050 to other sectors and their sectoral policies. It also sets the strategic sectoral objectives for 2040 and  2050, which individual sectors must observe consistently and incorporate in their sectoral documents and plans.' (p.1, https://unfccc.int/sites/default/files/resource/LTS1_SLOVENIA_EN.pdf)",0.014039442,-0.11652929505128272,54331588482.3048,2020,17.85803105433333
+R10EUROPE,SWE,EU27,Net zero,GHG,2045,2050,2045,GHG,In law,In law,Y,"""By 2045, Sweden is to have zero net emissions of greenhouse gases into the atmosphere. This means that greenhouse gas emissions from activities in Sweden should be at least 85 percent lower than in 1990. The remaining 15 percent can be achieved through supplementary measures...""",0.04100604,0.11966308875758291,533879529188.454,2020,69.937435361
+R10EUROPE,TUR,TUR,Net zero,UNCLEAR,2053,2053,2053,GHG,In policy document,In policy document,N,""" long-term objective of achieving a net zero target by 2053""",0.402692254,4.9430061300754105,759934804372.319,2020,547.6420110433335
+R10EUROPE,BIH,BIH,,,,,,,None,None,,,0.02081037699999999,0.1394270698274382,20482603346.4473,2020,29.12315535683333
+R10EUROPE,MKD,MKD,,,,,,,None,None,,,0.007646768,0.10542563357704164,12606338448.547,2020,8.19240933346667
+R10EUROPE,MNE,MNE,,,,,,,None,None,,,0.002476864,0.05079944789825202,5542053845.29274,2020,1.9133388483833302
+R10EUROPE,NOR,NOR,,,,,,,None,None,,,0.042793,-0.33879963242862765,408742840909.091,2020,71.83880581599999
+R10EUROPE,SRB,SRB,,,,,,,None,None,,,0.044278484,0.01941487227621574,51514242775.5241,2020,52.02999581266668
+R10INDIA+,IND,IND,Net zero,UNCLEAR,2070,2070,2070,GHG,In policy document,In policy document,N,"p. 3 of India’s Updated First Nationally Determined Contribution Under Paris Agreement (August 2022 Submission to UNFCCC) (https://unfccc.int/sites/default/files/NDC/2022-08/India%20Updated%20First%20Nationally%20Determined%20Contrib.pdf)
+
+c.f. Year when current target status was reached - 2022, in accordance with the cabinet approval (available at https://pib.gov.in/PressReleasePage.aspx?PRID=1847813)
+
+PM Modi announced net zero 2070 at World Leaders Summit COP26 in Glasgow 
+https://www.hindustantimes.com/world-news/pm-modi-sets-india-2070-zero-carbon-emission-target-at-cop26-summit-101635785945035.html
+https://unfccc-cop26.streamworld.de/webcast/national-statements 
+https://pib.gov.in/PressReleasePage.aspx?PRID=1847813",2.612888038,180.2566414994573,2835606242052.48,2020,3626.7377215599995
+R10INDIA+,LKA,LKA,Carbon neutral(ity),,2050,,2050,GHG,Declaration / pledge,Declaration / pledge,,"In the prosperity scenario the annual CO2e emissions amounts 35.5 million tons GHG (2022), 21.9 million tons GHG (2030), 10.2 million tons GHG (2040) and -1.4 million tons GHG (2050). The implementation of the prosperity measures then allows a dynamic of -48.7% (2030), -79.4% (2040), -102.4% (2050) compared to the baseline. This means an average of -26.4% change between 2022 and 2030 and -65.5% between 2022 and 2050 of the annual co2e emissions.",0.021232161,3.1386577000727103,89014978319.0703,2020,40.217251666333325
+R10INDIA+,MDV,MDV,Net zero,,2030,,2030,GHG,In law,In law,,"In our updated NDC we have made ambitious plans to reduce 26% of our emissions by 2030. Furthermore, we
+will strive to achieve net zero by 2030, if we receive adequate international support and assistance. To achieve
+the emission reduction targets, we have set forth ambitious plans to increase our share of renewable energy
+in the energy mix through various initiatives.",0.001952912,0.04084504657727277,5609385433.592,2020,1.89270663405
+R10INDIA+,NPL,NPL,Net zero,CO2,2045,2045,2045,GHG,In policy document,In policy document,N,"Nepal has made a commitment to achieving a net-zero emission by 2045.
+
+In his address to the World Leaders Summit during the 26th Conference of Parties (COP26) of the UN Framework Convention on Climate Change (UNFCCC) in Glasgow, United Kingdom, on Monday, Nepal’s delegation head, Prime Minister Sher Bahadur Deuba made the announcement.",0.01357489,5.374067864787143,34186180694.9285,2020,56.94881363633333
+R10INDIA+,BGD,BGD,,,,,,,None,None,,,0.100791877,24.784718831419575,351238397263.802,2020,243.16381639999997
+R10INDIA+,BTN,BTN,,,,,,,None,None,,,0.001458625,0.121384441290395,2535655609.45889,2020,3.55118243349
+R10INDIA+,PAK,PAK,,,,,,,None,None,,,0.206061237,30.63133643166049,320909472926.461,2020,511.5352571733333
+R10LATIN_AM,ARG,ARG,Net zero,UNCLEAR,2050,2050,2050,GHG,In policy document,In policy document,N,"In November 2022, Argentina submitted a long-term strategy (LTS) to the UNFCCC that includes a target to reach GHG neutrality by 2050 (Government of Argentina, 2022a).
+
+https://climateactiontracker.org/countries/argentina/targets/",0.178511615,2.3906313860254285,447754686715.081,2020,367.67525088
+R10LATIN_AM,BLZ,BLZ,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"Belize shifted from an action only commitments in the first NDC to a quantifiable reduction target of avoiding cumulative emissions across all sectors of 5,647 Kt CO2e between 2021 and 2030. The country commits to developing a long-term strategy aligned with achieving net-zero global emissions by 2050.",7.071520000000001e-4,0.04312900061381158,2416500000,2020,7.69794238207
+R10LATIN_AM,BRA,BRA,Carbon neutral(ity),UNCLEAR,2050,2050,2050,GHG,In policy document,In policy document,N,"The Government of Brazil further reiterates its long-term objective to achieve climate neutrality by 2050. (2023 adjustment. This was first communicated in the 2020 first NDC - see below.)
+
+https://www.eyeonesg.com/2022/03/brazil-launches-methane-zero-national-program-with-a-package-of-incentive-measures-to-biogas-and-biomethane/  Brazil The new package – called Federal Strategy of Incentive to the Sustainable Use of Biogas and Biomethane – includes the Methane Zero National Program and is aligned with the commitments made by Brazil in the context of COP26, the Global Methane Pledge and other domestic regulatory efforts, such as the National Policy on Waste Management.  However, there is much yet to discuss until the newly proposed mechanisms are effectively functional, producing results and aligned not only with the already implemented RenovaBio, but also with the prospective legal framework governing the Brazilian carbon credit markets, which is currently under analysis in the National Congress.
+https://www4.unfccc.int/sites/ndcstaging/PublishedDocuments/Brazil%20First/Updated%20-%20First%20NDC%20-%20%20FINAL%20-%20PDF.pdf",0.473464387,22.086704404315867,1873288159000.64,2020,2228.20338302667
+R10LATIN_AM,BRB,BRB,Carbon neutral(ity),,2030,,2030,GHG,In policy document,In policy document,,"The Government of Barbados has, therefore, set the aspirational goal to achieve a fossil fuel-free economy and to reduce GHG emissions across all sectors to as close to zero as possible by 2030.
+",0.001666716,-0.00342418685057289,5324250000,2020,1.4141356965333332
+R10LATIN_AM,CHL,CHL,Carbon neutral(ity),GHG,2050,2050,2050,GHG,In law,In law,Y,"""Article 1.- Object. The purpose of this law is to face the challenges presented by climate change, move towards a development low in greenhouse gas emissions and other climate forcing, until reaching and maintaining the neutrality of greenhouse gas emissions by the year 2050. , adapt to climate change, reducing vulnerability and increasing resilience to the adverse effects of climate change, and comply with the international commitments assumed by the State of Chile on the matter.""
+
+Artículo 1°.- Objeto. La presente ley tiene por objeto hacer frente a los desafíos que presenta el cambio climático, transitar hacia un desarrollo bajo en emisiones de gases de efecto invernadero y otros forzantes climáticos, hasta alcanzar y mantener la neutralidad de emisiones de gases de efecto invernadero al año 2050, adaptarse al cambio climático, reduciendo la vulnerabilidad y aumentando la resiliencia a los efectos adversos del cambio climático, y dar cumplimiento a los compromisos internacionales asumidos por el Estado de Chile en la materia",0.091977097,1.1331277362379466,278493308134.096,2020,119.11913393933332
+R10LATIN_AM,COL,COL,Carbon neutral(ity),GHG,2050,2050,2050,GHG,In law,In law,Y,"ARTÍCULO 5. Metas en materia de mitigación. Las metas nacionales de mitigación de GEl a 2030, así como las acciones mínimas para lograrlo, comprenden las establecidas aquí y en las ""Actualizaciones de la Contribución Determinada a Nivel Nacional de Colombia (NDC)"" sometidas ante la CMNUCC, o cualquiera que lo actualice o sustituya. 1. Reducir en un cincuenta y uno por ciento (51 %) las emisiones de Gases de
+Efecto Invernadero (GEl) con respecto al escenario de referencia a 2030 de
+la I\lDC, lo que representa un máximo de emisiones país de 169.44 millones
+de tC02eq en 2030.
+2. Alcanzar la carbono neutralidad a 2050.
+3. Establecer presupuestos de carbono para el período 2020-2030 a más tardar
+en 2023.
+4. Reducir las emisiones de carbono negro en un cuarenta por ciento (40%)
+! respecto al 2014, lo que representa una emisión máxima de carbono negro
+de 9.195 toneladas en 2030, excluyendo incendios forestales.
+5. Reducir la deforestación neta de bosque natural a O hectáreas/año a 2030, a
+partir de la implementación tanto de herramientas de política, como de
+medidas cooperativas y de mercado",0.094497928,6.076255728273894,323031701210.767,2020,255.60168192333327
+R10LATIN_AM,CRI,CRI,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"'Costa Rica commits to becoming a decarbonized economy with net-zero emissions by 2050' (National Decarbonisation Plan, 2018).",0.007698382,0.6507088104331824,64417670555.7821,2020,14.569830680666659
+R10LATIN_AM,HTI,HTI,Net zero,,2050,,2050,GHG,Declaration / pledge,Declaration / pledge,,,0.003091473,1.6533091314642785,15016090929.8744,2020,16.26824764826667
+R10LATIN_AM,MEX,MEX,,NOTARGET,,2050,2050,NOTARGET,Assumed,None,No NZT,,0.468322146,7.427506299212727,1269009571610.76,2020,864.2382775266669
+R10LATIN_AM,PAN,PAN,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"La visión que orientó el proceso de actualización de la CDN1 es la resiliencia y reducción progresiva de emisiones de dióxido de carbono hacia la neutralidad en carbono
+del país al 2050.",0.013380774,0.4378938526609542,69721787532.9789,2020,22.274279722633327
+R10LATIN_AM,PER,PER,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"Finalmente, es importante indicar que el Perú iniciará en el año 2021 el proceso de actualización de su
+Estrategia Nacional ante el Cambio Climático con un
+horizonte al año 2050. En ese sentido, ha iniciado la
+generación participativa de dos referentes importantes con relación a la mitigación de GEI y la adaptación
+al cambio climático a través de la elaboración, por un
+lado, del Estudio Técnico para la Carbono Neutralidad
+del Perú al 2050 y, por otro, del desarrollo del Plan Nacional de Adaptación, con horizontes temporales hacia
+los años 2030 y 2050.",0.058365043,3.929527087520184,228325852220.761,2020,124.58530143833332
+R10LATIN_AM,URY,URY,Net zero,,2050,,2050,GHG,In policy document,In policy document,,Climate Alliance,0.006489942,0.36836525004341103,62048585618.505,2020,40.45571957666667
+R10LATIN_AM,BHS,BHS,,,,,,,None,None,,,0.00245488,0.00472034549550535,13058700000,2020,2.61684201646
+R10LATIN_AM,BOL,BOL,,,,,,,None,None,,,0.022605112,1.4163493578229285,40895322850.9407,2020,107.79049907199999
+R10LATIN_AM,DOM,DOM,,,,,,,None,None,,,0.028374693,1.184199174787515,88941371980.2651,2020,38.096375698
+R10LATIN_AM,ECU,ECU,,,,,,,None,None,,,0.040065169,1.7626554278320312,108108009000,2020,70.33765117466668
+R10LATIN_AM,GRD,GRD,,,,,,,None,None,,,3.2976e-4,0.01204967676237336,1213485185.18519,2020,0.3246526982193333
+R10LATIN_AM,GTM,GTM,,,,,,,None,None,,,0.019501705,2.4805180793943675,77172313916.4218,2020,51.927676042
+R10LATIN_AM,GUY,GUY,,,,,,,None,None,,,0.002755782,0.07180345338698142,5173760191.84652,2020,12.4192251357
+R10LATIN_AM,HND,HND,,,,,,,None,None,,,0.011218794,1.2643457937864149,25089937108.6681,2020,34.4167067843333
+R10LATIN_AM,JAM,JAM,,,,,,,None,None,,,0.007823415,0.17866955348418423,15830766372.2651,2020,7.5757678813
+R10LATIN_AM,NIC,NIC,,,,,,,None,None,,,0.005222552,0.876238253819113,12699028889.666,2020,38.172933352333295
+R10LATIN_AM,PRY,PRY,,,,,,,None,None,,,0.008136722,1.003969454053875,37925338460.1556,2020,96.7073738336667
+R10LATIN_AM,SLV,SLV,,,,,,,None,None,,,0.00754965,0.8238206226314695,26881140000,2020,8.71322490003333
+R10LATIN_AM,SUR,SUR,,,,,,,None,None,,,0.002635797,0.02862158058004266,4016040575.08796,2020,7.18895021918667
+R10LATIN_AM,TTO,TTO,,,,,,,None,None,,,0.040782853,-0.7213802887945284,23849557811.3959,2020,52.4233194748
+R10LATIN_AM,VEN,VEN,,,,,,,None,None,,,0.087611623,0.8910544187071183,482359318767.703,2020,152.8766799906667
+R10MIDDLE_EAST,ARE,ARE,Net zero,UNCLEAR,2050,2050,2050,GHG,In policy document,In policy document,N,"""The UAE is committed to reducing economy-wide GHG emissions to as close to zero as possible by 2050, with any remaining emissions re-absorbed from the atmosphere."" [p. 44] 
+
+LTS (2024) and the Third Update of Second Nationally Determined Contribution (NDC) ""is the first time the UAE has introduced long-term targets beyond 2030"" 
+[p. 17]. 
+",0.219556572,-2.204400557913882,417989721742.682,2020,269.39445939893335
+R10MIDDLE_EAST,BHR,BHR,Net zero,,2060,,2060,GHG,Declaration / pledge,Declaration / pledge,,,0.037583133,-0.3532869042678583,38653318085.1064,2020,66.30487928306333
+R10MIDDLE_EAST,KWT,KWT,Carbon neutral(ity),,2060,,2060,GHG,Declaration / pledge,Declaration / pledge,,"""Kuwait has pledged to reach carbon neutrality in the oil and gas sector by 2050 and in other sectors by 2060.""
+",0.108893453,-1.4168517564789664,136191752590.897,2020,137.02111790416666
+R10MIDDLE_EAST,LBN,LBN,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"Joined Climate Ambition Alliance at COP26
+https://cop25.mma.gob.cl/wp-content/uploads/2020/02/Annex-Alliance-ENGLISH.pdf
+",0.025661359,0.2788346026227001,51605959131.3654,2020,27.4796117757
+R10MIDDLE_EAST,OMN,OMN,Net zero,,2050,,2050,GHG,In policy document,In policy document,,"As part of Royal attention to improve environment performance and alleviate the impact of climate change, the year 2050 has been set as a date for net zero carbon emissions. A national plan has been drafted to achieve this goal, along with the setting up of Oman Sustainability Centre to undertake the supervision and follow up of zero carbon emission plans and programmes. His Majesty the Sultan gave directives to all units of the State’s Administrative Apparatus to cooperate to ensure the success of this national plan.",0.059221741,-0.49345658733155806,88060858257.4772,2020,105.5345520533
+R10MIDDLE_EAST,SAU,SAU,Net zero,UNCLEAR,2060,2060,2060,GHG,In policy document,In policy document,N,"“We announce today the kingdom is aiming to reach net zero by 2060 through a circular carbon economy approach, in a way that’s compatible with the kingdom’s development plans and enables its economy to diversify,” Prince Mohammed said in a recorded message at the opening of the conference.
+",0.707125241,-6.320773864657757,838564705624.643,2020,749.8529052089999
+R10MIDDLE_EAST,IRN,IRN,,NOTARGET,,No NetZero target,,,None,None,No NZT,,0.694666497,0.14599535618516768,283649531542.631,2020,907.5266110700001
+R10MIDDLE_EAST,IRQ,IRQ,,,,,,,None,None,,,0.189606498,3.762374476410365,233636097800.338,2020,321.81446808566665
+R10MIDDLE_EAST,ISR,ISR,,NOTARGET,,No NetZero target,,,None,None,N,,0.058659186,-0.16744417519581423,402470513619.148,2020,73.08812735416666
+R10MIDDLE_EAST,JOR,JOR,,,,,,,None,None,,,0.024728613,0.8662200662837168,44503005774.6479,2020,29.568589698833332
+R10MIDDLE_EAST,PSE,PSE,,,,,,,None,None,,,0.003265402,0.6738728576687814,17133500000,2020,0.0439924266666667
+R10MIDDLE_EAST,QAT,QAT,,,,,,,None,None,,,0.101018985,-1.2505345599640998,176371267689.082,2020,189.1196317156
+R10MIDDLE_EAST,SYR,SYR,,,,,,,None,None,,,0.028677104,2.414307961425399,22600896352.1266,2020,41.82572815566667
+R10MIDDLE_EAST,YEM,YEM,,,,,,,None,None,,,0.011837194,4.854698030449391,21606161066.2074,2020,31.017132317
+R10NORTH_AM,CAN,CAN,Net zero,GHG,2050,2050,2050,GHG,In law,In law,Y,"The Government of Canada is committed to moving to net-zero emissions by 2050.
+
+Canada passed the Canadian Net-Zero Emissions Accountability Act in June 2021 which enshrined its 2050 net zero target into law (Government of Canada, 2021e). Canada updated its long-term strategy in October 2022. The strategy explores a number of different scenarios capable of achieving net zero emissions in 2050, but does not set a particular pathway for the country to follow or outline the policies and measures needed to achieve its net zero target. While they are focused on reducing emissions domestically, Canada could also be looking to reduce emissions internationally through internationally transferred mitigation outcomes (ITMOs) and carbon credits, which Canada is working on its policy towards international carbon credits (Environment and Climate Change Canada, 2022a) Reliance on LULUCF and CDR could be as high as 45% of Canada’s emissions in 2020 (or 301 MtCO2e). Under all scenarios, Canada is still producing and exporting oil and gas in 2050.
+https://climateactiontracker.org/countries/canada/targets/
+
+",0.578587718,-9.663529507020325,1743725183672.52,2020,757.1609144833333
+R10NORTH_AM,USA,USA,Net zero,GHG,2050,2050,2050,GHG,In law,In law,N,Achieve target of a net-zero emissions economy by no later than 2050,5.262145074,-109.1816447198934,21380976119000,2020,5635.095412213334
+R10PAC_OECD,AUS,AUS,Net zero,GHG,2050,2050,2050,GHG,In law,In law,Y,"10  Australia’s greenhouse gas emissions reduction targets
+
+             (1)  Australia’s greenhouse gas emissions reduction targets are as follows:
+
+                     (a)  reducing Australia’s net greenhouse gas emissions to 43% below 2005 levels by 2030:
+
+                              (i)  implemented as a point target; and
+
+                             (ii)  implemented as an emissions budget covering the period 2021‑2030;
+
+                     (b)  reducing Australia’s net greenhouse gas emissions to zero by 2050.
+
+Note:          The achievement of a target involves reducing Australia’s net greenhouse gas emissions to a level that is at or below the target. Accordingly, nothing in subsection (1) limits Australia’s ability to reduce its net greenhouse gas emissions beyond 43% below 2005 levels by 2030.",0.41581127,-6.332625861831369,1392218527563.26,2020,568.40599299
+R10PAC_OECD,JPN,JPN,Carbon neutral(ity),GHG,2050,2050,2050,GHG,In law,In law,Y,'...longterm goal of achieving net-zero by 2050',1.104539821,-16.217082498251465,5117993853016.51,2020,1078.7546923883333
+R10PAC_OECD,NZL,NZL,Net zero,CO2,2050,2050,2050,GHG,In law,In law,Y,"From Climate Change Law: '[...]The target for emissions reduction (the 2050 target) requires that— (a) net accounting emissions of greenhouse gases in a calendar year, other than biogenic methane, are zero by the calendar year beginning on 1 January 2050 and for each subsequent calendar year... (b) emissions of biogenic methane in a calendar year—(i) are 10% less than 2017 emissions by the calendar year beginning on 1 January 2030; and (ii) are 24% to 47% less than 2017 emissions by the calendar year beginning on 1 January 2050 and for each subsequent calendar year.[...]' (https://www.legislation.govt.nz/act/public/2019/0061/latest/whole.html#LMS183771)
+
+",0.036878936,-0.18839146605475696,213091987153.092,2020,69.10864779518253
+R10REF_ECON,ARM,ARM,Climate neutral,,2050,,2050,GHG,Declaration / pledge,Declaration / pledge,,"""For the long term, the RA Government has set a target to reduce GHG emissions to 2.07 t CO2 eq/capita by 2050"" (Long-term low GHG emissions development strategy of the Republic of Armenia, p.15)
+
+""By Intended nationally determined contributions 2015 (INDC), the Government has set a long-term target for GHG emissions reduction until 2050, declaring the intention to achieve ecosystem climate neutrality. In 2021 the implementation period by the revised 2021-2030 NDC was fixed 2030 and mitigation target to 40% below 1990 levels was set at the same time ensuring that the 2015 long-term target set by the INDC is maintained.""
+(Long-term low GHG emissions development strategy of the Republic of Armenia, p.15)
+",0.00628411,0.34417598947723904,13619290545.8131,2020,10.10424644226666
+R10REF_ECON,GEO,GEO,Climate neutral,,2050,,2050,GHG,In policy document,In policy document,,"""For this reason, Georgia proclaims ‘climate neutrality’ as its goal and aims at achieving it by mid-century.""",0.010886591,0.422665651587132,17470436258.5131,2020,9.076750411399999
+R10REF_ECON,KAZ,KAZ,Carbon neutral(ity),UNCLEAR,2060,2060,2060,GHG,In policy document,In policy document,N,"В декабре 2020 года Казахстан объявил о новой цели – достижении углеродной нейтральности к 2060 году, подтвердив свои обязательства по Парижскому соглашению о предотвращении роста глобальной температуры более, чем на 1,5-2oC.
+[In December 2020, Kazakhstan announced a new goal of achieving carbon neutrality by 2060, reaffirming its commitment to the Paris Agreement to prevent global temperatures from rising by more than 1.5-2oC.]",0.275289762,-3.322600773496091,181667185041.48,2020,345.136570871
+R10REF_ECON,RUS,RUS,Carbon neutral(ity),UNCLEAR,2060,2060,2060,GHG,In policy document,In policy document,Y,"Speech by Putin: ""I will add that in practice Russia will strive for carbon neutrality of its economy, and we set a specific benchmark here - no later than 2060."" (http://kremlin.ru/events/president/news/66916)       
+
+The target then appears in the following document (http://kremlin.ru/acts/assignments/orders/67240).",1.705030917,-25.716715626224513,1693114993990.49,2020,2235.4309433500002
+R10REF_ECON,UKR,UKR,Carbon neutral(ity),CO2,2060,2060,2060,GHG,In policy document,In policy document,N,"Ukraine has committed
+itself to achieving the target of reducing GHG emissions of 65% by 2030, compared
+to 1990 (including LULUCF), reaching carbon neutrality until 2060 as foreseen in the
+National Economic Strategy until 2030, approved by the Decree of the Cabinet of
+Ministers of Ukraine of March 3, 2021 # 179.",0.221943163,-2.9383375290722773,153883045524.931,2020,290.02069591133335
+R10REF_ECON,AZE,AZE,,,,,,,None,None,,,0.037737895,0.5576672450707718,48174235294.1176,2020,65.476033493
+R10REF_ECON,BLR,BLR,,,,,,,None,None,,,0.062096344,-0.3797068287529139,64410112583.362,2020,109.27261961800001
+R10REF_ECON,KGZ,KGZ,,,,,,,None,None,,,0.009046309,0.6982050577203116,8871019822.76098,2020,19.43216074383333
+R10REF_ECON,MDA,MDA,,,,,,,None,None,,,0.005495003,0.283170036930091,11735774634.4239,2020,5.947734156266671
+R10REF_ECON,TJK,TJK,,,,,,,None,None,,,0.008856778,1.1085759038628082,8300813889.63698,2020,20.505887273
+R10REF_ECON,TKM,TKM,,,,,,,None,None,,,0.065324646,-0.4651913856828536,44220285714.2857,2020,124.73712815366667
+R10REF_ECON,UZB,UZB,,,,,,,None,None,,,0.10842908,1.4291619875457688,60283503705.3907,2020,191.89578545599997
+R10REST_ASIA,FJI,FJI,Net zero,,2050,,2050,GHG,In law,In law,,"An update to its existing Nationally Determined Contribution (NDC) pursuant to Article 4.11 of the Paris Agreement that includes:
+ a reaffirmation of its 2030 target;
+ a commitment to achieve net zero greenhouse gas emissions by 2050;
+ up-front information to facilitate clarity, transparency and understanding;
+ a commitment to enact its Climate Change Bill by 2021; and
+ a commitment to operationalise its National Adaptation Plan.
+Source: https://www4.unfccc.int/sites/ndcstaging/PublishedDocuments/Fiji%20First/Republic%20of%20Fiji's%20Updated%20NDC%2020201.pdf
+
+Climate Change Bill 2021 clauses 6(5) and 38(1)
+Source: https://www.laws.gov.fj/LawsAsMade# (Act 43 of 2021)",0.001408048,0.11817577800457944,5481692621.61125,2020,2.1479703438166666
+R10REST_ASIA,IDN,IDN,,UNCLEAR,,2060,2060,UNCLEAR,Declaration / pledge,None,N,,0.650905948,30.5213231138193,1119099871386.16,2020,1931.103418666667
+R10REST_ASIA,KOR,KOR,Net zero,GHG,2050,2050,2050,GHG,In law,In law,Y,"The RoK announced its goal of reaching carbon neutrality by 2050 in Dec 2020. This target was written into law in the Carbon Neutrality Act, enacted Sept 2021.",0.646102263,-6.41386188602123,1651422932447.77,2020,641.5202655606666
+R10REST_ASIA,MYS,MYS,Net zero,UNCLEAR,2050,2050,2050,GHG,In policy document,In policy document,N,""" This is also aligned to the target of Long-Term Low Emission Development Strategy (LT-LEDS) to achieve net-zero GHG emissions in 2050"". (National Energy Policy p24)
+
+",0.26749428200000003,0.5583819791733502,365177744321.011,2020,462.96851493900004
+R10REST_ASIA,SGP,SGP,Net zero,GHG,2050,2050,2050,GHG,In policy document,In policy document,N,"""Singapore will also aim to achieve net zero emissions by 2050"". [p. 22]",0.033778416,-0.4984891970376959,376837488316.973,2020,61.86541162093332
+R10REST_ASIA,THA,THA,Net zero,CO2,2065,2050,2065,GHG,In policy document,In policy document,N,"Announced at COP26 World Leaders Summit, second update: 'Thailand will continue vigorous efforts in its challenge to meet the long-term goal of carbon neutrality by 2050 and net-zero greenhouse gas emission by 2065'",0.28187033,5.3735056186526675,543976695638.812,2020,424.60294186600004
+R10REST_ASIA,BRN,BRN,,,,,,,None,None,,,0.010732756,-0.1283267800598726,13469240162.5496,2020,17.74390145467667
+R10REST_ASIA,PHL,PHL,,,,,,,None,None,,,0.144159989,15.247462431841042,376823404772.837,2020,260.2305964303333

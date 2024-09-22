@@ -22,7 +22,7 @@ options(scipen = 999)
 # LOAD PROCESSED DATA ----------------------------------------------------------
 
 # Determine country-years for analysis
-iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
+iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping_20240319.csv"), show_col_types = FALSE) %>% 
   mutate(r10 = r10_iamc) %>% 
   select(iso3c, r10) %>% 
   group_by(iso3c, r10) %>% 
@@ -39,21 +39,14 @@ r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_EC
                                     "Sub-saharan Africa", "Southern Asia"))
 
 # Remaining carbon budgets from 1990 to 2020, aggregated to r10
-r10_rcb19902020gtco2 <- read_csv(here("Data", "processed", "r10_rcb19902020.csv")) %>% 
-  filter(year >= 1990, year <= 2020) 
+r10_rcb19912020 <- read_csv(here("Data", "processed", "r10_rcb19912020.csv"))
 
-# Recent production-based emissions, aggregated to r10
-r10_recent_prodco2 <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
-                            sheet = "recent_prodco2") %>% 
+# Analysis dataset, aggregated to R10
+r10_analysisdata <- read_csv(here("Data", "processed", "2_analysisdata.csv")) %>%
+  filter(iso3c != "ROW", year >= 1990) %>% 
+  select(-iso3c) %>% 
   group_by(r10, year) %>% 
-  summarise(gtco2 = sum(gtco2)) %>% 
-  arrange(year)
-
-# Population, aggregated to r10
-r10_popproj <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
-                     sheet = "popproj") %>% 
-  group_by(r10, year) %>% 
-  summarise(pop = sum(pop)) %>% 
+  summarise(across(everything(), ~ sum(.))) %>% 
   arrange(year)
 
 # AR6 CO2-FFI data
@@ -64,7 +57,7 @@ rcb <- read_csv(here("Data", "processed", "rcbquantities.csv"))
 
 # DETERMINE PEAK/NETZERO PATHWAYS USING AR6 DATABASE ---------------------------
 
-# Pivot data and interpolate between modelled periods (linear)
+# Pivot data and interpolate between model periods (linear)
 r10_ar6_co2ffi_processed <- r10_ar6_co2ffi %>% 
   select(-Unit) %>% 
   filter(!is.na(Category)) %>% 
@@ -83,15 +76,15 @@ r10_ar6_co2ffi_processed <- r10_ar6_co2ffi %>%
   ungroup() %>% 
   transmute(model = Model, scen = Scenario, 
             r10 = Region,
-            cat = Category, year = Year, gtco2 = mtco2 / 1e3, pop) %>% 
+            cat = Category, year = Year, terr_GtCO2 = mtco2 / 1e3, pop) %>% 
   group_by(model, scen, r10, cat, year) %>% 
-  summarise(gtco2 = sum(gtco2))
+  summarise(terr_GtCO2 = sum(terr_GtCO2))
 
 # Function to apply historical data scaling to each group, harmonising modelled
 # pathways to historical 2022 values, converging to modelled pathways at a desired year.
 hist_scaling <- function(path, history, harmonisationyear, convergenceyear) {
   
-  scaling_factor <- history$gtco2[history$year == harmonisationyear] / path$gtco2[path$year == harmonisationyear]
+  scaling_factor <- history$terr_GtCO2[history$year == harmonisationyear] / path$terr_GtCO2[path$year == harmonisationyear]
   
   scaling_factors <- approx(
     x = c(harmonisationyear, seq(convergenceyear, 2100, 1)),
@@ -99,7 +92,7 @@ hist_scaling <- function(path, history, harmonisationyear, convergenceyear) {
     xout = path$year
   )$y
   
-  df_a_scaled <- path %>% mutate(gtco2_histscale = gtco2 * scaling_factors)
+  df_a_scaled <- path %>% mutate(terr_GtCO2_histscale = terr_GtCO2 * scaling_factors)
   return(df_a_scaled)
   
 }
@@ -107,38 +100,42 @@ hist_scaling <- function(path, history, harmonisationyear, convergenceyear) {
 # Apply scaling to all model-scenario-r10 groups
 r10_ar6_co2ffi_processed_scaled <- r10_ar6_co2ffi_processed %>%
   # Remove pathways missing any co2-ffi data 
-  filter(!is.na(gtco2)) %>% 
+  filter(!is.na(terr_GtCO2)) %>% 
+  rename(terr_GtCO2 = terr_GtCO2) %>%
   group_by(model, scen, r10) %>% 
   mutate(n = n()) %>% 
   filter(n == 81) %>% 
   select(-n) %>% 
   # Apply historical scaling
   group_by(model, scen, r10) %>%
-  do(hist_scaling(., filter(r10_recent_prodco2, r10 == first(.$r10)), 
+  do(hist_scaling(., filter(r10_analysisdata, r10 == first(.$r10)), 
                   harmonisationyear = 2022, convergenceyear = 2050)) %>%
   ungroup() %>% 
   mutate(year = as.numeric(year))
 
+# Write to file
+write_csv(r10_ar6_co2ffi_processed_scaled, here("Data", "processed", "r10_ar6_co2ffi_processed_scaled.csv"))
+
 # Determine cumulative CO2-FFI emissions distributions for each combination
 r10_ar6_co2ffi_processed_scaled_cmltv <- r10_ar6_co2ffi_processed_scaled %>% 
   # Add historical data pre-harmonisation
-  left_join(r10_recent_prodco2, by = c("r10", "year")) %>%
-  mutate(gtco2_histscale = ifelse(is.na(gtco2_histscale), gtco2.y, gtco2_histscale)) %>% 
-  select(model, scen, r10, cat, year, gtco2_orig = gtco2.x, gtco2_histscale) %>% 
+  left_join(r10_analysisdata %>% filter(year >= 2020), by = c("r10", "year")) %>%
+  mutate(terr_GtCO2_histscale = ifelse(is.na(terr_GtCO2_histscale), terr_GtCO2.y, terr_GtCO2_histscale)) %>% 
+  select(model, scen, r10, cat, year, terr_GtCO2_orig = terr_GtCO2.x, terr_GtCO2_histscale) %>% 
   # Remove scenarios not reporting any emissions
   na.omit() %>% 
   group_by(model, scen, r10) %>% 
   mutate(
     # Determine implied CDR
-    gtco2_cdr = ifelse(gtco2_histscale < 0, -gtco2_histscale, 0),
+    terr_GtCO2_cdr = ifelse(terr_GtCO2_histscale < 0, -terr_GtCO2_histscale, 0),
     # Set net-zero CO2-FFI year such that a buffer of 100Mt is used (for near-net-zero paths)
-    netzeroyear = ifelse(min(gtco2_histscale) > 0, 2110, year[which.max(gtco2_histscale - 0.1 <= 0 & !is.na(gtco2_histscale))]),
+    netzeroyear = ifelse(min(terr_GtCO2_histscale) > 0, 2110, year[which.max(terr_GtCO2_histscale - 0.1 <= 0 & !is.na(terr_GtCO2_histscale))]),
     # Set paths as 0 after hitting zero CO2-FFI (ignoring later resurgent use of CO2-FFI enabled through
     # negative emissions technologies)
-    gtco2_histscale = ifelse(gtco2_histscale < 0 | year > netzeroyear, 0, gtco2_histscale),
-    gtco2_orig = ifelse(gtco2_orig < 0 | year > netzeroyear, 0, gtco2_orig),
-    peakyear = year[which.max(gtco2_histscale)],
-    peakgtco2 = round(max(gtco2_histscale, na.rm = TRUE))) %>% 
+    terr_GtCO2_histscale = ifelse(terr_GtCO2_histscale < 0 | year > netzeroyear, 0, terr_GtCO2_histscale),
+    terr_GtCO2_orig = ifelse(terr_GtCO2_orig < 0 | year > netzeroyear, 0, terr_GtCO2_orig),
+    peakyear = year[which.max(terr_GtCO2_histscale)],
+    peakterr_GtCO2 = round(max(terr_GtCO2_histscale, na.rm = TRUE))) %>% 
   # Bin by 10 year periods from the half year (so 2026-3035 is in 2030)
   mutate(
     peakyearbin = ceiling((peakyear - 5)/10) * 10,
@@ -146,9 +143,9 @@ r10_ar6_co2ffi_processed_scaled_cmltv <- r10_ar6_co2ffi_processed_scaled %>%
   # Only retain years from 2022
   filter(year >= 2022) %>% 
   group_by(model, scen, r10, peakyearbin, netzeroyearbin) %>% 
-  summarise(gtco2_cmltv = sum(gtco2_histscale),
-            gtco2_orig_cmltv = sum(gtco2_orig),
-            gtco2_cdr_cmltv = sum(gtco2_cdr)) %>% 
+  summarise(terr_GtCO2_cmltv = sum(terr_GtCO2_histscale),
+            terr_GtCO2_orig_cmltv = sum(terr_GtCO2_orig),
+            terr_GtCO2_cdr_cmltv = sum(terr_GtCO2_cdr)) %>% 
   group_by(r10, peakyearbin, netzeroyearbin) %>% 
   mutate(modelledpaths = n()) %>% 
   mutate(
@@ -167,7 +164,7 @@ r10_ar6_co2ffi_processed_scaled_cmltv <- r10_ar6_co2ffi_processed_scaled_cmltv %
 # Determine change in cumulative emissions from the year 2023 onwards between
 # harmonised and original modelled pathways (SI)
 r10_ar6_co2ffi_processed_scaled_cmltv %>% 
-  mutate(percentage_change = gtco2_cmltv / gtco2_orig_cmltv - 1) %>% 
+  mutate(percentage_change = terr_GtCO2_cmltv / terr_GtCO2_orig_cmltv - 1) %>% 
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   ungroup() %>% 
   group_by(nzyearbin) %>% 
@@ -193,16 +190,16 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_ar6harmonisation_cmltvco2ffi.png"
 for (region in r10order$r10) {
   
   data <- r10_ar6_co2ffi_processed_scaled_cmltv %>% 
-    filter(r10 == region) %>%
+    filter(r10 == region, !netzeroyearbin %in% c("net-zero: 2100", "net-zero: 2110")) %>%
     mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10labellong))
   
   data %>% 
-    ggplot(aes(gtco2_cmltv)) +
+    ggplot(aes(terr_GtCO2_cmltv)) +
     geom_histogram() + 
-    geom_vline(aes(xintercept = gtco2_cmltv), linetype = 2, colour = "red",
+    geom_vline(aes(xintercept = terr_GtCO2_cmltv), linetype = 2, colour = "red",
                data = . %>% group_by(r10, netzeroyearbin, peakyearbin) %>% 
-                 summarise(gtco2_cmltv = median(gtco2_cmltv))) +
-    geom_text(aes(x = median(gtco2_cmltv), y = 0, label = paste0("Total paths: ", modelledpaths)), size = 3, hjust = 0, vjust = -1,
+                 summarise(terr_GtCO2_cmltv = median(terr_GtCO2_cmltv))) +
+    geom_text(aes(x = median(terr_GtCO2_cmltv), y = 0, label = paste0("Total paths: ", modelledpaths)), size = 3, hjust = 0, vjust = -1,
               data = . %>% distinct(r10, .keep_all = T)) +
     facet_grid(peakyearbin~netzeroyearbin, scales = "free_y") +
     labs(y = "Number of paths", x = "Cumulative GtCO2-FFI",
@@ -218,29 +215,29 @@ for (region in r10order$r10) {
 
 # Write to file
 r10_ar6_co2ffi_processed_scaled_cmltv %>% 
-  write_csv(here("Data", "processed", "r10_ar6_gtco2ffi_cmltv.csv"))
+  write_csv(here("Data", "processed", "r10_ar6_terr_GtCO2ffi_cmltv.csv"))
 
 # NET-ZERO CARBON DEBTS --------------------------------------------------------
 
 r10_carbondebt_2100 <- r10_ar6_co2ffi_processed_scaled_cmltv %>% 
   arrange(r10, pkyearbin, nzyearbin) %>% 
-  left_join(r10_rcb19902020gtco2 %>% 
+  left_join(r10_rcb19912020 %>% 
               filter(year == 2020) %>% 
               select(r10, category, ppp_pf, rcb)) %>% 
   mutate(ppp_pf = ifelse(is.na(ppp_pf), "NA", ppp_pf),
-         rcb2100_gtco2_cmltv = rcb - gtco2_cmltv,
-         debt2100 = ifelse(rcb2100_gtco2_cmltv < 0, rcb2100_gtco2_cmltv, 0)) %>% 
+         rcb2100_terr_GtCO2_cmltv = rcb - terr_GtCO2_cmltv,
+         debt2100 = ifelse(rcb2100_terr_GtCO2_cmltv < 0, rcb2100_terr_GtCO2_cmltv, 0)) %>% 
   select(model, scen, r10, peakyearbin, pkyearbin, netzeroyearbin, nzyearbin, category, ppp_pf, 
-         rcb2100_gtco2_cmltv, gtco2_cdr_cmltv, debt2100) %>% 
+         rcb2100_terr_GtCO2_cmltv, terr_GtCO2_cdr_cmltv, debt2100) %>% 
   group_by(model, scen, category, ppp_pf) %>% 
   mutate(debtshare = debt2100 / sum(debt2100),
-         scen_exceedance = sum(-rcb2100_gtco2_cmltv),
+         scen_exceedance = sum(-rcb2100_terr_GtCO2_cmltv),
          scen_exceedance = ifelse(scen_exceedance < 0, 0, scen_exceedance),
          scen_exceedace_share = ifelse(scen_exceedance == 0, 0, debtshare),
          scen_exceedance_resp = scen_exceedance * debtshare) %>% 
   arrange(model, scen, category, ppp_pf)
   
-write_csv(r10_carbondebt_2100, here("Data", "processed", "r10_carbondebt_2100_gtco2.csv"))
+write_csv(r10_carbondebt_2100, here("Data", "processed", "r10_carbondebt_2100_terr_GtCO2.csv"))
 
 # REVISED FIGURE 1 -------------------------------------------------------------
 
@@ -250,7 +247,7 @@ a <- r10_carbondebt_2100 %>%
   
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   
-  ggplot(aes(y = r10, x = -rcb2100_gtco2_cmltv, fill = factor(nzyearbin), group = r10)) +
+  ggplot(aes(y = r10, x = rcb2100_terr_GtCO2_cmltv, fill = factor(nzyearbin), group = r10)) +
   
   ggridges::geom_density_ridges(data = . %>% filter(nzyearbin == 2090) %>% complete(r10), alpha = 0.7,
                                 scale = 0.95, panel_scaling = F, rel_min_height = 0.01) +
@@ -265,30 +262,39 @@ a <- r10_carbondebt_2100 %>%
   ggridges::geom_density_ridges(data = . %>% filter(nzyearbin == 2040) %>% complete(r10), alpha = 0.7,
                                 scale = 0.95, panel_scaling = F, rel_min_height = 0.01) +
   
-  geom_vline(xintercept = 0, linetype = 2, linewidth = 0.5) +
+  geom_vline(xintercept = 0, linetype = 2, linewidth = 0.3) +
   
-  annotate(geom = "text", x = -20, y = "NAM", label = "Credit", vjust = 0.5, hjust = 1) +
+  annotate(geom = "text", x = -20, y = "NAM", label = "Debt", vjust = 0.5, hjust = 1) +
   
-  annotate(geom = "text", x = 20, y = "NAM", label = "Debt", vjust = 0.5, hjust = 0) +
+  annotate(geom = "text", x = 20, y = "NAM", label = "Credit", vjust = 0.5, hjust = 0) +
   
   scale_fill_brewer(palette = "RdYlBu", direction = 1) +
   
-  scale_x_continuous(breaks = seq(-200,500,100), position = "bottom") +
+  scale_x_continuous(breaks = seq(-800,500,100), position = "bottom") +
   
   theme_bw() +
   
-  theme(legend.position = "top") +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 12),
+        legend.title = element_text(size = 13),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13),
+        plot.subtitle = element_text(size = 14),
+        plot.tag = element_text(size = 14),
+        panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(),
+        strip.background = element_blank()) +
   
   guides(fill = guide_legend(nrow = 1, reverse = T)) +
   
-  labs(y = NULL, x = "Regional net-zero carbon debt (GtCO2)", 
+  labs(y = NULL, x = "GtCO2",
+       subtitle = "Regional carbon budget remaining, 2100",
        fill = "Regional net-zero CO2-FFI year bin")
 
 b <- r10_carbondebt_2100 %>% 
   
   filter(category %in% c("PP1990"), nzyearbin <= 2090, scen_exceedance > 0) %>% 
   
-  left_join(r10_popproj %>% 
+  left_join(r10_analysisdata %>% 
               mutate(pop_cmltv = cumsum(pop),
                      pop_cmltv_rem_2050 = pop_cmltv[year == 2100] - pop_cmltv[year == 2050]) %>% 
               filter(year == 2100) %>% 
@@ -296,15 +302,23 @@ b <- r10_carbondebt_2100 %>%
   
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>%
   
+  mutate(figgroup = case_when(
+    r10 %in% c("NAM", "EUR", "SAS", "AFR") ~ "NAM",
+    r10 %in% c("EAS", "LAC") ~ "EAS")) %>% 
+  
+  filter(!is.na(figgroup)) %>% 
+  
   arrange(desc(nzyearbin)) %>% 
   
   ggplot(aes(x = scen_exceedace_share,
-             colour = factor(nzyearbin),
-             y = scen_exceedance_resp * 1e9 / pop_cmltv_rem_2050)) +
+             colour = factor(nzyearbin), shape = r10,
+             y = -scen_exceedance_resp * 1e9 / pop_cmltv_rem_2050)) +
   
-  geom_jitter(alpha = 0.5, size = 4, shape = 16) +
+  geom_vline(xintercept = 0, linetype = 2, linewidth = 0.3) +
   
-  facet_wrap(~fct_rev(r10), ncol = 2) +
+  geom_jitter(alpha = 0.5, size = 4) +
+  
+  facet_wrap(~fct_rev(figgroup), ncol = 2) +
   
   scale_colour_brewer(palette = "RdYlBu", direction = -1) +
   
@@ -312,38 +326,48 @@ b <- r10_carbondebt_2100 %>%
   
   theme_bw() +
   
-  guides(colour = "none") +
+  theme(panel.grid.minor.y = element_blank(), panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
+  
+  guides(colour = "none", shape = "none") +
 
-  labs(y = "Required per capita exceedance drawdown rate (tCO2/capita/yr, 2050-2100)",
-       x = "Responsibility for exceedance (%)")
+  labs(y = "tCO2 / person / year",
+       subtitle = "Median annual per capita debt drawdown rate required, 2050-2100",
+       x = "Share of total scenario budget exceedance (%)")
 
-wrap_plots(a,b, ncol = 2, widths = c(0.8,1)) + 
+wrap_plots(a,b, ncol = 2, widths = c(0.7,1.1)) + 
   plot_layout(guides = "collect", tag_level = "new") & 
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
                   caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
                                    "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = "")) &
   theme(legend.position = "bottom",
-        axis.text.x = element_text(size = 12),
         legend.text = element_text(size = 12),
         legend.title = element_text(size = 13),
-        axis.text.y = element_text(size = 12),
-        axis.title.x = element_text(size = 13), plot.tag = element_text(size = 14),
-        panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13),
+        strip.text = element_blank(),
+        plot.subtitle = element_text(size = 14),
+        plot.tag = element_text(size = 14),
         strip.background = element_blank())
 
-ggsave(filename = here("Manuscript", "Figures", "fig1.png"),
-       height = 14, width = 14)
+ggsave(filename = here("Manuscript", "Figures", "fig1.svg"),
+       height = 7, width = 12)
 
 # Figure 1A SI using other allocation approaches
 fig1asi <- r10_carbondebt_2100 %>% 
+  
+  ungroup() %>% 
   
   filter(ppp_pf %in% c("NA", "MER_1/sqrt(x)", "PPP_1/sqrt(x)")) %>% 
   
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
          ppp_pf = factor(ppp_pf, levels = c("NA", "MER_1/sqrt(x)", "PPP_1/sqrt(x)")),
-         category = ifelse(grepl(category, pattern = "PP1990"), "PP1990", "PP1850")) %>% 
+         category = case_when(
+           grepl(category, pattern = "PP1990") ~ "PP1990",
+           grepl(category, pattern = "PP2015") ~ "PP2015",
+           TRUE ~ "PP1850")) %>% 
   
-  ggplot(aes(y = r10, x = -rcb2100_gtco2_cmltv, fill = factor(nzyearbin), group = r10)) +
+  ggplot(aes(y = r10, x = -rcb2100_terr_GtCO2_cmltv, fill = factor(nzyearbin), group = r10)) +
   
   ggridges::geom_density_ridges(data = . %>% filter(nzyearbin == 2090), alpha = 0.7,
                                 scale = 0.95, panel_scaling = T, rel_min_height = 0.01) +
@@ -364,7 +388,7 @@ fig1asi <- r10_carbondebt_2100 %>%
   
   annotate(geom = "text", x = 40, y = "NAM", label = "Debt", vjust = 0.5, hjust = 0) +
   
-  scale_fill_brewer(palette = "RdYlBu", direction = -1) +
+  scale_fill_brewer(palette = "RdYlBu", direction = 1) +
   
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   
@@ -372,7 +396,7 @@ fig1asi <- r10_carbondebt_2100 %>%
   
   theme(legend.position = "top") +
   
-  guides(fill = guide_legend(nrow = 1)) +
+  guides(fill = guide_legend(nrow = 1, reverse = T)) +
   
   labs(y = NULL, x = "Regional net-zero carbon debt (GtCO2)", 
        fill = "Regional net-zero CO2-FFI year bin",
@@ -383,66 +407,43 @@ fig1asi <- r10_carbondebt_2100 %>%
 ggsave(plot = fig1asi, filename = here("Manuscript", "Figures", "SI", "SI_fig1a.png"),
        height = 14, width = 14)
 
-# FIGURE FOR AUT KLIMA AKTIV DAY -----------------------------------------------
+# Fig 1b SI
 
-b <- r10_carbondebt_2100 %>% 
+r10_carbondebt_2100 %>% 
   
-  filter(category %in% c("PP1990"), r10 %in% c("R10EUROPE", "R10AFRICA", "R10LATIN_AM"), !nzyearbin %in% c(2030,2100,2110)) %>% 
+  filter(category %in% c("PP1990"), nzyearbin <= 2090, scen_exceedance > 0) %>% 
   
-  mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10labellong),
-         r10 = fct_rev(r10)) %>% 
+  left_join(r10_analysisdata %>% 
+              mutate(pop_cmltv = cumsum(pop),
+                     pop_cmltv_rem_2050 = pop_cmltv[year == 2100] - pop_cmltv[year == 2050]) %>% 
+              filter(year == 2100) %>% 
+              select(r10, pop_cmltv_rem_2050)) %>% 
   
-  ggplot(aes(x = -rcb2100_gtco2_cmltv, fill = fct_rev(factor(nzyearbin)))) +
+  mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>%
   
-  geom_vline(xintercept = 0, linetype = 2, linewidth = 0.5, alpha = 0.4) +
+  arrange(desc(nzyearbin)) %>% 
   
-  geom_density(alpha = 0.7, linewidth = 0.2) +
+  ggplot(aes(x = scen_exceedace_share,
+             colour = factor(nzyearbin),
+             y = -scen_exceedance_resp * 1e9 / pop_cmltv_rem_2050)) +
   
-  facet_wrap(~r10, scales = "free_y") +
+  geom_vline(xintercept = 0, linetype = 2, linewidth = 0.3) +
   
-  scale_fill_brewer(palette = "RdYlBu", direction = 1) +
+  geom_jitter(alpha = 0.5, size = 4, shape = 16) +
   
-  scale_y_continuous(breaks = seq(-300,500,100), position = "bottom") +
+  facet_wrap(~fct_rev(r10), ncol = 2) +
   
-  theme_minimal() +
-  
-  theme(legend.position = "top",
-        panel.grid = element_blank()) +
-  
-  guides(fill = "none") +
-  
-  labs(y = NULL, x = "Regional net-zero carbon debt, ECPC 1990 (GtCO2)", 
-       fill = "Regional net-zero CO2-FFI year bin")
-
-illustr_fig <- r10_recent_prodco2 %>% 
-  group_by(year) %>% 
-  summarise(gtco2_hist = sum(gtco2))
-
-a <- tibble(year = 2022,
-       nz_year = seq(2040,2090,10),
-       gtco2 = illustr_fig$gtco2_hist[illustr_fig$year == 2022]) %>% 
-  group_by(nz_year) %>% 
-  complete(year = 2022:2090) %>% 
-  mutate(gtco2 = ifelse(year >= nz_year, 0, gtco2)) %>% 
-  mutate(gtco2 = zoo::na.approx(gtco2, na.rm = T)) %>% 
-  filter(year <= nz_year) %>% 
-  complete(year = 1990:2090) %>% 
-  left_join(illustr_fig, by = "year") %>% 
-  mutate(gtco2 = ifelse(is.na(gtco2), gtco2_hist,gtco2)) %>% 
-  ggplot(aes(year, gtco2, colour = factor(nz_year))) +
-  geom_path() +
-  geom_path(colour = "black", data = . %>% filter(year < 2022, nz_year == 2040)) +
   scale_colour_brewer(palette = "RdYlBu", direction = -1) +
-  scale_x_continuous(breaks = seq(1990,2100,10)) +
-  theme_minimal() +
-  theme(panel.grid = element_blank(),
-        legend.position = "top",
-        axis.text.y = element_blank()) +
-  labs(x = NULL, y = "Illustrative CO2-FFI path", colour = "Regional net-zero CO2-FFI year") +
-  guides(colour = guide_legend(nrow = 1))
-
-wrap_plots(a,b, ncol = 1, heights = c(0.6,1))
-
-ggsave(filename = here("Manuscript", "Figures", "SI", "klimaaktiv_fig1.png"),
-       height = 5, width = 8, bg = "white")
-
+  
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
+  
+  theme_bw() +
+  
+  theme(panel.grid.minor.y = element_blank(), panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
+  
+  guides(colour = "none") +
+  
+  labs(y = "tCO2 / person / year",
+       subtitle = "Minimum annual per capita exceedance drawdown rate 2050-2100",
+       x = "Responsibility for exceedance (%)")

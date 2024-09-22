@@ -29,10 +29,10 @@ r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_EC
                                     "Sub-saharan Africa", "Southern Asia"))
 
 # Function to apply historical data scaling to each group, harmonising modelled
-# pathways to historical 2022 values, converging to modelled pathways in 2100
+# pathways to historical 2022 values, converging to modelled pathways at a desired year.
 hist_scaling <- function(path, history, harmonisationyear, convergenceyear) {
   
-  scaling_factor <- history$gtco2[history$year == harmonisationyear] / path$gtco2[path$year == harmonisationyear]
+  scaling_factor <- history$terr_GtCO2[history$year == harmonisationyear] / path$terr_GtCO2[path$year == harmonisationyear]
   
   scaling_factors <- approx(
     x = c(harmonisationyear, seq(convergenceyear, 2100, 1)),
@@ -40,18 +40,19 @@ hist_scaling <- function(path, history, harmonisationyear, convergenceyear) {
     xout = path$year
   )$y
   
-  df_a_scaled <- path %>% mutate(gtco2_histscale = gtco2 * scaling_factors)
+  df_a_scaled <- path %>% mutate(terr_GtCO2_histscale = terr_GtCO2 * scaling_factors)
   return(df_a_scaled)
   
 }
 
 # LOAD PROCESSED DATA ----------------------------------------------------------
 
-# Recent production-based emissions, aggregated to r10
-r10_recent_prodco2 <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
-                                sheet = "recent_prodco2") %>% 
+# Analysis dataset, aggregated to R10
+r10_analysisdata <- read_csv(here("Data", "processed", "2_analysisdata.csv")) %>%
+  filter(iso3c != "ROW", year >= 1990) %>% 
+  select(-iso3c) %>% 
   group_by(r10, year) %>% 
-  summarise(gtco2 = sum(gtco2)) %>% 
+  summarise(across(everything(), ~ sum(.))) %>% 
   arrange(year)
 
 # READ IN AND PROCESS REGIONAL EMISSIONS PATHS ---------------------------------
@@ -84,42 +85,42 @@ ndclts_r10 <- read_csv(here("data", "pathways", "egr_paths", "r10", "kyoto_and_c
 
 # Interpolate between model years
 ndclts_r10_interp <- ndclts_r10 %>% 
-  pivot_longer(-c(model, case, r10, aggregate), names_to = "year", values_to = "gtco2") %>% 
-  mutate(gtco2 = gtco2 / 1e3,
+  pivot_longer(-c(model, case, r10, aggregate), names_to = "year", values_to = "terr_GtCO2") %>% 
+  mutate(terr_GtCO2 = terr_GtCO2 / 1e3,
          year = as.numeric(year)) %>% 
   filter(year >= 2019) %>% 
   arrange(model, case, r10, aggregate) %>% 
   group_by(model, case, r10, aggregate) %>% 
   complete(year = 2019:2100) %>% 
   group_by(model, case, r10, aggregate) %>% 
-  mutate(gtco2 = na.approx(gtco2)) %>% 
+  mutate(terr_GtCO2 = na.approx(terr_GtCO2)) %>% 
   ungroup()
 
 # Harmonise to historical 2022 values
 ndclts_r10_interp_scaled <- ndclts_r10_interp %>%
   group_by(model, case, r10, aggregate) %>%
-  do(hist_scaling(., filter(r10_recent_prodco2, r10 == first(.$r10)), 
+  do(hist_scaling(., filter(r10_analysisdata, r10 == first(.$r10)), 
                   harmonisationyear = 2022, convergenceyear = 2030)) %>%
   ungroup() %>% 
   mutate(year = as.numeric(year))
 
 # Combine historical and pathways data and interpolate to annual values 1990-2100 
 ndclts_r10_interp_scaled <- full_join(
-  r10_recent_prodco2 %>% 
-    select(r10, year, gtco2) %>%
+  r10_analysisdata %>% 
+    select(r10, year, terr_GtCO2) %>%
     left_join(ndclts_r10_interp_scaled %>% distinct(r10, model, case, aggregate),
               relationship = "many-to-many"),
   ndclts_r10_interp_scaled %>% 
-    select(model, case, r10, year, aggregate, path_scaled = gtco2_histscale, path = gtco2)) %>% 
+    select(model, case, r10, year, aggregate, path_scaled = terr_GtCO2_histscale, path = terr_GtCO2)) %>% 
   group_by(model, r10, case, aggregate) %>% 
   complete(year = 1990:2100) %>% 
   mutate(path_scaled = na.approx(path_scaled, maxgap = 10),
          path = na.approx(path, maxgap = 10),
   ) %>% 
   ungroup() %>% 
-  select(model, case, r10, aggregate, year, gtco2, path_scaled, path) %>% 
+  select(model, case, r10, aggregate, year, terr_GtCO2, path_scaled, path) %>% 
   # Remove historical paths of projected paths
-  mutate(across(matches("path"), ~ifelse(year < 2023, gtco2, .)))
+  mutate(across(matches("path"), ~ifelse(year < 2023, terr_GtCO2, .)))
 
 # ADD IN IMP-REN PATHWAY -------------------------------------------------------
 
@@ -146,45 +147,45 @@ impren_r10 <- read_csv(here("Data", "pathways", "ar6_imp_rensp", "ar6_snapshot_1
   group_by(model, case, r10, aggregate) %>% 
   summarise(across(matches("\\d{4}"), ~sum(.))) %>% 
   ungroup() %>% 
-  pivot_longer(-c(model, case, r10, aggregate), names_to = "year", values_to = "gtco2") 
+  pivot_longer(-c(model, case, r10, aggregate), names_to = "year", values_to = "terr_GtCO2") 
 
 # Interpolate between model years
 impren_r10_interp <- impren_r10 %>% 
-  mutate(gtco2 = gtco2 / 1e3,
+  mutate(terr_GtCO2 = terr_GtCO2 / 1e3,
          year = as.numeric(year)) %>% 
   filter(year >= 2015) %>% 
   arrange(model, case, r10, aggregate) %>% 
   group_by(model, case, r10, aggregate) %>% 
   complete(year = 2015:2100) %>% 
   group_by(model, case, r10, aggregate) %>% 
-  mutate(gtco2 = na.approx(gtco2)) %>% 
+  mutate(terr_GtCO2 = na.approx(terr_GtCO2)) %>% 
   ungroup()
 
 # Harmonise to historical 2022 values
 impren_r10_interp_scaled <- impren_r10_interp %>%
   group_by(model, case, r10, aggregate) %>%
-  do(hist_scaling(., filter(r10_recent_prodco2, r10 == first(.$r10)), 
+  do(hist_scaling(., filter(r10_analysisdata, r10 == first(.$r10)), 
                   harmonisationyear = 2015, convergenceyear = 2030)) %>%
   ungroup() %>% 
   mutate(year = as.numeric(year))
 
 # Combine historical and pathways data and interpolate to annual values 1990-2100 
 impren_r10_interp_scaled <- full_join(
-  r10_recent_prodco2 %>% 
-    select(r10, year, gtco2) %>%
+  r10_analysisdata %>% 
+    select(r10, year, terr_GtCO2) %>%
     left_join(impren_r10_interp_scaled %>% distinct(r10, model, case, aggregate),
               relationship = "many-to-many"),
   impren_r10_interp_scaled %>% 
-    select(model, case, r10, year, aggregate, path_scaled = gtco2_histscale, path = gtco2)) %>% 
+    select(model, case, r10, year, aggregate, path_scaled = terr_GtCO2_histscale, path = terr_GtCO2)) %>% 
   group_by(model, r10, case, aggregate) %>% 
   complete(year = 1990:2100) %>% 
   mutate(path_scaled = na.approx(path_scaled, maxgap = 10),
          path = na.approx(path, maxgap = 10),
   ) %>% 
   ungroup() %>% 
-  select(model, case, r10, aggregate, year, gtco2, path_scaled, path) %>% 
+  select(model, case, r10, aggregate, year, terr_GtCO2, path_scaled, path) %>% 
   # Remove historical paths of projected paths
-  mutate(across(matches("path"), ~ifelse(year < 2023, gtco2, .)))
+  mutate(across(matches("path"), ~ifelse(year < 2023, terr_GtCO2, .)))
 
 # Sum up rescaled and original global emissions paths to check scaling effect
 rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>% 
@@ -252,7 +253,7 @@ impren_temp <- read_csv(here("data", "pathways", "ar6_imp_rensp", "ar6_ren_sp_cl
 # COMBINE EMISSIONS AND TEMPERATURES AND SAVE FOR ANALYSIS ---------------------
 
 rbind(ndclts_r10_interp_scaled, impren_r10_interp_scaled) %>% 
-  select(model, case, aggregate, r10, year, gtco2 = path_scaled) %>% 
+  select(model, case, aggregate, r10, year, terr_GtCO2 = path_scaled) %>% 
   write_csv(here("Data", "processed", "r10_ndclts_impren_emiss.csv"))
 
 rbind(ndclts_temp, impren_temp) %>% 
@@ -261,12 +262,13 @@ rbind(ndclts_temp, impren_temp) %>%
 # VISUALISE FOR SI -------------------------------------------------------------
 
 a <- rbind(ndclts_temp,impren_temp) %>% 
-  filter(quantile == 0.5, aggregate == "Median") %>% 
-  pivot_wider(names_from = aggregate, values_from = gmt) %>% 
+  filter(quantile %in% c(0.33, 0.5, 0.66), aggregate == "Median") %>% 
+  pivot_wider(names_from = quantile, values_from = gmt) %>% 
   mutate(case = factor(case, levels = c("A", "E", "IMP-REN"),
                        labels = c("CurPol", "CurPledge+allNZ", "IMP-REN"))) %>% 
   ggplot(aes(year, fill = case)) +
-  geom_path(aes(y = Median, colour = case), linewidth = 1) +
+  geom_ribbon(aes(ymin = `0.33`, ymax = `0.66`), alpha = 0.2, show.legend = F) +
+  geom_path(aes(y = `0.5`, colour = case), linewidth = 1) +
   scale_colour_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
   scale_fill_manual(values = c("#1f78b4", "#66c2a5", "#b2df8a")) +
   theme_bw() +

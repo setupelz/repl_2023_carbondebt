@@ -22,14 +22,10 @@ options(scipen = 999)
 # LOAD PROCESSED DATA ----------------------------------------------------------
 
 # Determine analysis countries
-iso3c_tbl_analysis <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
+iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping_20240319.csv"), show_col_types = FALSE) %>% 
   mutate(r10 = r10_iamc) %>% 
   select(iso3c, r10) %>% 
-  right_join(read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
-                       sheet = "hist_prodco2") %>% select(iso3c))
-
-# Write to file 
-write_csv(iso3c_tbl_analysis, here("data", "processed", "iso3c_tbl_analysis.csv"))
+  right_join(read_csv(here("Data", "processed", "2_analysisdata.csv")) %>% distinct(iso3c))
 
 # Set consistent r10 ordering
 r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_ECON", "R10CHINA+", "R10MIDDLE_EAST", "R10REST_ASIA", "R10LATIN_AM", "R10AFRICA", "R10INDIA+"),
@@ -72,7 +68,7 @@ cohort_pop <- stars::read_ncdf(here("Data", "impacts", "nc_cohort_sizes.nc4"),
 iso3c_exp <- distinct(exp_heatwave, country) %>% mutate(data = 1) %>%
   mutate(iso3c = countrycode(country, origin = "country.name", destination = "iso3c")) %>%
   select(iso3c, country, data) %>%
-  right_join(iso3c_tbl_analysis) %>%
+  right_join(iso3c_tbl) %>%
   ungroup() %>%
   select(iso3c, country, r10, data)
 
@@ -82,7 +78,7 @@ exp_heatwave <- left_join(exp_heatwave, cohort_pop) %>%
 
 # Aggregate to r10 level and separate assessed pathways from IMP-REN
 exp_heatwave_r10 <- exp_heatwave %>%
-  left_join(iso3c_tbl_analysis %>% select(iso3c, r10)) %>% 
+  left_join(iso3c_tbl %>% select(iso3c, r10)) %>% 
   separate_wider_delim(GMT, delim = "_", names = c("case", "case2", "aggregate", "quantile")) %>% 
   filter(case %in% c("A", "E", "IMP-REN")) %>% 
   group_by(birth_year, r10, case, aggregate, quantile, gcm, run) %>%
@@ -95,7 +91,7 @@ exp_heatwave_r10_impren <- exp_heatwave_r10 %>%
   select(-case, -aggregate)
 
 # Check distribution of EMFs
-a <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
+left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
   filter(birth_year == 2020, aggregate == "Median") %>% 
   group_by(birth_year, r10, case, aggregate, quantile) %>% 
   summarise(lifetime_exposure_mean = mean(lifetime_exposure),
@@ -113,11 +109,39 @@ a <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>%
                   fill = case), alpha = 0.2) +
   geom_line(aes(y = lifetime_exposure_mean, colour = case)) +
   scale_colour_discrete_qualitative(drop = F) +
+  scale_x_discrete(breaks = c(0.1, 0.2, 0.33, 0.5, 0.66, 0.8, 0.9)) +
   facet_wrap(~r10, ncol = 5) +
   theme_bw() +
   theme(legend.position = "top") +
   labs(x = "Temperature response quantile",
        y = "Lifetime exposure (years with extreme heatwaves)",
+       colour = NULL, fill = NULL)
+
+ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp_quantile.png"),
+       height = 6, width = 12)
+
+a <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
+  filter(birth_year == 2020, aggregate == "Median") %>% 
+  group_by(birth_year, r10, case, aggregate) %>% 
+  mutate(add = lifetime_exposure - lifetime_exposure_impren,
+         emf = lifetime_exposure / lifetime_exposure_impren) %>% 
+  mutate(
+    case = case_when(
+      case == "A" ~ "CurPol",
+      case == "E" ~ "CurPledge+allNZ",
+      TRUE ~ case),
+    case = factor(case, levels = c("CurPol", "CurPledge+allNZ", "IMP-REN")),
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
+  filter(case != "IMP-REN") %>% 
+  ggplot(aes(colour = case)) +
+  geom_density(aes(x = add), bins = 30) +
+  scale_colour_discrete_qualitative(drop = F, 
+                                    breaks = c("CurPol", "CurPledge+allNZ")) +
+  facet_wrap(~r10, ncol = 5) +
+  theme_bw() +
+  theme(legend.position = "top") +
+  labs(y = NULL,
+       x = "Increase in extreme heatwave exposure relative to IMP-REN (Years)",
        colour = NULL, fill = NULL)
 
 b <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>% 
@@ -134,22 +158,23 @@ b <- left_join(exp_heatwave_r10, exp_heatwave_r10_impren) %>%
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   filter(case != "IMP-REN") %>% 
   ggplot(aes(colour = case)) +
-  geom_point(aes(x = emf, y = add), alpha = 0.6, size = 3) +
-  scale_colour_discrete_qualitative(drop = F) +
-  coord_cartesian(xlim = c(0, 15)) +
+  geom_density(aes(x = emf), bins = 30) +
+  coord_cartesian(xlim = c(0, 5)) +
+  scale_colour_discrete_qualitative(drop = F,
+                                    breaks = c("CurPol", "CurPledge+allNZ")) +
   facet_wrap(~r10, ncol = 5) +
-  guides(colour = "none") +
   theme_bw() +
   theme(legend.position = "top") +
-  labs(y = "Increase in years with extreme heatwave exposure relative to IMP-REN (Years)",
+  labs(y = NULL,
        x = "Increase in extreme heatwave exposure relative to IMP-REN (Factor)",
        colour = NULL, fill = NULL)
 
-wrap_plots(a,b, ncol = 1) + 
+wrap_plots(a,b, ncol = 1) + plot_layout(guides = "collect") +
   plot_annotation(caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
-                                   "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
+                                   "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = "")) &
+  theme(legend.position = "top")
 
-ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp_quantile.png"),
+ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp_quantile_emfadd.png"),
        height = 12, width = 12)
 
 # Determine additional years of exposure relative to IMP-REN
@@ -233,7 +258,7 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_heatwaveexp.png"),
 # Write to file
 exp_heatwave_r10_emf_impren <- 
   exp_heatwave_r10_emf_impren %>% 
-  left_join(cohort_pop %>% right_join(iso3c_tbl_analysis) %>% 
+  left_join(cohort_pop %>% right_join(iso3c_tbl) %>% 
               group_by(r10, birth_year) %>% 
               summarise(cohort_size = sum(cohort_size, na.rm = T)))
 

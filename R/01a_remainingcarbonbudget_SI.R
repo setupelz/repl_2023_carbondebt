@@ -23,7 +23,7 @@ options(scipen = 999)
 # COUNTRY NAMES AND REGIONAL GROUPING ------------------------------------------
 
 # Determine country-years for analysis
-iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
+iso3c_tbl <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping_20240319.csv"), show_col_types = FALSE) %>% 
   mutate(r10 = r10_iamc) %>% 
   select(iso3c, r10) %>% 
   group_by(iso3c, r10) %>% 
@@ -61,7 +61,7 @@ gmtresp19922022 %>%
 
 # POPULATION (1992-2022) -------------------------------------------------------
 
-# Future population projection 2025 (IIASA SSP2, used to impute 2022.
+# Future population projection 2025 (IIASA SSP2, used to impute 2022).
 popssp2 <- read_csv(here("data", "equity_data", 
                          "SspDb_country_data_2013-06-12.csv")) %>%
   filter(MODEL == "IIASA-WiC POP", SCENARIO %in% c("SSP2_v9_130115"), 

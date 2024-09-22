@@ -21,13 +21,6 @@ options(scipen = 999)
 
 # COUNTRY NAMES AND REGIONAL GROUPING ------------------------------------------
 
-# Determine analysis countries
-iso3c_tbl_analysis <- read_csv(here("Data", "countrygroups", "iso3c_region_mapping.csv")) %>% 
-  mutate(r10 = r10_iamc) %>% 
-  select(iso3c, r10) %>% 
-  right_join(read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
-                       sheet = "hist_prodco2") %>% select(iso3c))
-
 # Set consistent r10 ordering
 r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_ECON", "R10CHINA+", "R10MIDDLE_EAST", "R10REST_ASIA", "R10LATIN_AM", "R10AFRICA", "R10INDIA+"),
                    r10label = c("NAM", "EUR", "APD", "EEA", "EAS", "MEA", "PAS", "LAC", "AFR", "SAS"),
@@ -40,15 +33,14 @@ r10order <- tibble(r10 = c("R10NORTH_AM", "R10EUROPE", "R10PAC_OECD", "R10REF_EC
 # LOAD PROCESSED AND OTHER DATA ------------------------------------------------
 
 # GDP MER
-gdpmer <- read_xlsx(here("Data", "processed", "analysisdata.xlsx"),
-                         sheet = "recent_gdpmer") %>% 
-  group_by(r10, year) %>% 
-  filter(year == 2019)
+gdpmer <- read_csv(here("Data", "processed", "2_analysisdata.csv")) %>% 
+  filter(year == 2019) %>% 
+  select(r10, iso3c, gdpcurrmer)
 
 # RCB
-rcb <- read_csv(here("Data", "processed", "iso3c_rcb19902020gtco2.csv")) %>% 
+rcb <- read_csv(here("Data", "processed", "iso3c_rcb19912020gtco2.csv")) %>% 
   filter(year == 2019) %>% 
-  select(iso3c, gtco2, pp1990)
+  select(iso3c, terr_GtCO2, pp1990)
 
 # Net-zero target years
 nztargets <- read_xlsx(here("Data", "pathways", "nz_targets", "nztrackerdata_202403.xlsx"), sheet = 1) %>% 
@@ -69,10 +61,10 @@ catnztargets <- read_xlsx(
 # Isolate to analysis countries
 nztargetanalysis <- list(gdpmer, rcb, nztargets) %>% 
   reduce(full_join) %>% 
-  right_join(iso3c_tbl_analysis) %>% 
+  right_join(distinct(rcb, iso3c)) %>% 
   mutate(end_target_status = ifelse(is.na(end_target_status), "None", end_target_status)) %>% 
   ungroup() %>% 
-  arrange(r10, desc(gtco2))
+  arrange(r10, desc(terr_GtCO2))
 
 # Aggregate CAT NZ targets and updated NZT targets
 alltargets <- full_join(nztargetanalysis %>% 
@@ -102,14 +94,14 @@ alltargets <- full_join(nztargetanalysis %>%
                              "Declaration / pledge",  "Assumed", "None"))
          ) %>% 
   select(r10, iso3c, iso3c_grp, end_target, cat_end_target, end_target_year, cat_end_target_year, end_target_year_comb, end_target_comb, end_target_status_comb,
-         end_target_status, cat_end_target_status, end_target_text, gtco2, pp1990, gdpcurrmer) %>% 
+         end_target_status, cat_end_target_status, end_target_text, terr_GtCO2, pp1990, gdpcurrmer) %>% 
   arrange(r10, desc(!is.na(end_target_year_comb)), iso3c)
 
 # Add 2020 GHGs (GWP100, AR6) for projection -----------------------------------
 
 jonesetal <- read_csv(here("Data", "pathways", "nz_targets", "EMISSIONS_ANNUAL_1830-2022.csv")) %>% 
   select(iso3c = ISO3, gas = Gas, component = Component, year = Year, data = Data, unit = Unit) %>% 
-  filter(iso3c %in% alltargets$iso3c, year == 2020, component != "Total") %>% 
+  filter(iso3c %in% alltargets$iso3c, year == 2019, component != "Total") %>% 
   # Convert to CO2eq (GWP100) using factors from AR6 
   # N[2]*O = 273
   # CH[4] Fossil = 29.8
@@ -130,12 +122,13 @@ alltargets <- left_join(alltargets, jonesetal)
 # VISUALISE COVERAGE -----------------------------------------------------------
 
 a <- alltargets %>% 
+  filter(!is.na(r10)) %>% 
   group_by(r10, end_target_status_comb) %>% 
-  summarise("Emiss. CO2FFI (GtCO2, 2019)" = sum(gtco2),
-            "Emiss. GHGs (GtCO2e GWP100, 2020)" = sum(mtco2e / 1e3),
-            "RCB PP1990 Creditors (GtCO2, 2019)" = sum(pp1990[pp1990 > 0]),
-            "RCB PP1990 Debtors (GtCO2, 2019)" = sum(pp1990[pp1990 < 0]),
-            "GDP MER (Billions, 2019)" = sum(gdpcurrmer / 1e12)) %>% 
+  summarise("CO2FFI (GtCO2, 2019)" = sum(terr_GtCO2),
+            "GHGs (GtCO2e GWP100, 2019)" = sum(mtco2e / 1e3),
+            "RCB PP1990 Cred. (GtCO2, 2019)" = sum(pp1990[pp1990 > 0]),
+            "RCB PP1990 Debt. (GtCO2, 2019)" = sum(pp1990[pp1990 < 0]),
+            "MER GDP (Billions, 2019)" = sum(gdpcurrmer / 1e12)) %>% 
   pivot_longer(cols = -c(r10, end_target_status_comb)) %>% 
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label)) %>% 
   group_by(r10, name) %>% 
@@ -148,9 +141,10 @@ a <- alltargets %>%
   labs(x = NULL, y = NULL, fill = "Net-zero targets")
 
 b <- alltargets %>% 
+  filter(!is.na(r10)) %>% 
   group_by(end_target_status_comb) %>% 
-  summarise("Emiss. CO2FFI (GtCO2, 2019)" = sum(gtco2),
-            "Emiss. GHGs (GtCO2e GWP100, 2020)" = sum(mtco2e / 1e3),
+  summarise("Emiss. CO2FFI (GtCO2, 2019)" = sum(terr_GtCO2),
+            "Emiss. GHGs (GtCO2e GWP100, 2019)" = sum(mtco2e / 1e6),
             "RCB PP1990 Creditors (GtCO2, 2019)" = sum(pp1990[pp1990 > 0]),
             "RCB PP1990 Debtors (GtCO2, 2019)" = sum(pp1990[pp1990 < 0]),
             "GDP MER (Billions, 2019)" = sum(gdpcurrmer / 1e12)) %>% 
@@ -166,12 +160,11 @@ b <- alltargets %>%
 
 wrap_plots(a,b, ncol = 1) + plot_layout(guides = "collect") &
   theme(legend.position = "top") &
-  plot_annotation(title = "Net-zero target coverage by indicators",
-                  caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+  plot_annotation(caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
                                    "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
 ggsave(here("Manuscript", "Figures", "SI", "SI_nztargetcoverage.png"),
-       height = 5, width = 12)
+       height = 6, width = 14)
 
 # WRITE TO FILE ----------------------------------------------------------------
 
