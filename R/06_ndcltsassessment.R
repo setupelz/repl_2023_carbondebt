@@ -187,8 +187,8 @@ b <- r10_ndclts_impren_rcbyear %>%
                              "CurPledge", "IMP-REN"))) %>% 
   pivot_wider(names_from = aggregate, values_from = rcbyear) %>%
   mutate(figgroup = 
-           case_when(r10 %in% c("NAM", "EUR", "EAS", "MEA", "EEA", "APD") ~ "Group A",
-                     r10 %in% c("SAS", "AFR", "LAC", "PAS") ~ "Group B")) %>% 
+           case_when(r10 %in% c("NAM", "EUR", "EAS", "MEA", "EEA", "APD") ~ "Debt accrual before 2030",
+                     r10 %in% c("SAS", "AFR", "LAC", "PAS") ~ "Debt accrual after 2030")) %>% 
   group_by(case, figgroup) %>%
   mutate(hjust = case_when(
     r10 %in% c("EEA", "LAC") ~ 0.8,
@@ -288,7 +288,7 @@ wrap_plots(a,b, ncol = 2, widths = c(0.5,1)) +
                   caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
                                    "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
-ggsave(here("Manuscript", "Figures", "fig2.png"),
+ggsave(here("Manuscript", "Figures", "fig2.svg"),
        height = 4, width = 10)
 
  # SI 
@@ -365,29 +365,44 @@ ggsave(here("Manuscript", "Figures", "SI", "SI_fig2b.png"),
 
 # FIGURE 3 ---------------------------------------------------------------------
 
-a <- r10_ndclts_impren_debt %>%
+a_data <- r10_ndclts_impren_debt %>%
   ungroup() %>%
   filter(category == "PP1990", case != "IMP-REN", aggregate == "Median") %>%
   select(r10, case, aggregate, rcb2100, pop_cmltv_rem_2050) %>%
+  group_by(case, aggregate) %>% 
+  mutate(global_min_drawdown_rate = sum(ifelse(rcb2100 < 0, rcb2100 * 1e9, 0)) / sum(pop_cmltv_rem_2050)) %>% 
   group_by(r10, case, aggregate) %>%
   mutate(min_drawdown_rate = ifelse(rcb2100 < 0, rcb2100 * 1e9 / pop_cmltv_rem_2050, 0),
          debt = ifelse(rcb2100 < 0, -rcb2100, 0)) %>%
+  pivot_wider(names_from = aggregate, values_from = min_drawdown_rate)
+
+a_curpol_relminrateglb <- a_data %>% filter(case == "A") %>% 
+  pull(global_min_drawdown_rate)
+
+a_curpledge_relminrateglb <- a_data %>% filter(case == "E") %>% 
+  pull(global_min_drawdown_rate)
+
+a_curpol <- a_data %>%
+  filter(case == "A") %>% 
   mutate(
     r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
-    case = factor(case, levels = c("A", "E", "IMP-REN"),
-                  labels = c("CurPol", "CurPledge", "IMP-REN")),
+    case = factor(case, levels = c("A", "E"),
+                  labels = c("CurPol", "CurPledge")),
     hjust = as.numeric(r10) / 10) %>%
-  pivot_wider(names_from = aggregate, values_from = min_drawdown_rate) %>%
   ggplot(aes(x = r10)) +
-  geom_linerange(aes(ymin = 0, ymax = `Median`, colour = case), 
-             position = position_dodge(width = 0.2)) +
   geom_hline(yintercept = 0, linetype = 2, size = .3) +
-  geom_point(aes(y = `Median`, colour = case), 
-           position = position_dodge(width = 0.2)) +
-  scale_colour_discrete_qualitative() +
-  scale_fill_discrete_qualitative() +
+  geom_hline(aes(yintercept = global_min_drawdown_rate, colour = case), linetype = 2, size = .3) +
+  geom_segment(aes(y = global_min_drawdown_rate, yend = `Median`, colour = case),
+               position = position_dodge(width = 0.2)) +
+  geom_point(aes(y = `Median`, colour = case),
+             position = position_dodge(width = 0.2)) +
+  scale_colour_discrete_qualitative(drop = F) +
+  scale_fill_discrete_qualitative(drop = F) +
   scale_size_continuous(breaks = scales::pretty_breaks(n = 4)) +
-  coord_cartesian(ylim = c(-24,0)) +
+  scale_y_continuous(sec.axis = sec_axis(~ . / a_curpol_relminrateglb, name = "Relative to global average",
+                                         labels = scales::dollar_format(suffix = "x", prefix = ""))) +
+  coord_cartesian(ylim = c(-24, 0)) +
+  facet_wrap(~case, scales = "free_y") + # Allow different y scales for each facet
   theme_bw() +
   theme(legend.position = "top",
         strip.background = element_blank(), strip.placement = "inside", 
@@ -398,8 +413,41 @@ a <- r10_ndclts_impren_debt %>%
         axis.title = element_text(size = 11), panel.grid = element_blank()) +
   guides(colour = "none", fill = "none",
          size = guide_legend(nrow = 1)) +
-  labs(x = NULL, y = "tCO2 / person / year",
-       subtitle = "Minimum annual per capita carbon drawdown rate 2050-2100, to address regional budget exceedance")
+  labs(x = NULL, y = "tCO2 / person / year")
+
+a_curpledge <- a_data %>%
+  filter(case == "E") %>% 
+  mutate(
+    r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
+    case = factor(case, levels = c("A", "E"),
+                  labels = c("CurPol", "CurPledge")),
+    hjust = as.numeric(r10) / 10) %>%
+  ggplot(aes(x = r10)) +
+  geom_hline(yintercept = 0, linetype = 2, size = .3) +
+  geom_hline(aes(yintercept = global_min_drawdown_rate, colour = case), linetype = 2, size = .3) +
+  geom_segment(aes(y = global_min_drawdown_rate, yend = `Median`, colour = case),
+               position = position_dodge(width = 0.2)) +
+  geom_point(aes(y = `Median`, colour = case),
+               position = position_dodge(width = 0.2)) +
+  scale_colour_discrete_qualitative(drop = F) +
+  scale_fill_discrete_qualitative(drop = F) +
+  scale_size_continuous(breaks = scales::pretty_breaks(n = 4)) +
+  scale_y_continuous(sec.axis = sec_axis(~ . / a_curpledge_relminrateglb, name = "Relative to global average",
+                                         labels = scales::dollar_format(suffix = "x", prefix = ""),
+                                         breaks = c(0,2,4,6,8))) +
+  coord_cartesian(ylim = c(-24, 0)) +
+  facet_wrap(~case, scales = "free_y") + # Allow different y scales for each facet
+  theme_bw() +
+  theme(legend.position = "top",
+        strip.background = element_blank(), strip.placement = "inside", 
+        strip.text = element_text(hjust = 0),
+        strip.text.x = element_text(size = 12),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 11), panel.grid = element_blank()) +
+  guides(colour = "none", fill = "none",
+         size = guide_legend(nrow = 1)) +
+  labs(x = NULL, y = "tCO2 / person / year")
 
 b <- r10_exp_heatwave_emf_temp_debt %>%
   filter(case != "IMP-REN", category == "PP1990", aggregate == "Median") %>%
@@ -412,13 +460,12 @@ b <- r10_exp_heatwave_emf_temp_debt %>%
   geom_ribbon(aes(ymin = add_impren_0.33, ymax = add_impren_0.66), alpha = 0.2,
               linewidth = 0, show.legend = F) +
   geom_path(alpha = 1, size = 1) +
-  facet_wrap(~r10, ncol = 5) +
+  facet_grid(case~r10) +
   scale_colour_discrete_qualitative() +
   scale_x_continuous(breaks = c(1980, 2000, 2020)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 6)) +
   labs(x = "Cohort birth year",
        y = "Lifetime years",
-       subtitle = "Lifetime additional years with extreme heatwave exposure by birth cohort, relative to illustrative 1.5C pathway",
        shape = "Cohort birth year") +
   theme_bw() +
   theme(legend.position = "top",
@@ -431,7 +478,10 @@ b <- r10_exp_heatwave_emf_temp_debt %>%
         panel.grid = element_blank()) +
   guides(colour = "none")
 
-wrap_plots(a,b, ncol = 1, heights = c(0.7,1)) +  
+wrap_plots(
+  wrap_plots(a_curpol, a_curpledge + plot_layout(tag_level = 'new')) &
+    plot_annotation(subtitle = "Minimum annual per capita carbon drawdown rate 2050-2100, to address regional budget exceedance"),
+  b, ncol = 1, heights = c(0.7,1)) +  
   plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
                   caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
                                    "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
