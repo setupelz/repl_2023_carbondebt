@@ -48,3 +48,9 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 .DS_Store
+
+# Python environment for FaIR
+Fair/
+
+# FaIR parameters
+fairparams/
