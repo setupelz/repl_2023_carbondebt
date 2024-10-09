@@ -413,7 +413,7 @@ a_curpol <- a_data %>%
         axis.title = element_text(size = 11), panel.grid = element_blank()) +
   guides(colour = "none", fill = "none",
          size = guide_legend(nrow = 1)) +
-  labs(x = NULL, y = "tCO2 / person / year")
+  labs(x = NULL, y = "tCO2capita-1yr-1")
 
 a_curpledge <- a_data %>%
   filter(case == "E") %>% 
@@ -447,25 +447,71 @@ a_curpledge <- a_data %>%
         axis.title = element_text(size = 11), panel.grid = element_blank()) +
   guides(colour = "none", fill = "none",
          size = guide_legend(nrow = 1)) +
-  labs(x = NULL, y = "tCO2 / person / year")
+  labs(x = NULL, y = "tCO2capita-1yr-1")
 
-b <- r10_exp_heatwave_emf_temp_debt %>%
-  filter(case != "IMP-REN", category == "PP1990", aggregate == "Median") %>%
+b <- r10_ndclts_impren_rcbyear %>% 
+  filter(aggregate == "Median", category == "PP1990", case != "IMP-REN") %>% 
+  left_join(r10_analysisdata %>% select(r10, pop)) %>% 
+  group_by(model, case, aggregate, year) %>% 
+  summarise(terr_GtCO2 = sum(terr_GtCO2),
+            pop = sum(pop)) %>% 
+  left_join(a_data %>% distinct(case, global_min_drawdown_rate)) %>% 
+  mutate(case = factor(case, levels = c("A", "E"),
+                       labels = c("CurPol", "CurPledge")),
+         global_min_drawdown_rate = ifelse(year < 2025, NA, global_min_drawdown_rate)) %>% 
+  ggplot(aes(x = year, y = terr_GtCO2 * 1e9 / pop, colour = case, group = case)) +
+  geom_hline(yintercept = 0, linetype = 2, size = .3) +
+  geom_path() +
+  geom_ribbon(aes(ymin = global_min_drawdown_rate, ymax = 0, fill = case),
+              alpha = 0.3, linewidth = 0) +
+  geom_path(aes(y = global_min_drawdown_rate), linetype = 2) +
+  geom_path(colour = "black", data = . %>% filter(year <= 2022)) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  scale_x_continuous(breaks = c(1990, 2025, seq(2040, 2100,20))) +
+  facet_wrap(~case, scales = "free_x", ncol = 1) +
+  theme_bw() +
+  theme(legend.position = "top",
+        strip.background = element_blank(), strip.placement = "inside", 
+        strip.text = element_text(hjust = 0),
+        strip.text.x = element_text(size = 12),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 11), panel.grid = element_blank()) +
+  guides(colour = "none", fill = "none",
+         size = guide_legend(nrow = 1)) +
+  labs(x = NULL, y = "tCO2capita-1yr-1")
+
+wrap_plots(b, wrap_plots(a_curpol, a_curpledge + plot_layout(tag_level = 'new'), ncol = 1)) +
+  plot_annotation(caption = paste0(paste0(r10order$r10label[1:5], ": ",
+                                          r10order$r10labellong[1:5], collapse = ", "), 
+                                   "\n", paste0(r10order$r10label[6:10], ": ",
+                                                r10order$r10labellong[6:10], 
+                                                collapse = ", "), collapse = ""),
+                  tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")")
+
+
+ggsave(here("Manuscript", "Figures", "fig3.svg"),
+       height = 8, width = 10)
+
+r10_exp_heatwave_emf %>%
+  filter(case != "IMP-REN", aggregate == "Median") %>%
   mutate(r10 = factor(r10, levels = r10order$r10, labels = r10order$r10label),
          case = factor(case, levels = c("A", "E", "IMP-REN"),
                        labels = c("CurPol", "CurPledge", "IMP-REN"))) %>% 
   ungroup() %>% 
-  ggplot(aes(x = birth_year, y = add_impren_0.5, colour = case, fill = case)) +
+  ggplot(aes(x = birth_year, y = add_impren_0.5 + lifetime_exposure_impren_0.5, colour = case, fill = case)) +
   geom_hline(yintercept = 0, linetype = 2, size = .3) +
-  geom_ribbon(aes(ymin = add_impren_0.33, ymax = add_impren_0.66), alpha = 0.2,
+  geom_ribbon(aes(ymin = add_impren_0.33 + lifetime_exposure_impren_0.33, 
+                  ymax = add_impren_0.66 + lifetime_exposure_impren_0.66), alpha = 0.2,
               linewidth = 0, show.legend = F) +
+  geom_path(aes(y = lifetime_exposure_impren_0.5, colour = case), linetype = 2, size = .3) +
   geom_path(alpha = 1, size = 1) +
   facet_grid(case~r10) +
   scale_colour_discrete_qualitative() +
   scale_x_continuous(breaks = c(1980, 2000, 2020)) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 6)) +
   labs(x = "Cohort birth year",
-       y = "Lifetime years",
+       y = "Years exposed to extreme heatwaves",
        shape = "Cohort birth year") +
   theme_bw() +
   theme(legend.position = "top",
@@ -476,15 +522,9 @@ b <- r10_exp_heatwave_emf_temp_debt %>%
         axis.text = element_text(size = 12),
         axis.text.x = element_text(angle = 45, hjust = 1),
         panel.grid = element_blank()) +
-  guides(colour = "none")
-
-wrap_plots(
-  wrap_plots(a_curpol, a_curpledge + plot_layout(tag_level = 'new')) &
-    plot_annotation(subtitle = "Minimum annual per capita carbon drawdown rate 2050-2100, to address regional budget exceedance"),
-  b, ncol = 1, heights = c(0.7,1)) +  
-  plot_annotation(tag_levels = list("a"), tag_prefix = "(", tag_suffix = ")", 
-                  caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
+  guides(colour = "none") + 
+  plot_annotation(caption = paste0(paste0(r10order$r10label[1:5], ": ",r10order$r10labellong[1:5], collapse = ", "), 
                                    "\n", paste0(r10order$r10label[6:10], ": ",r10order$r10labellong[6:10], collapse = ", "), collapse = ""))
 
-ggsave(here("Manuscript", "Figures", "fig3.png"),
+ggsave(here("Manuscript", "Figures", "fig4.svg"),
        height = 8, width = 10)
