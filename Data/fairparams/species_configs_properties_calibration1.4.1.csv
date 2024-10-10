@@ -2,7 +2,7 @@ name,type,input_mode,greenhouse_gas,aerosol_chemistry_from_emissions,aerosol_che
 CO2 FFI,co2 ffi,emissions,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,nan,nan,nan,nan,nan,nan,nan,0,nan,nan,nan,nan,nan,0,nan,nan,nan,0,nan,nan,nan,0,nan,nan
 CO2 AFOLU,co2 afolu,emissions,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,nan,nan,nan,nan,nan,nan,nan,0,nan,nan,nan,nan,nan,-0.000222468,nan,nan,nan,0,nan,nan,nan,0,nan,nan
 CO2,co2,calculated,1,0,0,0.2173,0.224,0.2824,0.2763,1000000000,394.4,36.54,4.304,0.05,1,0,1,44.009,278.3,277.15,nan,nan,nan,nan,0,11.41262243,0.010178288,nan,0,0,nan,0,0,0,0,nan,nan,nan,0,nan,nan
-CH4,ch4,emissions,1,0,1,1,0,0,0,8.25,8.25,8.25,8.25,-0.14,1,0,1,16.043,729.2,731.41,8.249955097,0.00032,0,-0.3,38.246272,8.249410814,0.36785517,nan,4.40E-05,0,0,0,0,0,0.000167283,-0.0463,nan,nan,0,nan,nan
+CH4,ch4,emissions,1,0,1,1,0,0,0,16.78837799,16.78837799,16.78837799,16.78837799,-0.14,1,0,1,16.043,729.2,731.41,nan,nan,nan,nan,38.246272,8.249410814,0.36785517,nan,4.40E-05,0,0,0,0,0,0.000167283,-0.0463,nan,nan,0,nan,nan
 N2O,n2o,emissions,1,0,1,1,0,0,0,109,109,109,109,0.07,1,0,1,44.013,270.1,273.87,65.44969575,0,0,0,1.00046404,25.49528818,0.076755588,nan,0,0,0,0,0,0,-0.000949891,nan,nan,nan,0,nan,nan
 Sulfur,sulfur,emissions,0,1,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,64.069,nan,nan,nan,nan,nan,nan,2.293964929,nan,nan,nan,0,0,0,nan,nan,nan,0,nan,nan,nan,0,nan,nan
 BC,black carbon,emissions,0,1,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,12.011,nan,nan,nan,nan,nan,nan,2.096765609,nan,nan,nan,0,0.01407193,0,nan,nan,nan,0,nan,nan,nan,0,nan,nan
@@ -59,4 +59,5 @@ Ozone,ozone,calculated,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,-0.037,1,47.998
 Light absorbing particles on snow and ice,lapsi,calculated,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,0,nan,nan,nan,0,nan,nan
 Stratospheric water vapour,h2o stratospheric,calculated,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,0,nan,nan,nan,0,nan,nan
 Land use,land use,calculated,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,0,nan,nan,nan,0,nan,nan
-Equivalent effective stratospheric chlorine,eesc,calculated,0,0,1,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,35.45,344.3627591,0,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,2.53E-05,nan,nan,nan,0,nan,nan
+Equivalent effective stratospheric chlorine,eesc,concentration,0,0,1,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,35.45,344.3627591,0,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,2.53E-05,nan,nan,nan,0,nan,nan
+Montreal gases,unspecified,forcing,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,0,1,0,1,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,0,nan,nan,nan,0,nan,nan
