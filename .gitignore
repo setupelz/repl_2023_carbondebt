@@ -51,6 +51,3 @@ rsconnect/
 
 # Python environment for FaIR
 Fair/
-
-# FaIR parameters
-fairparams/
