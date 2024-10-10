@@ -50,7 +50,4 @@ rsconnect/
 .DS_Store
 
 # Python environment for FaIR
-Fair/
-
-# FaIR parameters
-fairparams/
+fair/
