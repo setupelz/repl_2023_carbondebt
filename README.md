@@ -1,5 +1,13 @@
 # Using net-zero carbon debt to track climate overshoot responsibility
 
+[![paper](https://img.shields.io/badge/paper-10.1073%2Fpnas.2409316122-1f6feb)](https://doi.org/10.1073/pnas.2409316122) [![Zenodo](https://zenodo.org/badge/734527284.svg)](https://zenodo.org/badge/latestdoi/734527284) [![licence](https://img.shields.io/badge/licence-MIT-8a8f98)](LICENSE) [![explorer](https://img.shields.io/badge/explorer-setupelz.com%2Fcarbondebt-2a9d8f)](https://setupelz.com/carbondebt/)
+
+- Paper: https://doi.org/10.1073/pnas.2409316122
+- Archive of record: https://zenodo.org/badge/latestdoi/734527284 (every release is archived on Zenodo)
+- Interactive explorer: https://setupelz.com/carbondebt/
+- Summary page: https://setupelz.com/work/carbon-debt.html
+- Earlier deposit of this archive: https://doi.org/10.5281/zenodo.14915596
+
 Replication archive for:
 
 > Pelz, S., Ganti, G., Lamboll, R., Grant, L., Smith, C., Pachauri, S., Rogelj, J.,

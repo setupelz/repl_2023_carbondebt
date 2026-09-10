@@ -1,0 +1,44 @@
+{
+  "title": "Replication archive: Using net-zero carbon debt to track climate overshoot responsibility",
+  "description": "<p>Code, data and figures for Pelz et al. (2025), <i>Proceedings of the National Academy of Sciences</i>, <a href=\"https://doi.org/10.1073/pnas.2409316122\">doi:10.1073/pnas.2409316122</a>. The interactive explorer built from this archive is at <a href=\"https://setupelz.com/carbondebt/\">https://setupelz.com/carbondebt/</a>. Summary and materials: <a href=\"https://setupelz.com/work/carbon-debt.html\">https://setupelz.com/work/carbon-debt.html</a>.</p>",
+  "creators": [
+    {
+      "name": "Pelz, Setu",
+      "affiliation": "International Institute for Applied Systems Analysis",
+      "orcid": "0000-0002-3528-8679"
+    }
+  ],
+  "upload_type": "software",
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": [
+    "carbon debt",
+    "net zero",
+    "overshoot",
+    "climate equity",
+    "remaining carbon budget",
+    "replication archive"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.1073/pnas.2409316122",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "https://setupelz.com/carbondebt/",
+      "relation": "isSourceOf",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://setupelz.com/work/carbon-debt.html",
+      "relation": "isDescribedBy",
+      "resource_type": "other"
+    },
+    {
+      "identifier": "10.5281/zenodo.14915596",
+      "relation": "isNewVersionOf",
+      "resource_type": "software"
+    }
+  ]
+}
