@@ -1,0 +1,10 @@
+name: nzcdebt
+channels:
+  - conda-forge
+dependencies:
+  - fair==2.2.0
+  - jupyter
+  - nbstripout
+  - matplotlib
+  - numpy
+  - pandas

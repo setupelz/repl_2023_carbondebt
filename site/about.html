@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Carbon Debt Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..600,30..100&family=Source+Sans+3:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">Carbon Debt Explorer</span>
+      <a class="brand-sub" href="https://iiasa.ac.at/programs/ece" target="_blank" rel="noopener">IIASA · ECE program</a>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="about.html" class="active">About</a>
+      <a href="https://github.com/setupelz/fair-shares" target="_blank" rel="noopener">fair-shares</a>
+    </nav>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <h2>Contents</h2>
+      <nav class="toc">
+        <a href="#overview">Overview</a>
+        <a href="#definition">What &ldquo;carbon debt&rdquo; means</a>
+        <a href="#inputs">Inputs</a>
+        <a href="#method">Method</a>
+        <a href="#limitations">Limitations</a>
+        <a href="#further-reading">Further reading</a>
+        <a href="#source">Source &amp; citation</a>
+      </nav>
+    </aside>
+
+    <main class="main about-main">
+      <article class="prose">
+        <h1 id="overview">About this tool</h1>
+        <p class="lede">
+          The Carbon Debt Explorer distributes a remaining global carbon budget across
+          the ten IAMC R10 regions using population (with optional GDP adjustment) and
+          compares each region's fair share against projected cumulative emissions under
+          NDCs or current policies. Developed in the
+          <a href="https://iiasa.ac.at/programs/ece" target="_blank" rel="noopener">Energy, Climate, and Environment (ECE) program at IIASA</a>,
+          originally to support stakeholder engagement within the
+          <a href="https://www.elevate-climate.org/" target="_blank" rel="noopener">ELEVATE project</a>. The
+          accounting framework is described in
+          <a href="https://doi.org/10.1073/pnas.2409316122" target="_blank" rel="noopener">Pelz et al. (2025, PNAS)</a>.
+          For deeper analysis or your own allocation work, the underlying
+          <a href="https://github.com/setupelz/fair-shares" target="_blank" rel="noopener">fair-shares</a>
+          library exposes the full API.
+        </p>
+
+        <h2 id="definition">What &ldquo;carbon debt&rdquo; means here</h2>
+        <p>Carbon debt is an <strong>accounting identity</strong>:</p>
+        <div class="callout">debt = cumulative emissions − fair-share allocation</div>
+        <p>
+          A positive value (debt) means a region has emitted — or is projected to emit —
+          more than its fair share of the chosen budget. A negative value (credit) means
+          it has emitted less. The debt number depends on the inputs you pick: the
+          allocation principle (equal per capita, with or without capability
+          adjustment), the first year of accounting, and the future pathway assumed.
+          Change any of these and the numbers shift — sometimes substantially. The
+          usefulness of the measure is in comparing those variants transparently.
+        </p>
+
+        <h2 id="inputs">Inputs</h2>
+        <ul>
+          <li>
+            <strong>Temperature goal.</strong> Sets the remaining carbon budget from a 2023 baseline,
+            sourced from
+            <a href="https://doi.org/10.1038/s41558-023-01848-5" target="_blank" rel="noopener">Lamboll et al. (2023), <em>Nature Climate Change</em></a>:
+            250 GtCO₂ for 1.5 °C (50% probability), 500 GtCO₂ for 2 °C (90%), 940 GtCO₂ for 2 °C (66%).
+            The same values are used by the <a href="https://github.com/setupelz/fair-shares" target="_blank" rel="noopener">fair-shares</a> library, which is where this tool reads them from at build time.
+          </li>
+          <li><strong>First year of accounting.</strong> How far back history counts. Earlier years include more cumulative emissions in the budget pool; 2023 onwards treats the post-2022 budget as the only accounting window.</li>
+          <li><strong>Future emissions scenario.</strong> REMIND-MAgPIE pathways for R10 under NDCs &amp; pledges (case E) or current policies (case A). Range reflects variation across scenario permutations (Max / Median / Min aggregates).</li>
+          <li><strong>Capability adjustment.</strong> Optional weighting: dividing the per-capita share by GDP (in 2017 PPP USD). This implements a simple &ldquo;ability to pay&rdquo; correction; richer regions receive a smaller share.</li>
+        </ul>
+
+        <h2 id="method">Method</h2>
+        <p>
+          Allocation math is sourced from <a href="https://github.com/setupelz/fair-shares" target="_blank" rel="noopener">fair-shares</a>,
+          a BSD-3-Clause Python library maintained by IIASA and collaborators. For the <em>no-capability</em>
+          case this tool calls <code>equal_per_capita_budget</code>; for the <em>1/GDP</em> case it calls
+          <code>per_capita_adjusted_budget</code> with <code>capability_functional_form="power"</code>,
+          <code>capability_exponent=1.0</code>, and <code>capability_reference_year</code> pinned to the user's first
+          year (clamped to 1990–2019 to match GDP data availability). Population, GDP (Penn World Tables 10),
+          and historical CO₂ (FFI, Global Carbon Budget 2023) are regional aggregates inherited from the 2024
+          R Shiny version of this tool.
+        </p>
+
+        <h2 id="limitations">Limitations</h2>
+        <ul>
+          <li>R10 regional resolution only — no country-level detail.</li>
+          <li>LULUCF emissions are excluded; only fossil fuels and industry.</li>
+          <li>Historical data starts at 1900. Pre-1900 emissions are not assigned to regions here.</li>
+          <li>All non-CO₂ forcers are folded into the temperature-goal budget via AR6 WG I assumptions. The tool does not expose them directly.</li>
+          <li>Results should be read as illustrative of equity principles, not as prescriptive quotas.</li>
+        </ul>
+
+        <h2 id="further-reading">Further reading</h2>
+        <ul>
+          <li>
+            Pelz et al. (2025). <em>Using net-zero carbon debt to track climate overshoot responsibility.</em>
+            <a href="https://doi.org/10.1073/pnas.2409316122" target="_blank" rel="noopener">PNAS 10.1073/pnas.2409316122</a> —
+            the underlying framework for the debt / credit accounting shown here.
+          </li>
+          <li>
+            Pelz et al. (2025). <em>Entry points for assessing &lsquo;fair shares&rsquo; in national mitigation contributions.</em>
+            <a href="https://doi.org/10.1088/1748-9326/ada45f" target="_blank" rel="noopener">ERL 10.1088/1748-9326/ada45f</a> —
+            how to read equity principles into numeric allocations.
+          </li>
+          <li>
+            fair-shares documentation: <a href="https://setupelz.github.io/fair-shares/science/principle-to-code/" target="_blank" rel="noopener">From principle to code</a> —
+            guide to mapping equity positions onto allocation parameters.
+          </li>
+        </ul>
+
+        <h2 id="source">Source and citation</h2>
+        <p>
+          Code at <a href="https://github.com/setupelz/fair-shares" target="_blank" rel="noopener">github.com/setupelz/fair-shares</a>.
+          Methodology documented at <a href="https://setupelz.github.io/fair-shares/" target="_blank" rel="noopener">setupelz.github.io/fair-shares</a>.
+          Questions: <a href="mailto:pelz@iiasa.ac.at">pelz@iiasa.ac.at</a>.
+        </p>
+      </article>
+
+      <footer class="footer">
+        <span>BSD-3-Clause</span>
+        <span><a href="index.html">← Back to dashboard</a></span>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

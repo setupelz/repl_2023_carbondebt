@@ -1,0 +1,86 @@
+# ipython checkpoints
+*.ipynb_checkpoints/
+
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+.RDataTmp
+
+# User-specific files
+.Ruserdata
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
+
+# pkgdown site
+docs/
+
+# translation temp files
+po/*~
+
+# RStudio Connect folder
+rsconnect/
+
+# Mac
+.DS_Store
+
+# Python environment for FaIR
+/fair
+
+# Large files
+Data/processed/*
+replication_nzcdebt_pnas.zip
+
+# macOS
+.DS_Store
+
+# Local Python environment for FaIR (see environment.yml)
+fair/
+
+# RStudio
+.Rproj.user/
+
+# Attached to the GitHub release instead (see Data/MANIFEST.md5): pipeline
+# outputs and the five largest inputs
+Data/processed/*
+Data/equity_data/SspDb_country_data_2013-06-12.csv
+Data/equity_data/GMST_response_1851-2022.csv
+Data/pathways/nz_targets/EMISSIONS_ANNUAL_1830-2022.csv
+Data/impacts/nc_lifetime_exposure_new_heatwavedarea.nc4
+Data/impacts/nc_cohort_sizes.nc4
+
+# Explorer build environment
+Code/explorer/.venv/
+
+# Keep the outputs folder note even though the outputs are release assets
+!Data/processed/README.Rmd

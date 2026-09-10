@@ -1,0 +1,16 @@
+[project]
+name = "carbondebt-explorer-build"
+version = "1.0.0"
+description = "Builds site/assets/data.json for the net-zero carbon debt explorer"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2",
+    "pyyaml>=6.0",
+    "fair-shares",
+]
+
+[tool.uv.sources]
+fair-shares = { git = "https://github.com/setupelz/fair-shares" }
+
+[tool.uv]
+package = false

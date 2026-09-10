@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carbon Debt Explorer</title>
+  <meta name="description" content="Regional carbon budgets and carbon debt under different equity assumptions. Powered by fair-shares." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..600,30..100&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="assets/vendor/highcharts.js"></script>
+  <script src="assets/vendor/highcharts-more.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">Carbon Debt Explorer</span>
+      <a class="brand-sub" href="https://iiasa.ac.at/programs/ece" target="_blank" rel="noopener">IIASA · ECE program</a>
+    </div>
+    <nav class="nav">
+      <a href="index.html" class="active">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/setupelz/fair-shares" target="_blank" rel="noopener">fair-shares</a>
+    </nav>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <h2>Inputs</h2>
+
+      <div class="field">
+        <label for="input-temp">Temperature goal</label>
+        <select id="input-temp"></select>
+        <div id="rcb-citation" class="field-cite" aria-live="polite"></div>
+      </div>
+
+      <div class="field">
+        <label for="input-year">First year of accounting</label>
+        <div class="slider-row">
+          <input id="input-year" type="range" list="year-ticks" />
+          <output id="input-year-out">1990</output>
+        </div>
+        <datalist id="year-ticks"></datalist>
+        <div id="year-legend" class="year-legend" aria-hidden="true"></div>
+      </div>
+
+      <div class="field">
+        <label for="input-scenario">Future emissions scenario</label>
+        <select id="input-scenario"></select>
+      </div>
+
+      <div class="field">
+        <label for="input-capability">Capability adjustment</label>
+        <select id="input-capability"></select>
+      </div>
+
+      <div class="legend-note">
+        <strong>Carbon debt</strong> = cumulative emissions − fair-share allocation.
+        Positive values (debt) mean a region has emitted more than its fair share; negative
+        values (credit) mean it has emitted less.
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="headline">
+        <h1>Regional carbon budgets and debt</h1>
+        <p>
+          Distribute the remaining carbon budget across IAMC R10 regions using population
+          (and optionally GDP) as equity weights, then compare each region's fair share
+          against cumulative emissions under a chosen future pathway. Allocation math is
+          sourced from <a href="https://github.com/setupelz/fair-shares" target="_blank" rel="noopener">fair-shares</a>
+          — for deeper analysis, extensions, or your own allocation work, use the library directly.
+        </p>
+      </section>
+
+      <div class="summary-strip" aria-live="polite"></div>
+
+      <section class="card">
+        <div class="card-head">
+          <h2 class="card-title">Carbon debt by region, 2050</h2>
+          <p class="card-sub">
+            Vertical axis: projected cumulative emissions minus allocation to 2050 (GtCO₂);
+            positive means debt. Horizontal axis: the region's total per-capita emissions
+            relative to its fair share (&gt; 1 means it overdraws its allocation).
+          </p>
+        </div>
+        <div id="chart-scatter" class="chart-container"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2 class="card-title">Per-capita emissions trajectories</h2>
+          <p class="card-sub">
+            Historical tCO₂ per person (solid line) and projected scenario range
+            (dashed median with shaded band). One line per R10 region.
+          </p>
+        </div>
+        <div id="chart-paths" class="chart-container"></div>
+      </section>
+
+      <p class="loader">Loading data…</p>
+
+      <footer class="footer">
+        <span>Tool by Setu Pelz · <a href="https://iiasa.ac.at/programs/ece" target="_blank" rel="noopener">IIASA ECE</a> · <a href="mailto:pelz@iiasa.ac.at">pelz@iiasa.ac.at</a></span>
+        <span>Numbers via <a href="https://github.com/setupelz/fair-shares" target="_blank" rel="noopener">fair-shares</a> · MIT</span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
