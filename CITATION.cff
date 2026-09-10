@@ -1,12 +1,13 @@
 cff-version: 1.2.0
-message: "If you use this archive, cite the paper below and the archive by its GitHub release."
+message: "If you use this archive, cite the paper below and the archive by its Zenodo DOI."
 title: "Replication archive: Using net-zero carbon debt to track climate overshoot responsibility"
 type: software
-version: 1.0.0
+version: 1.0.1
 date-released: 2026-09-10
 license: MIT
 repository-code: https://github.com/setupelz/repl_2023_carbondebt
-url: https://github.com/setupelz/repl_2023_carbondebt/releases/tag/v1.0.0
+url: https://github.com/setupelz/repl_2023_carbondebt/releases
+doi: 10.5281/zenodo.22686501
 authors:
   - family-names: Pelz
     given-names: Setu
@@ -20,7 +21,7 @@ preferred-citation:
   year: 2025
   volume: "122"
   issue: "13"
-  start: e2409316122
+  start: "e2409316122"
   doi: 10.1073/pnas.2409316122
   authors:
     - family-names: Pelz
